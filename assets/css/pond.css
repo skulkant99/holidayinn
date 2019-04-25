@@ -1,0 +1,1095 @@
+
+/*----------------------------------
+---------------- ABOUT -------------
+------------------------------------*/
+.about-font1{
+    font-size: 25px;
+    color: #bb262b;
+    font-weight: 500;
+}
+.about-font2{
+    font-size: 18px;
+    font-weight: 500;
+}
+.about-font3{
+    font-size: 15px;
+}
+.img-about {
+    width: 100%;
+    height: 475px;
+}
+.about-text-img {
+    font-size: x-large;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 47%;
+    left: 20%;
+    color: #65a61f;
+}
+/*----------------------------------
+------------ END ABOUT -------------
+------------------------------------*/
+
+/*----------------------------------
+-------------- VIDEO -------------
+------------------------------------*/
+.video-title{
+    font-weight: 400;
+}
+.video-frame{
+    width: 100%;
+    height: 140px;
+}
+.video-frame-modal{
+    width: 100%;
+    height: 600px;
+}
+.video-btn{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 17px;
+    color: white;
+    font-weight: 300;
+    background-color: #69bf50;
+    border: 2px solid #69bf50;
+    transition: ease-in-out 0.2s;
+}
+.video-btn:hover{
+    color: #d70202;
+    font-weight: 300;
+    background-color: unset;
+    transition: ease-in-out 0.2s;
+    border: 2px solid #d70202;
+}
+.video-btn-all{
+    width: 200px;
+    height: 50px;
+    border-radius: 0px;
+    font-size: 17px;
+    color: white;
+    font-weight: 300;
+    background-color: #bc2327;
+    border: 2px solid #bc2327;
+    transition: ease-in-out 0.2s;
+}
+.video-btn-all:hover{
+    color: #bc2327;
+    font-weight: 300;
+    background-color: unset;
+    transition: ease-in-out 0.2s;
+    border: 2px solid #bc2327;
+}
+.modal-size {
+    max-width: 1100px;
+}
+/*----------------------------------
+------------ END VIDEO -------------
+------------------------------------*/
+
+/*----------------------------------
+-------------- PAYMENT -------------
+------------------------------------*/
+.payment-font{
+    font-size: 20px;
+}
+.payment-font2{
+    font-size: 20px;
+    color: #d02232;
+}
+.payment-font3{
+    font-weight: 300;
+    font-size: 16px;
+}
+.payment-font4{
+    font-weight: 300;
+    font-size: 15px;
+}
+.payment-font5{
+    font-weight: 300;
+    font-size: 15px;
+    color: #d02232;
+}
+.payment-font6{
+    font-size: 14px;
+    color: #a5a5a5;
+    font-weight: 300;
+}
+.img-payment {
+    width: 50px;
+    height: 50px;
+}
+.img-payment2 {
+    width: 80px;
+    height: 80px;
+    margin-top: -20px;
+}
+.img-payment3 {
+    width: 60%;
+    height: 110px;
+}
+.img-payment4 {
+    width: 40px;
+    height: 40px;
+}
+.payment-block{
+    border: 1px solid #ccc;
+    padding: 40px;
+}
+.payment-b-r{
+    border-right: 1px solid #ccc;
+}
+.payment-promptpay{
+    background-color: #ec9e26;
+    padding: 5px;
+    border-radius: 50px;
+    width: 70%;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+}
+.payment-form{
+    border-radius: 0px;
+    border: 1px solid #ccc;
+    height: 45px;
+}
+.pay-m-l{
+    padding-left: 20px;
+}
+/* [type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+} */
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: black;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #b5b5b5;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #90cb4b;
+    position: absolute;
+    top: 13px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+::-webkit-file-upload-button {
+    border: 2px solid #90cb4b;
+    color: white;
+    background-color: #90cb4b;
+    width: 100px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 300;
+    transition: ease 0.3s;
+}
+::-webkit-file-upload-button:focus {
+    outline: none;
+}
+::-webkit-file-upload-button:hover {
+    cursor: pointer;
+    background-color: unset;
+    border: 2px solid #90cb4b;
+    color: #90cb4b;
+    transition: ease 0.3s;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    color: #a5a5a5;
+    font-weight: 300;
+}
+.payment-width{
+    width: 20%;
+}
+/*----------------------------------
+---------- END PAYMENT -------------
+------------------------------------*/
+
+
+/*----------------------------------
+--------------- BOOK ----------------
+------------------------------------*/
+.book-btn {
+    padding: 5px 30px;
+    border-radius: 5px;
+    font-size: 17px;
+    color: white;
+    font-weight: 300;
+    background-color: #69bf50;
+    border: 2px solid #69bf50;
+    transition: ease-in-out 0.2s;
+}
+.book-btn:hover {
+    color: #d70202;
+    font-weight: 300;
+    background-color: unset;
+    transition: ease-in-out 0.2s;
+    border: 2px solid #d70202;
+}
+.img-book {
+    width: 100%;
+    height: 210px;
+}
+/*----------------------------------
+------------- END BOOK -------------
+------------------------------------*/
+
+
+
+
+
+
+
+
+@media (max-width: 575px) {
+    /*-----------------------------
+    ----------- ABOUT 575 ---------
+    --------------------------------*/
+    .about-font1{
+        font-size: 22px;
+        color: #bb262b;
+        font-weight: 500;
+    }
+    .about-font2{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .img-about {
+        width: 100%;
+        height: 175px;
+    }
+    .about-text-img {
+        font-size: small;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 47%;
+        left: 27%;
+        color: #65a61f;
+    }
+    /*------------------------------
+    --------- END ABOUT 575 ---------
+    --------------------------------*/
+
+    /*------------------------------
+    ----------- VIDEO 575 -----------
+    --------------------------------*/
+    .video-frame{
+        width: 100%;
+        height: 220px;
+    }
+    .video-frame-modal{
+        width: 100%;
+        height: 200px;
+    }
+    /*-------------------------------
+    -------- END VIDEO 575 -----------
+    --------------------------------*/
+
+
+    /*---------------------------------
+    ----------  PAYMENT 575 -----------
+    ---------------------------------*/
+    .payment-font {
+        font-size: 15px;
+    }
+    .payment-font2 {
+        font-size: 16px;
+        color: #d02232;
+    }
+    .payment-font3 {
+        font-size: 14px;
+        font-weight: 300;
+    }
+    .payment-font4 {
+        font-weight: 300;
+        font-size: 12px;
+    }
+    .payment-font5 {
+        font-weight: 300;
+        font-size: 12px;
+        color: #d02232;
+    }
+    .payment-font6 {
+        font-size: 12px;
+        color: #a5a5a5;
+        font-weight: 300;
+    }
+    .payment-b-r {
+        border-bottom: 1px solid #ccc;
+        border-right: 0px;
+    }
+    .payment-block {
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+    .img-payment {
+        width: 25px;
+        height: 25px;
+    }
+    .img-payment2 {
+        width: 35px;
+        height: 35px;
+        margin-top: 0px;
+    }
+    .img-payment3 {
+        width: 60%;
+        height: 65px;
+    }
+    .payment-promptpay {
+        background-color: #ec9e26;
+        padding: 5px;
+        border-radius: 50px;
+        width: 90%;
+        text-align: center;
+        color: white;
+        font-weight: 300;
+        font-size: 14px;
+    }
+    .img-payment4 {
+        width: 40px;
+        height: 40px;
+    }
+    .payment-width {
+        width: 60%;
+    }
+    /*----------------------------------
+    -------- END PAYMENT 575 ------------
+    -----------------------------------*/
+
+    /*----------------------------------
+    ------------- BOOK 575 ------------
+    -----------------------------------*/
+    .img-book {
+        width: 100%;
+        height: 90vmin;
+    }
+    /*----------------------------------
+    ----------- END BOOK 575 ------------
+    -----------------------------------*/
+}
+
+
+
+
+@media (max-width: 568px) and (max-height: 320px) {
+    /*-----------------------------------------------
+    -------- ABOUT iphone SE iphone SE (LS) ---------
+    -----------------------------------------------*/
+    .about-font1{
+        font-size: 22px;
+        color: #bb262b;
+        font-weight: 500;
+    }
+    .about-font2{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .img-about {
+        width: 100%;
+        height: 240px;
+    }
+    /*------------------------------------------
+    --------- END ABOUT iphone SE (LS) ---------
+    --------------------------------------------*/
+
+    /*-------------------------------------------
+    ----------- VIDEO iphone SE (LS) -----------
+    -------------------------------------------*/
+    .video-frame{
+        width: 100%;
+        height: 300px;
+    }
+    .video-frame-modal {
+        width: 100%;
+        height: 290px;
+    }
+    /*-------------------------------------------
+    -------- END VIDEO iphone SE (LS) -----------
+    ---------------------------------------------*/
+
+    /*-------------------------------------------
+    -------- PAYMENT iphone SE (LS) -----------
+    ---------------------------------------------*/
+    .img-payment {
+        width: 40px;
+        height: 40px;
+    }
+    .img-payment2 {
+        width: 50px;
+        height: 50px;
+        margin-top: -7px;
+    }
+    .img-payment3 {
+        width: 60%;
+        height: 95px;
+    }
+    /*-------------------------------------------
+    -------- END PAYMENT iphone SE (LS) -----------
+    ---------------------------------------------*/
+    .img-book {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+
+@media (min-width: 576px) {
+
+    /*--------------------------------
+    ------------ ABOUT 576 -----------
+    --------------------------------*/
+    .about-font1{
+        font-size: 22px;
+        color: #bb262b;
+        font-weight: 500;
+    }
+    .about-font2{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .img-about {
+        width: 100%;
+        height: 225px;
+    }
+    .about-text-img {
+        font-size: small;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 47%;
+        left: 20%;
+        color: #65a61f;
+    }
+    /*----------------------------------
+    ----------- END ABOUT 576 -----------
+    -------------------------------------*/
+
+    /*------------------------------
+    ----------- VIDEO 576 -----------
+    --------------------------------*/
+    .video-frame{
+        width: 100%;
+        height: 290px;
+    }
+    .video-frame-modal {
+        width: 100%;
+        height: 390px;
+    }
+    /*-------------------------------
+    -------- END VIDEO 576 -----------
+    --------------------------------*/
+
+    /*-------------------------------
+    ---------- PAYMENT 576 -----------
+    --------------------------------*/
+    .payment-b-r {
+        border-bottom: 1px solid #ccc;
+        border-right: 0px;
+    }
+    .img-payment3 {
+        width: 60%;
+        height: 80px;
+    }
+    .payment-width {
+        width: 60%;
+    }
+    .payment-promptpay {
+        background-color: #ec9e26;
+        padding: 5px;
+        border-radius: 50px;
+        width: 80%;
+        text-align: center;
+        color: white;
+        font-weight: 300;
+        font-size: 15px;
+    }
+    /*----------------------------------
+    -------- END PAYMENT 576 -----------
+    -----------------------------------*/
+
+    /*----------------------------------
+    -------------- BOOK 576 -----------
+    -----------------------------------*/
+    .img-book {
+        width: 100%;
+        height: 75vmin;
+    }
+    /*----------------------------------
+    ------------ END BOOK 576 -----------
+    -----------------------------------*/
+}
+
+
+@media (min-width: 768px) {
+
+    /*------------------------------
+    ----------- ABOUT 768 -----------
+    --------------------------------*/
+    .img-about {
+        width: 100%;
+        height: 300px;
+    }
+    .about-text-img {
+        font-size: medium;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 47%;
+        left: 20%;
+        color: #65a61f;
+    }
+    /*------------------------------
+    -------- END ABOUT 768 ----------
+    --------------------------------*/
+
+    /*----------------------------------
+    ---------- VIDEO 768 -------------
+    ------------------------------------*/
+    .video-frame{
+        width: 100%;
+        height: 195px;
+    }
+    .video-frame-modal{
+        width: 100%;
+        height: 410px;
+    }
+    /*----------------------------------
+    ---------- END VIDEO 768 -----------
+    ------------------------------------*/
+
+    /*----------------------------------
+    ------------  PAYMENT 768 -----------
+    ------------------------------------*/
+    .payment-b-r {
+        border-bottom: 1px solid #ccc;
+        border-right: 0px;
+    }
+    .img-payment3 {
+        width: 60%;
+        height: 135px;
+    }
+    .pay-m-l {
+        padding-left: 12px;
+    }
+    .payment-width {
+        width: 40%;
+    }
+    /*----------------------------------
+    ---------- END PAYMENT 768 -----------
+    ------------------------------------*/
+
+    /*----------------------------------
+    -------------- BOOK 768 -----------
+    ------------------------------------*/
+    .img-book {
+        width: 100%;
+        height: 280px;
+    }
+    /*----------------------------------
+    ----------- END BOOK 768 -----------
+    ------------------------------------*/
+}
+
+
+@media (min-width: 992px) {
+
+    /*------------------------------
+    ----------- ABOUT 992 -----------
+    --------------------------------*/
+    .img-about {
+        width: 100%;
+        height: 400px;
+    }
+    .about-text-img {
+        font-size: large;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 47%;
+        left: 20%;
+        color: #65a61f;
+    }
+    /*------------------------------
+    -------- END ABOUT 992 ----------
+    --------------------------------*/
+
+    /*------------------------------
+    ----------- VIDEO 992 -----------
+    --------------------------------*/
+    .video-frame{
+        width: 100%;
+        height: 125px;
+    }
+    .video-frame-modal{
+        width: 100%;
+        height: 550px;
+    }
+    /*-------------------------------
+    -------- END VIDEO 992 -----------
+    --------------------------------*/
+
+    /*---------------------------------
+    ----------- PAYMENT 992 -----------
+    ----------------------------------*/
+    .img-payment2 {
+        width: 80px;
+        height: 80px;
+        margin-top: -15px;
+    }
+    .img-payment3 {
+        width: 60%;
+        height: 90px;
+    }
+    .payment-b-r {
+        border-bottom: 0px;
+        border-right: 1px solid #ccc;
+    }
+    /*----------------------------------
+    -------- END PAYMENT 992 -----------
+    ----------------------------------*/
+
+    /*----------------------------------
+    ----------- BOOK 992 ----------------
+    ------------------------------------*/
+    .book-btn {
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 17px;
+        color: white;
+        font-weight: 300;
+        background-color: #69bf50;
+        border: 2px solid #69bf50;
+        transition: ease-in-out 0.2s;
+    }
+    .book-btn:hover {
+        color: #d70202;
+        font-weight: 300;
+        background-color: unset;
+        transition: ease-in-out 0.2s;
+        border: 2px solid #d70202;
+    }
+    .img-book {
+        width: 100%;
+        height: 200px;
+    }
+    /*----------------------------------
+    ---------- END BOOK 992 -------------
+    ------------------------------------*/
+}
+
+
+
+@media (min-width: 1200px) {
+
+  /*----------------------------------
+  ----------- ABOUT 1200 -------------
+  ------------------------------------*/
+  .about-font1{
+      font-size: 25px;
+      color: #bb262b;
+      font-weight: 500;
+  }
+  .about-font2{
+      font-size: 18px;
+      font-weight: 500;
+  }
+  .about-font3{
+      font-size: 15px;
+  }
+  .img-about {
+      width: 100%;
+      height: 475px;
+  }
+  .about-text-img {
+        font-size: x-large;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 47%;
+        left: 20%;
+        color: #65a61f;
+    }
+  /*----------------------------------
+  --------- END ABOUT 1200 -------------
+  ------------------------------------*/
+
+  /*----------------------------------
+  -------------- VIDEO 1200 -------------
+  ------------------------------------*/
+  .video-frame{
+      width: 100%;
+      height: 140px;
+  }
+  .video-frame-modal{
+      width: 100%;
+      height: 600px;
+  }
+  .video-btn{
+      width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 17px;
+      color: white;
+      font-weight: 300;
+      background-color: #69bf50;
+      border: 2px solid #69bf50;
+      transition: ease-in-out 0.2s;
+  }
+  .video-btn:hover{
+      color: #d70202;
+      font-weight: 400;
+      background-color: unset;
+      transition: ease-in-out 0.2s;
+      border: 2px solid #d70202;
+  }
+  .video-btn-all{
+      width: 200px;
+      height: 50px;
+      border-radius: 0px;
+      font-size: 17px;
+      color: white;
+      font-weight: 300;
+      background-color: #bc2327;
+      border: 2px solid #bc2327;
+      transition: ease-in-out 0.2s;
+  }
+  .video-btn-all:hover{
+      color: #bc2327;
+      font-weight: 400;
+      background-color: unset;
+      transition: ease-in-out 0.2s;
+      border: 2px solid #bc2327;
+  }
+  /*----------------------------------
+  ------------ END VIDEO 1200 --------
+  ------------------------------------*/
+
+
+  /*----------------------------------
+  ---------- PAYMENT 1200 -------------
+  ------------------------------------*/
+  .payment-font{
+      font-size: 20px;
+  }
+  .payment-font2{
+      font-size: 20px;
+      color: #d02232;
+  }
+  .payment-font3{
+      font-weight: 300;
+      font-size: 16px;
+  }
+  .payment-font4{
+      font-weight: 300;
+      font-size: 15px;
+  }
+  .payment-font5{
+      font-weight: 300;
+      font-size: 15px;
+      color: #d02232;
+  }
+  .payment-font6{
+      font-size: 14px;
+      color: #a5a5a5;
+      font-weight: 300;
+  }
+  .img-payment {
+      width: 50px;
+      height: 50px;
+  }
+  .img-payment2 {
+      width: 80px;
+      height: 80px;
+      margin-top: -20px;
+  }
+  .img-payment3 {
+      width: 60%;
+      height: 110px;
+  }
+  .img-payment4 {
+      width: 40px;
+      height: 40px;
+  }
+  .payment-block{
+      border: 1px solid #ccc;
+      padding: 40px;
+  }
+  .payment-b-r{
+      border-right: 1px solid #ccc !important;
+      border-bottom: 0px;
+  }
+  .payment-promptpay{
+      background-color: #ec9e26;
+      padding: 5px;
+      border-radius: 50px;
+      width: 70%;
+      text-align: center;
+      color: white;
+      font-weight: 300;
+  }
+  .payment-form{
+      border-radius: 0px;
+      border: 1px solid #ccc;
+      height: 45px;
+  }
+  .pay-m-l{
+      padding-left: 20px;
+  }
+  /* [type="radio"]:checked,
+  [type="radio"]:not(:checked) {
+      position: absolute;
+      left: -9999px;
+  } */
+  [type="radio"]:checked + label,
+  [type="radio"]:not(:checked) + label
+  {
+      position: relative;
+      padding-left: 28px;
+      cursor: pointer;
+      line-height: 20px;
+      display: inline-block;
+      color: black;
+  }
+  [type="radio"]:checked + label:before,
+  [type="radio"]:not(:checked) + label:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #b5b5b5;
+      border-radius: 100%;
+      background: #fff;
+  }
+  [type="radio"]:checked + label:after,
+  [type="radio"]:not(:checked) + label:after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #90cb4b;
+      position: absolute;
+      top: 13px;
+      left: 3px;
+      border-radius: 100%;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+  }
+  [type="radio"]:not(:checked) + label:after {
+      opacity: 0;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+  }
+  [type="radio"]:checked + label:after {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+  }
+  ::-webkit-file-upload-button {
+      border: 2px solid #90cb4b;
+      color: white;
+      background-color: #90cb4b;
+      width: 100px;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 300;
+      transition: ease 0.3s;
+  }
+  ::-webkit-file-upload-button:focus {
+      outline: none;
+  }
+  ::-webkit-file-upload-button:hover {
+      cursor: pointer;
+      background-color: unset;
+      border: 2px solid #90cb4b;
+      color: #90cb4b;
+      transition: ease 0.3s;
+  }
+  button, input, optgroup, select, textarea {
+      margin: 0;
+      font-weight: 400;
+      font-size: 14px;
+      color: #a5a5a5;
+      font-weight: 300;
+  }
+  .payment-width{
+      width: 20%;
+  }
+  /*---------------------------------------
+  ---------- END PAYMENT 1200 -------------
+  ----------------------------------------*/
+
+  /*--------------------------------------
+  ------------- BOOK 1200 ----------------
+  --------------------------------------*/
+  .book-btn {
+      padding: 5px 30px;
+      border-radius: 5px;
+      font-size: 17px;
+      color: white;
+      font-weight: 300;
+      background-color: #69bf50;
+      border: 2px solid #69bf50;
+      transition: ease-in-out 0.2s;
+  }
+  .book-btn:hover {
+      color: #d70202;
+      font-weight: 300;
+      background-color: unset;
+      transition: ease-in-out 0.2s;
+      border: 2px solid #d70202;
+  }
+  .img-book {
+      width: 100%;
+      height: 210px;
+  }
+  /*----------------------------------
+  ---------- END BOOK 1200 ----------
+  ------------------------------------*/
+}
+
+
+/* iPhone SE */
+@media (min-width: 320px) and (max-width: 320px) {
+
+  /*---------------------------------------
+  ------------  PAYMENT 320 -------------
+  ----------------------------------------*/
+  .payment-font {
+      font-size: 16px;
+  }
+  .payment-font2 {
+      font-size: 21px;
+      color: #d02232;
+  }
+  .payment-font3 {
+      font-size: 13px;
+      font-weight: 300;
+  }
+  .payment-block {
+      border: 1px solid #ccc;
+      padding: 6px;
+  }
+  .img-payment {
+      width: 30px;
+      height: 30px;
+      margin-top: 5px;
+  }
+  .img-payment2 {
+      width: 40px;
+      height: 40px;
+      margin-top: 0px;
+  }
+  .img-payment3 {
+      width: 60%;
+      height: 50px;
+  }
+  .payment-promptpay {
+      background-color: #ec9e26;
+      padding: 5px;
+      border-radius: 50px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-weight: 300;
+      font-size: 12px;
+  }
+  .payment-width {
+      width: 80%;
+  }
+  /*---------------------------------------
+  ----------- END PAYMENT 320 -------------
+  ----------------------------------------*/
+
+
+  /*---------------------------------------
+  -------------  BOOK 320 -------------
+  ----------------------------------------*/
+  .img-book {
+      width: 100%;
+      height: 250px;
+  }
+  /*---------------------------------------
+  ------------- END BOOK 320 -------------
+  ----------------------------------------*/
+}
+
+
+
+/* iPhone 8 */
+@media (min-width: 375px) and (max-width: 375px) {
+
+  /*---------------------------------------
+  -------------  PAYMENT 375 -------------
+  ----------------------------------------*/
+  .payment-font {
+      font-size: 14px;
+  }
+  .payment-font2 {
+      font-size: 15px;
+      color: #d02232;
+  }
+  .payment-block {
+      border: 1px solid #ccc;
+      padding: 10px;
+  }
+  .img-payment3 {
+      width: 60%;
+      height: 55px;
+  }
+  .payment-promptpay {
+      background-color: #ec9e26;
+      padding: 5px;
+      border-radius: 50px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-weight: 300;
+      font-size: 14px;
+  }
+  .payment-width {
+      width: 70%;
+  }
+  /*---------------------------------------
+  ----------- END PAYMENT 375 -------------
+  ----------------------------------------*/
+}
+
+
+@media (min-width: 1600px) {
+
+}
