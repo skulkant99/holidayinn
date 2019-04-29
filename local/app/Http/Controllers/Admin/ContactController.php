@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class DefaultController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,12 @@ class DefaultController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = '##MAINMENU##';
-        $data['sub_menu'] = '##SUBMENU##';
-        $data['title'] = '##TITLEPAGE##';
-        $data['title_page'] = '##TITLEPAGE##';
-        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
-        ControllerIndex
-        return view('Admin.DefaultView',$data);
+        $data['main_menu'] = 'contact';
+    	$data['sub_menu'] = 'contact';
+    	$data['title'] = 'contact';
+    	$data['title_page'] = 'contact';
+    	$data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+    	return view('Admin.contact',$data);
     }
 
     /**
@@ -42,19 +41,27 @@ class DefaultController extends Controller
      */
     public function store(Request $request)
     {
-        $input_all = $request->all();
-        ControllerStore
+        $input_all = $request->all();  
+
+        if(isset($input_all['photo'])&&isset($input_all['photo'][0])){
+            $input_all['photo'] = $input_all['photo'][0];
+            if(Storage::disk("uploads")->exists("temp/".$input_all['photo'])&&!Storage::disk("uploads")->exists("Contact/".$input_all['photo'])){
+                Storage::disk("uploads")->copy("temp/".$input_all['photo'],"Contact/".$input_all['photo']);
+                Storage::disk("uploads")->delete("temp/".$input_all['photo']);
+            }
+        }
+
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            ControllerValidate
+
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\DefaultModel::insert($data_insert);
+                \App\Models\Contact::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -78,8 +85,19 @@ class DefaultController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\DefaultModel::find($id);
-        ControllerShow
+        $result = \App\Models\Contact::find($id);
+        
+        if($result){
+            if($result->photo){
+                if(Storage::disk("uploads")->exists("Contact/".$result->photo)){
+                    if(Storage::disk("uploads")->exists("temp/".$result->photo)){
+                        Storage::disk("uploads")->delete("temp/".$result->photo);
+                    }
+                    Storage::disk("uploads")->copy("Contact/".$result->photo,"temp/".$result->photo);
+                }
+            }
+        }
+    
         return json_encode($result);
     }
 
@@ -91,7 +109,7 @@ class DefaultController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -104,17 +122,34 @@ class DefaultController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        ControllerUpdate
+
+        if(isset($input_all['photo'])&&isset($input_all['photo'][0])){
+            $input_all['photo'] = $input_all['photo'][0];
+            if(Storage::disk("uploads")->exists("temp/".$input_all['photo'])){
+                if(Storage::disk("uploads")->exists("Contact/".$input_all['photo'])){
+                    Storage::disk("uploads")->delete("Contact/".$input_all['photo']);
+                }
+                Storage::disk("uploads")->copy("temp/".$input_all['photo'],"Contact/".$input_all['photo']);
+
+            }
+        }else{
+            $input_all['photo'] = null;
+        }
+        if(isset($input_all['org_photo'])){
+            Storage::disk("uploads")->delete("temp/".$input_all['org_photo']);
+        }
+        unset($input_all['org_photo']);
+
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            ControllerValidate
+
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\DefaultModel::where('id',$id)->update($data_insert);
+                \App\Models\Contact::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -140,7 +175,7 @@ class DefaultController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\DefaultModel::where('id',$id)->delete();
+            \App\Models\Contact::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -152,11 +187,25 @@ class DefaultController extends Controller
         $return['title'] = 'ลบข้อมูล';
         return $return;
     }
-
-    public function Lists(){
-        $result = \App\Models\DefaultModel::select();
+    public function Lists()
+    {
+        $result = \App\Models\Contact::select();
         return \Datatables::of($result)
-        ##EDITCOLUMNDATATABLE##
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->editColumn('photo',function($rec){
+            if($rec->photo == null){
+                return $photo = ' <img src="'.asset('uploads/Contact/nophoto.png').'" class="image-full image-btn" width="50%" height="50%" alt="vchinese"/>';
+            }else {
+                return $photo = ' <img src="'.asset('uploads/Contact/'.$rec->photo).'" class="image-full image-btn" width="50%" height="50%" alt="vchinese"/>';
+            }
+        })
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
@@ -167,7 +216,6 @@ class DefaultController extends Controller
                 </button>
             ';
             return $str;
-        })->make(true);
+        })->make(true);  
     }
-
 }

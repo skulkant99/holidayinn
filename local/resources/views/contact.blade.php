@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<?php require('inc_header.php'); ?>
+	@include('inc_header')
 </head>
 <style>
 	#textarea {
@@ -42,7 +42,7 @@
 </style>
 
 <body>
-	<?php require('inc_topmenu.php'); ?>
+	@include('inc_topmenu')
 	
 		<div class="container mt-4">
 		<div class="row">
@@ -148,7 +148,7 @@ Phuket 83150
 		</div>
 		<br>
 		<br>
-		<?php require('inc_footer.php'); ?>
+		@include('inc_footer')
 </body>
 
 </html>

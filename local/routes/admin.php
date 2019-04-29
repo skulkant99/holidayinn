@@ -87,6 +87,27 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
     Route::post('/information/{id}','Admin\InformationController@update');
     Route::post('/information/Delete/{id}','Admin\InformationController@destroy');
 
+    Route::get('/contact','Admin\ContactController@index');
+    Route::get('/contact/Lists','Admin\ContactController@Lists');
+    Route::post('/contact','Admin\ContactController@store');
+    Route::get('/contact/show/{id}','Admin\ContactController@show');
+    Route::post('/contact/{id}','Admin\ContactController@update');
+    Route::post('/contact/Delete/{id}','Admin\ContactController@destroy');
+
+      Route::get('/GalleryType', 'Admin\GalleryTypeController@index');
+        Route::get('/GalleryType/Lists', 'Admin\GalleryTypeController@Lists');
+        Route::post('/GalleryType', 'Admin\GalleryTypeController@store');
+        Route::get('/GalleryType/{id}', 'Admin\GalleryTypeController@show');
+        Route::post('/GalleryType/{id}', 'Admin\GalleryTypeController@update');
+        Route::post('/GalleryType/Delete/{id}', 'Admin\GalleryTypeController@destroy');
+
+      Route::get('/Gallery', 'Admin\GalleryController@index');
+        Route::get('/Gallery/Lists', 'Admin\GalleryController@Lists');
+        Route::post('/Gallery', 'Admin\GalleryController@store');
+        Route::get('/Gallery/{id}', 'Admin\GalleryController@show');
+        Route::post('/Gallery/{id}', 'Admin\GalleryController@update');
+        Route::post('/Gallery/Delete/{id}', 'Admin\GalleryController@destroy');
+
       ##ROUTEFORINSTALL##
 });
 //OrakUploader

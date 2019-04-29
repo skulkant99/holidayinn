@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class DefaultController extends Controller
+class GalleryTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class DefaultController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = '##MAINMENU##';
-        $data['sub_menu'] = '##SUBMENU##';
-        $data['title'] = '##TITLEPAGE##';
-        $data['title_page'] = '##TITLEPAGE##';
+        $data['main_menu'] = 'GalleryType';
+        $data['sub_menu'] = 'GalleryType';
+        $data['title'] = 'GalleryType';
+        $data['title_page'] = 'GalleryType';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
-        ControllerIndex
-        return view('Admin.DefaultView',$data);
+        
+        return view('Admin.gallery_type',$data);
     }
 
     /**
@@ -43,18 +43,23 @@ class DefaultController extends Controller
     public function store(Request $request)
     {
         $input_all = $request->all();
-        ControllerStore
+        $input_all['status'] = $request->input('status','2');
+            if(isset($input_all['sort_id'])){
+                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
+            }
+          
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            ControllerValidate
+            'name' => 'required',
+             
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\DefaultModel::insert($data_insert);
+                \App\Models\GalleryType::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -78,8 +83,8 @@ class DefaultController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\DefaultModel::find($id);
-        ControllerShow
+        $result = \App\Models\GalleryType::find($id);
+        
         return json_encode($result);
     }
 
@@ -104,17 +109,22 @@ class DefaultController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        ControllerUpdate
+        $input_all['status'] = $request->input('status','2');
+            if(isset($input_all['sort_id'])){
+                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
+            }
+           
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            ControllerValidate
+            'name' => 'required',
+             
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\DefaultModel::where('id',$id)->update($data_insert);
+                \App\Models\GalleryType::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -140,7 +150,7 @@ class DefaultController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\DefaultModel::where('id',$id)->delete();
+            \App\Models\GalleryType::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -154,9 +164,23 @@ class DefaultController extends Controller
     }
 
     public function Lists(){
-        $result = \App\Models\DefaultModel::select();
+        $result = \App\Models\GalleryType::select();
         return \Datatables::of($result)
-        ##EDITCOLUMNDATATABLE##
+        ->addIndexColumn()
+        ->addColumn('sort_id',function($rec){
+            if(is_numeric($rec->sort_id)){
+                return number_format($rec->sort_id);
+            }else{
+                return $rec->sort_id;
+            }
+        })
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">

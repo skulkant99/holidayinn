@@ -2,22 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<?php require('inc_header.php'); ?>
+	@include('inc_header')
 </head>
 
 <body>
-	<?php require('inc_topmenu.php'); ?>
-	<div class="container mt-4">
-	<div class="row">
-		<div class="col">
-			<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Privacy</li>
-						</ol>
-					</nav>
-		</div>
-	</div>
+	@include('inc_topmenu')
+	<div class="container">
 		<div class="row">
 			<div class="col">
 				<div class="head_title">
@@ -45,7 +35,7 @@ Email: <a href="mailto:privacyoffice@ihg.com">privacyoffice@ihg.com</a>
 		</div>
 	</div>
 
-		<?php require('inc_footer.php'); ?>
+		@include('inc_footer')
 			
 </body>
 

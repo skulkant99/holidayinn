@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<?php require('inc_header.php'); ?>
+	@include('inc_header')
 </head>
 
 <body>
@@ -57,7 +57,7 @@
 			color: #999acc;			
 		}
 	</style>
-	<?php require('inc_topmenu.php'); ?>
+	@include('inc_topmenu')
 		<div class="container-fluid nopad">
 			<div class="row">
 				<div class="col">
@@ -105,16 +105,16 @@
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col-lg-9">
-					<?php foreach ($content as $_content) {
-						echo '	<div class="row offer_box">
+					@foreach($content as $_content)
+						<div class="row offer_box">
 						<div class="col-12 col-lg-6">
-							<div class="img_offer"> <img src="'.asset('uploads/Information/'.$_content->photo).'" class="img-fluid"> </div>
+							<div class="img_offer"> <img src="{{asset('uploads/Information/'.$_content->photo)}}" class="img-fluid"> </div>
 						</div>
 						<div class="col-12 col-lg-6">
 							<div class="offer_details">
 								<div class="row">
 									<div class="col-12 col-md-9 col-lg-9">
-										<h3>'.$_content->title.'</h3> </div>
+										<h3>{{$_content->title}}</h3> </div>
 									<div class="col-12 col-md-3 col-lg-3">
 										<div class="likebtn">
 											<button class="likebefore"></button>
@@ -122,10 +122,10 @@
 										<div class="like_text"> 34 Likes </div>
 									</div>
 								</div>
-								<p>'.$_content->detail.'</p>
+								<p>{{strip_tags($_content->detail)}}</p>
 							</div>
 							<div class="row mt-5">
-								<div class="col-12 col-md-6 col-lg-5 col-xl-6"> <a href="offer_inside/'.$_content->id.'" class="btn btn-primary">Read more</a> </div>
+								<div class="col-12 col-md-6 col-lg-5 col-xl-6"> <a href="{{url('offer_inside/'.$_content->id)}}" class="btn btn-primary">Read more</a> </div>
 								<div class="col-12 col-md-6 col-lg-7 col-xl-6">
 									<div class="list_share">
 										<li class="circle_pencil">
@@ -145,8 +145,8 @@
 								</div>
 							</div>
 						</div>
-					</div>';
-					} ?>
+					</div>
+					@endforeach
 				
 					<!-- <div class="row offer_box">
 						<div class="col-12 col-lg-6">
@@ -249,7 +249,8 @@
 				</div>
 			</div>
 		</div>
-		<?php require('inc_footer.php'); ?>
+		@include('inc_footer')
+		<script src="assets/admin/vendors/sweetalert/js/sweetalert2.min.js"></script>
 			<script>
 				/*---Slideshow-----*/
 				function slideshow() {
@@ -279,6 +280,7 @@
 					$('.smenu').toggleClass('share');
 				});
 			</script>
+	
 </body>
 
 </html>

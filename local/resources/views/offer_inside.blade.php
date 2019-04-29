@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<?php require('inc_header.php'); ?>
+	@include('inc_header')
 </head>
 <style>
 	.commentbox .form-control {
@@ -18,7 +18,7 @@
 </style>
 
 <body>
-	<?php require('inc_topmenu.php'); ?>
+	@include('inc_topmenu')
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col">
@@ -47,7 +47,7 @@
 					<hr>
 					<div class="row">
 						<div class="col">
-							<div class="offer_details_inside"> <img src="images/offer-inside_03.png" class="img-fluid">
+							<div class="offer_details_inside"> <img src="{{asset('images/offer-inside_03.png')}}" class="img-fluid">
 								<br>
 								<br>
 								<p> The best experiences in the world start with Your Rate. It is our exclusive IHG®Rewards Club price and it is only available when you book directly with us.
@@ -64,23 +64,26 @@
 					</div>
 					<hr>
 					<div class="share_offer_inside">
-						<li class="circle_pencil"> <img src="images/share.png"> </li>
+						<li class="circle_pencil"> <img src="{{asset('images/share.png')}}"> </li>
 						<li class="purplebg"><a href="#"><i class="fas fa-envelope"></i></a></li>
 						<li class="purplebg"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 						<li class="purplebg"><a href="#"><i class="fab fa-twitter"></i></a></li>
 					</div>
 					<hr>
-					<!--	สำหรับยังไม่ Loginค่ะ			   -->
-					<div class="logincomment text-center">
-						<a href="#" class="btn btn-primary">Leave a comment</a>
-					</div>
+					
+					<?php if(Auth::check()){ ?>
+							<!--	Login แล้วโชว์อันนี้			-->
+						<div class="commentbox">
+							<textarea class="form-control" id="textarea" name="textarea" rows="5" placeholder="Type here.."></textarea> <a href="#" class="btn btn-primary">Send your message</a> 
+						</div>
+					<?php }else { ?>
+						<!--	สำหรับยังไม่ Loginค่ะ			   -->
+						<div class="logincomment text-center">
+							<a href="#" class="btn btn-primary">Leave a comment</a>
+						</div>
+					<?php } ?> 
+					
 		
-								<!--	Login แล้วโชว์อันนี้			-->
-<!--
-					<div class="commentbox">
-						<textarea class="form-control" id="textarea" name="textarea" rows="5" placeholder="Type here.."></textarea> <a href="#" class="btn btn-primary">Send your message</a> 
-					</div>
--->
 					<div class="list_comment mt-5">
 						<h2>RECENT COMMENT</h2>
 						<br>
@@ -145,7 +148,7 @@
 			</div>
 		</div>
 		<br>
-		<?php require('inc_footer.php'); ?>
+		@include('inc_footer')
 			<script>
 				$(function () {
 					var numItems = $('.photo-container').length;

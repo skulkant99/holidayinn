@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<?php require('inc_header.php'); ?>
+	@include('inc_header')
 </head>
 
 <body>
@@ -73,7 +73,7 @@
 		}
 		
 </style>
-	<?php require('inc_topmenu.php'); ?>
+	@include('inc_topmenu')
 	<div class="container mt-4">
 	<div class="row">
 		<div class="col">
@@ -165,7 +165,7 @@ In-store promotion of Huskies  cannot be adopted to use with on-line promotion o
 		</div>
 		<br><br>
 	</div>
-		<?php require('inc_footer.php'); ?>
+		@include('inc_footer')
 		
 		<script>
 			(function ($) {

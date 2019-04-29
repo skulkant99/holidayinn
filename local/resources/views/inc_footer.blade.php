@@ -68,108 +68,108 @@
 		<div class="hover_box">
 		<div class="border_ihg">
 			<div class="logo_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_01.png">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_01.png')}}">
 			</div>
 			<div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
 			<div class="box_item_logo">
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_03.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_03.png')}}" class="img-fluid">
 				</div>
 					<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_05.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_05.png')}}" class="img-fluid">
 				</div>
 					<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_07.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_07.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_09.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_09.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_11.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_11.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_14.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_14.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_16.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_16.png')}}" class="img-fluid">
 				</div>
 			</div>
 			<div class="box_item_logo2">
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_32.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_32.png')}}" class="img-fluid">
 				</div>
 					<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_34.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_34.png')}}" class="img-fluid">
 				</div>
 					<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_35.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_35.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_36.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_36.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_28.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_28.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_29.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_29.png')}}" class="img-fluid">
 				</div>
 				<div class="each_ihg">
-				<img src="images/ihg/New-BrandBar2019-(1)_30.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_30.png')}}" class="img-fluid">
 				</div>
 			</div>
 			<div class="border_right_side"></div>
 			<div class="box_right_box">
 				<div class="each_ihg2">
-				<img src="images/ihg/New-BrandBar2019-(1)_19.png" class="img-fluid">
+				<img src="{{asset('images/ihg/New-BrandBar2019-(1)_19.png')}}" class="img-fluid">
 				</div>
 			</div>
 			</div>
 			<div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
 				<div class="row">
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_03.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_03.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_05.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_05.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_07.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_07.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_09.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_09.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_11.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_11.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_14.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_14.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_16.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_16.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_19.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_19.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_32.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_32.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_34.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_34.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_35.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_35.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_36.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_36.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_28.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_28.png')}}" class="img-fluid">
 					</div>
 					<div class="col-6 boxmobile">
-						<img src="images/ihg/New-BrandBar2019-(1)_29.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_29.png')}}" class="img-fluid">
 					</div>
 					<div class="col-12 boxmobile box_borde">
-						<img src="images/ihg/New-BrandBar2019-(1)_19.png" class="img-fluid">
+						<img src="{{asset('images/ihg/New-BrandBar2019-(1)_19.png')}}" class="img-fluid">
 					</div>
 				</div>
 			</div>
