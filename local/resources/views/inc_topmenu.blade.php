@@ -282,8 +282,8 @@
 			<div class="overlay" id="overlay">
 			  <nav class="overlay-menu">
 				<ul>
-			 	 <li><a href="index.php">Home</a></li>
-				  <li><a href="index.php">Special Offer</a></li>
+				<li><a href="{{url('/')}}">Home</a></li>
+				  <li><a href="{{url('/')}}">Special Offer</a></li>
 				  <li><a href="{{url('gallery')}}">Photos</a></li>
 				  <li><a href="{{url('question')}}">Ask Question</a></li>
 				  <li><a href="{{url('faq')}}">FAQ</a></li>
@@ -519,10 +519,10 @@
    $('#overlay2').toggleClass('open');
   });
 </script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="assets/admin/vendors/jquery.validate.min.js"></script>
 <script src="assets/global/js/validate.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	var url_gb = '<?php url('') ?>';
 	var asset_gb = '<?php asset('') ?>';
@@ -588,7 +588,7 @@
 						btn.attr('disabled',true);
 						$.ajax({
 								method : "POST",
-								url : "Createuser",
+								url : "{{url('/Createuser')}}",
 								dataType : 'json',
 								data : $(form).serialize()
 						}).done(function(rec){
@@ -647,14 +647,14 @@
 						btn.attr('disabled',true);
 						$.ajax({
 								method : "POST",
-								url : "CheckLogin",
+								url : "{{url('/CheckLogin')}}",
 								dataType : 'json',
 								data : $(form).serialize()
 						}).done(function(rec){
 							if(rec==0){
 								swal('เข้าสู่ระบบ','ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง','error');
 							}else{
-									window.location.href = "index.php";
+									window.location.href =  "{{url('/')}}";
 									
 									// swal('เข้าสู่ระบบ','คุณได้ทำการเข้าสู่ระบบเรียบร้อยแล้ว','success');
 							}

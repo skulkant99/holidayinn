@@ -250,7 +250,6 @@
 			</div>
 		</div>
 		@include('inc_footer')
-		<script src="assets/admin/vendors/sweetalert/js/sweetalert2.min.js"></script>
 			<script>
 				/*---Slideshow-----*/
 				function slideshow() {
