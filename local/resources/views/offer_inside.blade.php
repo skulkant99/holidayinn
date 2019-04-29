@@ -24,8 +24,10 @@
 				<div class="col">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Refurbishing the interior of The Elms hotel</li>
+						<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+							@foreach ($content_detail as $_content_detail)
+								<li class="breadcrumb-item active" aria-current="page">{{$_content_detail->title}}</li>
+							@endforeach
 						</ol>
 					</nav>
 				</div>
@@ -35,7 +37,16 @@
 					<div class="row">
 						<div class="col-md-10 col-lg-9 col-xl-9">
 							<div class="title_offerinside">
-								<h2>Refurbishing the interior of The Elms hotel</h2> <span class="dateinside">12/02/2562</span> </div>
+							<?php 
+								$date_create = substr($_content_detail->created_at,0,-8);
+								$date_create = explode('-', $date_create);
+								$month = $date_create[1];
+								$day   = $date_create[2];
+								$year  = $date_create[0] + 543;
+							?>
+							@foreach ($content_detail as $_content_detail)
+								<h2>{{$_content_detail->title}}</h2> <span class="dateinside">{{$day."/".$month."/".$year}}</span> </div>
+							@endforeach
 						</div>
 						<div class="col-md-2 col-lg-3 col-xl-3">
 							<div class="likebtn">
@@ -45,23 +56,17 @@
 						</div>
 					</div>
 					<hr>
+					@foreach ($content_detail as $_content_detail)
 					<div class="row">
 						<div class="col">
 							<div class="offer_details_inside"> <img src="{{asset('images/offer-inside_03.png')}}" class="img-fluid">
 								<br>
 								<br>
-								<p> The best experiences in the world start with Your Rate. It is our exclusive IHG®Rewards Club price and it is only available when you book directly with us.
-									<br>
-									<br> Your Rate is more than the best deal and great rewards. IHG® Rewards Club members also receive:
-									<br>
-									<br> Free Wi-Fi to keep you connected on all devices IHG Member priority check-in and late check-out for Elite member No blackout dates for IHG Reward Night
-									<br>
-									<br> Best price guarantee, when you Book directly with us, we promise you’ll always get the lowest price.
-									<br>
-									<br> Not a member yet? There’s a reason over 100 million people have enrolled in IHG®Rewards Club. Come to discover it for yourself and enjoy Your Rate promotion now!</p>
+								<p>{{strip_tags($_content_detail->detail)}}</p>
 							</div>
 						</div>
-					</div>
+					</div>					
+					@endforeach
 					<hr>
 					<div class="share_offer_inside">
 						<li class="circle_pencil"> <img src="{{asset('images/share.png')}}"> </li>
@@ -141,8 +146,8 @@
 						<li><a href="#">Christmas in Perth City 2018</a></li>
 					</div>
 					<div class="side_privacy">
-						<li><a href="fullcomment.php"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
-						<li><a href="ourcomment.php"> <i class="far fa-sticky-note"></i> Our policy on commenting</a></li>
+						<li><a href="{{url('fullcomment')}}"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
+						<li><a href="{{url('ourcomment')}}"> <i class="far fa-sticky-note"></i> Our policy on commenting</a></li>
 					</div>
 				</div>
 			</div>

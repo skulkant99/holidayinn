@@ -23,7 +23,7 @@
 </style>
 
 <body>
-	<?php require('inc_topmenu.php'); ?>
+	@include('inc_topmenu')
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col">
@@ -86,7 +86,7 @@
 			btn.attr('disabled',true);
 			$.ajax({
 				method : "POST",
-				url : "FormRespassword",
+				url : "{{url('FormRespassword')}}",
 				dataType : 'json',
 				data : $(form).serialize()
 			}).done(function(rec){

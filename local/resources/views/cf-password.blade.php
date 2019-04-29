@@ -69,7 +69,7 @@
 	  e.preventDefault();
 	  $.ajax({
 	    method: "POST",
-	    url: "updatepassword",
+	    url: "{{url('updatepassword')}}",
 	    data: $(this).serialize()
 	  }).done(function( res ) {
 	      if(res==0){
@@ -77,6 +77,7 @@
 	      }else{
 	          // window.location = "{{url('/mycourse')}}";
 	          swal('เปลี่ยนรหัสผ่าน','คุณได้ทำการเปลี่ยนรหัสผ่าน','success');
+						window.location = "{{url('/')}}";
 	      }
 	  }).fail(function(){
 	      swal('เปลี่ยนรหัสผ่าน','เปลี่ยนรหัสผ่านไม่สำเร็จ','error');

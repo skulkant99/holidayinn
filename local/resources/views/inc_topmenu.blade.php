@@ -428,7 +428,7 @@
 									</div>
 										<div class="row">
 											<div class="col-lg-6">
-												<a href="cf-password" class="forgotpass">Forget password ?</a>
+												<a href="{{url('cf-password')}}" class="forgotpass">Forget password ?</a>
 											</div>
 											<div class="col-lg-6 text-right">
 												New Customer? <a href="#" class="signupnow">Sign up now</a>

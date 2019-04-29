@@ -21,15 +21,20 @@ Route::get('/gallery','GAlleryController@index');
 Route::get('/question',function () {
     return view('question');
 });
+Route::post('/AddQuestion','QuestionController@store');
+
 Route::get('/faq',function () {
     return view('faq');
 });
 Route::get('/contact',function () {
     return view('contact');
 });
-// Route::get('/offer_inside',function () {
-//     return view('offer_inside');
-// });
+Route::get('/fullcomment',function () {
+    return view('fullcomment');
+});
+Route::get('/ourcomment',function () {
+    return view('ourcomment');
+});
 Route::get('offer_inside/{id}','ContentController@detail');
 
 Route::post('/Createuser','RegisterController@store');
