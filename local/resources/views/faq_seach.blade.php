@@ -112,59 +112,7 @@
 								<li> <a>{{strip_tags($_ask->question_name)}}</a>
 								<p>	{{strip_tags($_ask->answer)}}</p>
 							</li>
-						@endforeach
-							
-							{{-- <li> <a>Can I  change or cancel the order I have already made?</a>
-								<p>We begin processing the orders immediately For this reason we are unable to change or cancel the orders , If you have any question about your order , please  contact Huskies Online Shopping within 1 hour after placing an order tel. 662-4532201  Monday-Saturday 10.00 a.m.-18.00 p.m.. Sorry for cannot accept e-mail request for  changes or cancellation.</p>
-							</li>
-							<li> <a>How can I check my order status after placing an order?</a>
-								<p>You can check your order status by click at "View Cart" (on top right of page)</p>
-							</li>
-							<li> <a>How can I return any merchandise I have purchased from Huskies Online Shopping?</a>
-								<p>	
-									Customers can return the intact purchased merchandise(s) by 2 ways: <br>
-
-									Return the purchased merchandise(s) by sending to postal address below: <br>
-									Customer Service  -Huskies International Corporation Co.,Ltd. <br>
-
-									31,33,35 Rama II -52 Samae-Dam, <br>
-
-									Bangkhuntien, Bangkok 10150, Thailand <br>
-
-									Return the purchased merchandise(s) yourself at Huskies Office. (Return Policy).</p>
-							</li>
-							<li>
-							<a>When sending merchandise(s) back to "postal address", do I have to responsible for any delivery charges?
-
-							</a>
-								<p>	
-								If customers would like to return purchased merchandise(s), customers have to responsible for the delivery charge returned according to Thailand Post Office . Every product featured on this website can be returned within 30 days from the date of delivery (discounted items are not refundable and returnable)</p>
-							</li>
-							<li>
-							<a>What should I do if I forgot my username or password I have created?
-
-							</a>
-								<p>	
-	
-								If you forgot your username or password, please click here and fill out your e-mail to receive your username and password.</p>
-							</li>
-							<li>
-							<a>Would it be possible to place an order with Huskies Online Shopping and have them delivered to international receiver?
-
-							</a>
-								<p>	
-	
-							Providing the best service to our customers is the priority of Huskies Online Shopping. Although, we cannot accept international orders at this time, we will inform you in immediately if there are changes in the future.</p>
-							</li>
-							<li>
-							<a>	
-							Can  in-store promotion of Huskies  be adopted to use with an online promotion of Huskies Online Shopping?
-
-							</a>
-								<p>	
-	
-							In-store promotion of Huskies  cannot be adopted to use with on-line promotion of Huskies Online Shopping. Please see promotion details  on Huskies Online Shopping website during the promotional periods. If you have any questions, please e-mail us  info@huskiesbags.com</p>
-							</li> --}}
+						@endforeach					
 						</ul>
 				</div>
 			</div>

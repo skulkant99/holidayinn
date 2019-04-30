@@ -129,7 +129,7 @@
 								<div class="col-12 col-md-6 col-lg-7 col-xl-6">
 									<div class="list_share">
 										<li class="circle_pencil">
-											<a href="#"><img src="images/write.png"></a>
+										<a href="{{url('offer_inside/'.$_content->id)}}"><img src="{{asset('images/write.png')}}"></a>
 										</li>
 										<li>
 											<div class="sbutton"> <span><img src="images/share.png"></span>
@@ -140,7 +140,7 @@
 												</ul>
 											</div>
 										</li>
-										<li class="circle_view"><img src="images/view.png"> 32</li>
+									<li class="circle_view"><img src="{{asset('images/view.png')}}">{{$_content->view}}</li>
 									</div>
 								</div>
 							</div>
@@ -232,21 +232,31 @@
 					<?php echo($content->links()) ?>
 				</div>
 				<div class="col-lg-3">
-					<div class="sidmenu_recommend">
-						<h3>Recommended</h3>
-						<li><a href="#">Family Fun in Perth City 2019</a></li>
-						<li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
-						<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
+						<div class="sidmenu_recommend">
+							<h3>Most recent</h3>
+							@foreach ($content as  $_content)
+						<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{$_content->title}}</a></li>					
+							@endforeach
+						
+							{{-- <li><a href="#">Family Fun in Perth City 2019</a></li>
+							<li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
+							<li><a href="#">The Best Free Things to See and Do in Perth</a></li> --}}
+						</div>
+						<div class="sidmenu_recent">
+							<h3>Recommended</h3>
+							@foreach ($comment_all as $_comment_all)
+								<li><a href="{{asset('offer_inside/'.$_comment_all->information_id)}}">{{$_comment_all->comment}}</a></li>
+							@endforeach
+							{{-- <li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
+							<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
+							<li><a href="#">THE BEST FRINGE WORLD FESTIVAL SHOWS IN PERTH 2019</a></li>
+							<li><a href="#">Christmas in Perth City 2018</a></li> --}}
+						</div>
+						<div class="side_privacy">
+							<li><a href="{{url('fullcomment')}}"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
+							<li><a href="{{url('ourcomment')}}"> <i class="far fa-sticky-note"></i> Our policy on commenting</a></li>
+						</div>
 					</div>
-					<div class="sidmenu_recent">
-						<h3>Recommended</h3>
-						<li><a href="#">Family Fun in Perth City 2019</a></li>
-						<li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
-						<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
-						<li><a href="#">THE BEST FRINGE WORLD FESTIVAL SHOWS IN PERTH 2019</a></li>
-						<li><a href="#">Christmas in Perth City 2018</a></li>
-					</div>
-				</div>
 			</div>
 		</div>
 		@include('inc_footer')

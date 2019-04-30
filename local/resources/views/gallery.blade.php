@@ -148,7 +148,7 @@
 															echo '<a class="fancybox" href="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" alt="" class="img-fluid" /></a>';
 														}
 														echo '<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_gallery_all->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle1">Share</label>
@@ -178,13 +178,13 @@
 													echo '<li>
 													<iframe width="100%" height="315" src="'.$_video->link_video.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 														<div class="topic-blog2 text-center">
-															<h3>The Outerwear Edit</h3>
+															<h3>'.$_video->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
 																<label for="slidetoggle2">Share</label>
 																<input id="slidetoggle2" type="checkbox">
 																<div class="wrapper">
-																	<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																	<div class="hidden"> <a href="#" id="shareBtn2" ><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
 																</div>
 															</div>
 														</div>
@@ -207,7 +207,7 @@
 													echo '<li>
 														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" alt="" class="img-fluid" /></a>
 														<div class="topic-blog2 text-center">
-															<h3>The Outerwear Edit</h3>
+															<h3>'.$_Guest_Rooms->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
 																<label for="slidetoggle3">Share</label>
@@ -237,7 +237,7 @@
 													echo'<li>
 														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Dining->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Dining->photo).'" alt="" class="img-fluid" /></a>
 														<div class="topic-blog2 text-center">
-															<h3>The Outerwear Edit</h3>
+															<h3>'.$_Dining->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
 																<label for="slidetoggle4">Share</label>
@@ -267,7 +267,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Spa->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Spa->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Spa->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle5">Share</label>
@@ -296,7 +296,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Resort_views->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle6">Share</label>
@@ -325,7 +325,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Kids_Club->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle7">Share</label>
@@ -354,7 +354,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Activities->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Activities->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Activities->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle8">Share</label>
@@ -383,7 +383,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Fitness->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Fitness->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Fitness->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle9">Share</label>
@@ -412,7 +412,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Events->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Events->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Events->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle10">Share</label>
@@ -441,7 +441,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Weddings->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Weddings->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Weddings->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle11">Share</label>
@@ -470,7 +470,7 @@
 														echo'<li>
 															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Attractions->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Attractions->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
-																<h3>The Outerwear Edit</h3>
+																<h3>'.$_Attractions->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
 																	<label for="slidetoggle12">Share</label>
@@ -806,6 +806,13 @@
 		<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 		<script>
 			document.getElementById('shareBtn').onclick = function() {
+			FB.ui({
+				method: 'share',
+				display: 'popup',
+				href: 'https://developers.facebook.com/docs/',
+			}, function(response){});
+			}
+			document.getElementById('shareBtn2').onclick = function() {
 			FB.ui({
 				method: 'share',
 				display: 'popup',

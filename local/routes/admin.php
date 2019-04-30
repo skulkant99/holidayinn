@@ -108,6 +108,23 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
         Route::post('/Gallery/{id}', 'Admin\GalleryController@update');
         Route::post('/Gallery/Delete/{id}', 'Admin\GalleryController@destroy');
 
+      Route::get('/Question', 'Admin\QuestionController@index');
+        Route::get('/Question/Lists', 'Admin\QuestionController@Lists');
+        Route::post('/Question', 'Admin\QuestionController@store');
+        Route::get('/Question/{id}', 'Admin\QuestionController@show');
+        Route::post('/Question/{id}', 'Admin\QuestionController@update');
+        Route::post('/Question/Delete/{id}', 'Admin\QuestionController@destroy');
+
+      Route::get('/Answer', 'Admin\AnswerController@index');
+      Route::get('/Question/Answer/{id}','Admin\AnswerController@Answer');
+        Route::get('/Answer/Lists', 'Admin\AnswerController@Lists');
+        Route::post('/Answer', 'Admin\AnswerController@store');
+        Route::get('/Answer/{id}', 'Admin\AnswerController@show');
+        Route::post('/Answer/{id}', 'Admin\AnswerController@update');
+        Route::post('/Answer/Delete/{id}', 'Admin\AnswerController@destroy');
+
+       
+
       ##ROUTEFORINSTALL##
 });
 //OrakUploader

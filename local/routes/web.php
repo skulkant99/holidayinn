@@ -21,11 +21,17 @@ Route::get('/gallery','GAlleryController@index');
 Route::get('/question',function () {
     return view('question');
 });
+
+Route::get('/faq','QuestionController@index');
+// Route::get('/seach','QuestionController@seach');
 Route::post('/AddQuestion','QuestionController@store');
 
-Route::get('/faq',function () {
-    return view('faq');
-});
+Route::get('/seach','SeachController@seach');
+// Route::get('/faq',function () {
+//     return view('faq');
+// });
+Route::post('/comment','CommentController@store');
+
 Route::get('/contact',function () {
     return view('contact');
 });

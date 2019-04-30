@@ -79,7 +79,11 @@
 					<?php if(Auth::check()){ ?>
 							<!--	Login แล้วโชว์อันนี้			-->
 						<div class="commentbox">
-							<textarea class="form-control" id="textarea" name="textarea" rows="5" placeholder="Type here.."></textarea> <a href="#" class="btn btn-primary">Send your message</a> 
+							<form id="comment">
+								<textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Type here.."></textarea> <button type="submit" class="btn btn-primary">Send your message</button> 
+								<input type="hidden" name="information_id" value="{{$id}}">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
+							</form>
 						</div>
 					<?php }else { ?>
 						<!--	สำหรับยังไม่ Loginค่ะ			   -->
@@ -92,7 +96,16 @@
 					<div class="list_comment mt-5">
 						<h2>RECENT COMMENT</h2>
 						<br>
-						<div class="border_comment gallery">
+						@foreach ($comment as $_comment)
+							<div class="border_comment gallery">
+								<h5>First Time Buyer</h5>
+								<p>{{$_comment->comment}}</p>
+								<div class="date_comment gallery"> 1 month ago By {{$_comment->comment_by}} </div>
+							</div>
+							<br>
+						@endforeach
+						
+						{{-- <div class="border_comment gallery">
 							<h5>First Time Buyer</h5>
 							<p>Quality fabric, well made and feather cushion insert...really classy cushion</p>
 							<div class="date_comment gallery"> 1 month ago By Tina </div>
@@ -101,12 +114,6 @@
 						<div class="border_comment gallery">
 							<h5>First Time Buyer</h5>
 							<p>Quality fabric, well made and feather cushion insert...really classy cushion</p>
-							<div class="date_comment gallery"> 1 month ago By Tina </div>
-						</div>
-						<br>
-						<div class="border_comment gallery">
-							<h5>First Time Buyer</h5>
-							<p>Quality fabric, well made and feather cushion insert...really classy cushion</p>
 							<div class="date_comment"> 1 month ago By Tina </div>
 						</div>
 						<br>
@@ -126,24 +133,30 @@
 							<h5>First Time Buyer</h5>
 							<p>Quality fabric, well made and feather cushion insert...really classy cushion</p>
 							<div class="date_comment"> 1 month ago By Tina </div>
-						</div>
+						</div> --}}
 						<div class="btnmore center-block text-center wow fadeInUp"> <a class="loadMore btnload" href="#">Show More comment</a> </div>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="sidmenu_recommend">
-						<h3>Recommended</h3>
-						<li><a href="#">Family Fun in Perth City 2019</a></li>
+						<h3>Most recent</h3>
+						@foreach ($content as  $_content)
+					<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{$_content->title}}</a></li>					
+						@endforeach
+					
+						{{-- <li><a href="#">Family Fun in Perth City 2019</a></li>
 						<li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
-						<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
+						<li><a href="#">The Best Free Things to See and Do in Perth</a></li> --}}
 					</div>
 					<div class="sidmenu_recent">
 						<h3>Recommended</h3>
-						<li><a href="#">Family Fun in Perth City 2019</a></li>
-						<li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
+						@foreach ($comment_all as $_comment_all)
+							<li><a href="{{asset('offer_inside/'.$_comment_all->information_id)}}">{{$_comment_all->comment}}</a></li>
+						@endforeach
+						{{-- <li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
 						<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
 						<li><a href="#">THE BEST FRINGE WORLD FESTIVAL SHOWS IN PERTH 2019</a></li>
-						<li><a href="#">Christmas in Perth City 2018</a></li>
+						<li><a href="#">Christmas in Perth City 2018</a></li> --}}
 					</div>
 					<div class="side_privacy">
 						<li><a href="{{url('fullcomment')}}"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
@@ -173,6 +186,26 @@
 					'use strict';
 					$('.likebefore').click(function () {
 						$(this).toggleClass('pressed');
+					});
+				});
+			</script>
+			<script>
+				$('body').on('submit','#comment',function(e){
+					e.preventDefault();
+					$.ajax({
+						method: "POST",
+						url: "{{url('/comment')}}",
+						data: $(this).serialize()
+					}).done(function( res ) {
+						if(res==0){
+							swal(res.title,res.content,'success');
+						}else{
+							swal('add comment','success');
+							location.reload();
+						}
+					}).fail(function(){
+						swal('เปลี่ยนรหัสผ่าน','เปลี่ยนรหัสผ่านไม่สำเร็จ','error');
+						btn.button('reset');
 					});
 				});
 			</script>

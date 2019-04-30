@@ -11,6 +11,10 @@ class HomeController extends Controller
         $data['content'] = \App\Models\Information::where('status','1')
             ->select('informations.*')
             ->paginate(3);
+        $data['comment_all'] = \App\Models\Comment::select('comments.*')
+            ->orderBy('id','DESC')
+            ->paginate(3);
+        $data['content'] = \App\Models\Information::select()->orderBy('id','DESC')->paginate(3);
         return view('index',$data);
     }
 }

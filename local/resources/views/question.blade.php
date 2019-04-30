@@ -65,6 +65,7 @@
 				<div class="col-lg-7">
 					<div class="box_white">
 						<form id="add_question">
+							<input type="hidden" name="status" value="2">
 						    <div class="row">
 								<div class="col-lg-6">
 									<label>First Name <span class="redsb">*</span></label>
