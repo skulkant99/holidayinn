@@ -180,9 +180,9 @@
 		<script>
 			function strip(html)
 			{
-			var tmp = document.createElement("DIV");
-			tmp.innerHTML = html;
-			return tmp.textContent || tmp.innerText || "";
+				var tmp = document.createElement("DIV");
+				tmp.innerHTML = html;
+				return tmp.textContent || tmp.innerText || "";
 			}
 			$(document).ready(function(){
 				$("a.submit").click(function(e){		

@@ -26,9 +26,10 @@ Route::get('/faq','QuestionController@index');
 Route::get('/seach','QuestionController@seach');
 Route::post('/AddQuestion','QuestionController@store');
 
-// Route::get('/seach','SeachController@seach');
-// Route::get('/faq',function () {
-//     return view('faq');
+Route::get('SearchAll/','SearchController@search');
+Route::post('/search','SearchController@search');
+// Route::post('/search',function () {
+//     return view('search');
 // });
 Route::post('/comment','CommentController@store');
 

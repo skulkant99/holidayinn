@@ -68,7 +68,7 @@
 				
 								<?php 
 									foreach ($banner as $_banner) {
-										if($_banner->banner_type == "F"){
+										if(isset($_banner->photo) && $_banner->banner_type == "F"){
 											echo '<li>
 												<a href="#"><img src="'.asset('uploads/Banner/'.$_banner->photo).'" class="img-fluid"> </a>
 											</li>';
@@ -84,7 +84,7 @@
 							<ul class="slides">
 								<?php 
 									foreach ($banner as $_banner) {
-										if($_banner->banner_type == "M"){
+										if(isset($_banner->photo) && $_banner->banner_type == "M"){
 											echo '<li>
 													<a href="#"><img src="'.asset('uploads/Banner/'.$_banner->photo).'" class="img-fluid"> </a>
 												 </li>';
@@ -104,10 +104,10 @@
 		</div>
 		<div class="container mt-4">
 			<div class="row">
-				<div class="col-lg-9">
+				<div class="col-lg-9" id="contant">
 					@foreach($content as $_content)
 						<div class="row offer_box">
-						<div class="col-12 col-lg-6">
+						<div class="col-12 col-lg-6 photo">
 							<?php $photo = json_decode($_content->photo, true)  ?>
 								@if(isset($photo) && $photo)
 								<div class="img_offer"> <img src="{{asset('uploads/Information/'.$photo[0])}}" class="img-fluid"> </div>
@@ -139,7 +139,7 @@
 										<li>
 											<div class="sbutton"> <span><img src="images/share.png"></span>
 												<ul class="smenu">
-													<li class="facebook"><a href=""><i class="fab fa-facebook-f"></i> Facebook</a></li>
+													<li class="facebook"><a href="" id="shareContent_{{$_content->id}}" ><i class="fab fa-facebook-f"></i> Facebook</a></li>
 													<li class="twitter"><a href=""><i class="fab fa-twitter"></i> Twitter</a></li>
 													<li class="googleplus"><a href=""><i class="fab fa-google-plus-g"></i> Google+</a></li>
 												</ul>
@@ -295,6 +295,36 @@
 					$('.smenu').toggleClass('share');
 				});
 			</script>
+			<script>
+					window.fbAsyncInit = function() {
+						FB.init({
+							"appID": "2098708527096052",
+							"frictionlessRequests": true,
+							"init": true,
+							"level": "debug",
+							"signedRequest": null,
+							"status": true,
+							"version": "v3.2",
+							"viewMode": "website",
+							"autoRun": false
+						});
+					};
+					</script>
+				<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+				<script>
+					@foreach ($content as  $_content)
+						document.getElementById('shareContent_{{$_content->id}}').onclick = function() {
+						FB.ui({
+							method: 'share',
+							display: 'popup',
+							href: 'https://developers.facebook.com/docs/',
+						}, function(response){});
+						}
+					@endforeach
+				
+				
+				</script>
+			
 	
 </body>
 

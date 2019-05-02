@@ -373,10 +373,13 @@
 		</div>
 		<div class="col-12 col-md-9 col-lg-6">
 		<li><div class="search_top wow fadeInUp">
-						<input type='text' placeholder="Search here">
-						<button class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Search</button>
+				<form  action="{{url('search')}}" method="POST" id="search_all" >
+						<input type='text' name="search" id="search" placeholder="Search here">
+						<button type="submit" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Search</button>
 						<button class="icon-sub-m d-block d-sm-none d-md-none d-lg-none d-xl-none"><i class="fa fa-angle-right"></i></button>
-					</div></li>
+						<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
+				</form>
+			</div></li>
 					<li>
 						
 					<a href="#" class="btn btn-secondary">Book now</a>
@@ -662,6 +665,28 @@
       });
 
 </script>
+{{-- <script>
+	$('body').on('submit','#search_all',function(e){
+				e.preventDefault();
+				var name = $('#search').val();
+				$.ajax({
+						method: "GET",
+						url: "{{url('SearchAll/')}}",
+						data: {name:name},
+				}).done(function( rec ) {				
+						$('#contant').html('');
+						$.each(rec,function(k,v){
+								var photo = jQuery.parseJSON('{"photo":"'+v.photo+'"}');
+						                 
+								var text = ``;
+								$('#photo').append(text);
+						})
+				}).fail(function(){
+						swal('ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');                   
+						btn.button('reset');
+				});
+		});
+</script> --}}
 <!-- <script>
 	
 	$('body').on('submit','#FormLogin',function(e){
