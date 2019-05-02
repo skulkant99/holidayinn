@@ -548,30 +548,24 @@
 					password: {
 								required: true,
 						},
-					confirm_password : {
-								required: true,
-								equalTo : "#password",
-					},
+				
 					remember_token: {
 								required: true,
 						}
 				},
 				messages: {
 					name: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						},
 					email: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						},
 					password: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						},
-					confirm_password : {
-								required: "กรุณาระบุ",
-								equalTo : "กรุณากรอก password ให้ตรงกัน",
-						},
+				
 					remember_token: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						}
 				},
 				highlight: function (e) {
@@ -596,14 +590,14 @@
 								if(rec.status==1){
 									// window.location = "{{url('profile')}}";
 										resetFormCustom(form);
-										swal('สมัครสมาชิกสำเร็จแล้ว','กรุณาตรวจสอบอีเมล์เพื่อยืนยันตัวตน',"success");
+										swal('Successfully subscribed','Please check the email to verify your identity.',"success");
 
 								}else{
 									swal(rec.title,rec.content,"error");
 										btn.attr('disabled',false)
 								}
 						}).fail(function(){
-								swal("สมัครสมาชิกผิดผลาด","อีเมล์มีการใช้งานแล้ว กรุณาตรวจสอบอีกครั้ง","error");
+								swal("Register for membership wrong","Email is already in use Please check again","error");
 								btn.attr('disabled',false)
 						});
 				},
@@ -627,10 +621,10 @@
 				},
 				messages: {
 					email: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						},
 					password: {
-								required: "กรุณาระบุ",
+								required: "please enter",
 						}
 				},
 				highlight: function (e) {
@@ -652,14 +646,14 @@
 								data : $(form).serialize()
 						}).done(function(rec){
 							if(rec==0){
-								swal('เข้าสู่ระบบ','ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง','error');
+								swal('Login','Username or password is incorrect','error');
 							}else{
 									window.location.href =  "{{url('/')}}";
 									
 									// swal('เข้าสู่ระบบ','คุณได้ทำการเข้าสู่ระบบเรียบร้อยแล้ว','success');
 							}
 						}).fail(function(){
-								swal('เข้าสู่ระบบ','ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง','error');                   
+								swal('Login','Username or password is incorrect','error');                   
 								btn.button('reset');
 						});
 				},

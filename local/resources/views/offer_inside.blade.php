@@ -59,7 +59,14 @@
 					@foreach ($content_detail as $_content_detail)
 					<div class="row">
 						<div class="col">
-							<div class="offer_details_inside"> <img src="{{asset('images/offer-inside_03.png')}}" class="img-fluid">
+							@php
+								 $photo = json_decode($_content_detail->photo, true)
+							@endphp
+							@if(isset($photo) && $photo)
+								<div class="offer_details_inside"> <img src="{{asset('uploads/Information/'.$photo[1])}}" class="img-fluid">
+							@else
+								<div class="offer_details_inside"> <img src="{{asset('uploads/Information/nophoto.png')}}" class="img-fluid">
+							@endif
 								<br>
 								<br>
 								<p>{{strip_tags($_content_detail->detail)}}</p>
@@ -100,7 +107,19 @@
 							<div class="border_comment gallery">
 								<h5>First Time Buyer</h5>
 								<p>{{$_comment->comment}}</p>
-								<div class="date_comment gallery"> 1 month ago By {{$_comment->comment_by}} </div>
+								@php
+									$today = new DateTime(date("Y-m-d H:i:s"));
+									$date_comment  = $_comment->created_at;
+									$days_until_appt = $date_comment->diff($today)->d; 
+								@endphp
+								<div class="date_comment gallery"> 
+									@if($days_until_appt == 0)
+										today ago By 
+									@else
+										{{$days_until_appt}} day ago By 
+									@endif
+									{{$_comment->comment_by}}
+								 </div>
 							</div>
 							<br>
 						@endforeach

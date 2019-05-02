@@ -23,10 +23,10 @@ Route::get('/question',function () {
 });
 
 Route::get('/faq','QuestionController@index');
-// Route::get('/seach','QuestionController@seach');
+Route::get('/seach','QuestionController@seach');
 Route::post('/AddQuestion','QuestionController@store');
 
-Route::get('/seach','SeachController@seach');
+// Route::get('/seach','SeachController@seach');
 // Route::get('/faq',function () {
 //     return view('faq');
 // });

@@ -11,26 +11,28 @@ class QuestionController extends Controller
 {
     public function index()
     {
-        $data['ask'] = \App\Models\Answer::leftJoin('questions','questions.id','=','answers.question_id')
-            ->select('answers.*','questions.question as question_name')
+        $data['ask'] = \App\Models\Question::leftJoin('answers','answers.question_id','=','questions.id')
+            ->select('questions.*','answers.answer as answer_name')
             ->get();
+
         return view('faq',$data);
     }
     public function seach(Request $request)
     {
         $name_seach = $request->has('name') ? $request->input('name') : null;
         if($name_seach != null){
-            $data['ask']= \App\Models\Answer::leftJoin('questions','questions.id','=','answers.question_id')
-                ->select('answers.*','questions.question as question_name')
-                ->where('Answers.answer','like','%'.$name_seach.'%')
+            $patients = \App\Models\Question::leftJoin('answers','answers.question_id','=','questions.id')
+                ->select('questions.*','answers.answer as answer_name')
+                ->where('answers.answer','like','%'.$name_seach.'%')
                 ->orWhere('questions.question','like','%'.$name_seach.'%')
                 ->get();
+              
         }else{
-            $data['ask'] = \App\Models\Answer::leftJoin('questions','questions.id','=','answers.question_id')
-                ->select('answers.*','questions.question as question_name')
+            $patients= \App\Models\Question::leftJoin('answers','answers.question_id','=','questions.id')
+                ->select('questions.*','answers.answer as answer_name')
                 ->get();
         }     
-        return view('faq_seach',$data);
+        return response()->json($patients);
         
     }
     public function store(Request $request)

@@ -69,7 +69,7 @@
 		},
 		messages: {
 		  email: {
-				required: "กรุณาระบุ",
+				required: "Please enter",
 			}
 		},
 		highlight: function (e) {
@@ -93,13 +93,13 @@
 				btn.attr('disabled',false);
 				if(rec.status==1){
 					resetFormCustom(form);
-					swal('ลืมรหัสผ่าน','ได้ทำการส่ง Password ใหม่ทางอีเมลแล้ว','success');
+					swal('Forgot your password','Has sent a new password via email','success');
 				}else{
 					swal(rec.title,rec.content,"error");
 					btn.attr('disabled',false)
 				}
 			}).fail(function(){
-				swal('ลืมรหัสผ่าน','อีเมลไม่ถูกต้อง','error');
+				swal('Forgot your password','Invalid email','error');
 				btn.attr('disabled',false)
 			});
 		},

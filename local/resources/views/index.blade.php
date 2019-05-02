@@ -108,7 +108,12 @@
 					@foreach($content as $_content)
 						<div class="row offer_box">
 						<div class="col-12 col-lg-6">
-							<div class="img_offer"> <img src="{{asset('uploads/Information/'.$_content->photo)}}" class="img-fluid"> </div>
+							<?php $photo = json_decode($_content->photo, true)  ?>
+								@if(isset($photo) && $photo)
+								<div class="img_offer"> <img src="{{asset('uploads/Information/'.$photo[0])}}" class="img-fluid"> </div>
+								@else
+								@endif
+					
 						</div>
 						<div class="col-12 col-lg-6">
 							<div class="offer_details">
@@ -286,6 +291,7 @@
 			<script>
 				$('.sbutton').on('click', function (event) {
 					event.preventDefault();
+					
 					$('.smenu').toggleClass('share');
 				});
 			</script>

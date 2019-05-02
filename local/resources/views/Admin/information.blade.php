@@ -193,19 +193,21 @@
                 $('#edit_photo').closest('#orak_edit_photo').html('<div id="edit_photo" orakuploader="on"></div>');
                 $('#org_photo').val(rec.photo);
                 if(rec.photo){
-                    var max_file = 0;
+                    var max_file = 100;
                     var file = [];
                         file[0] = rec.photo;
-                    var photo = rec.photo;
+                    var photo = $.parseJSON(rec.photo);
+                    photo.reverse();
                 }else{
-                    var max_file = 1;
+                    var max_file = 100;
                     var file = [];
-                    var photo = rec.photo;
-                }       
+                    var photo = $.parseJSON(rec.photo);
+                }      
                 $('#edit_photo').orakuploader({
                     orakuploader_path               : url_gb+'/',
                     orakuploader_ckeditor           : false,
                     orakuploader_use_dragndrop      : true,
+                    orakuploader_use_sortable       : true,
                     orakuploader_main_path          : 'uploads/temp/',
                     orakuploader_thumbnail_path     : 'uploads/temp/',
                     orakuploader_thumbnail_real_path: asset_gb+'uploads/temp/',
@@ -216,12 +218,14 @@
                     orakuploader_use_rotation       : false,
                     orakuploader_maximum_uploads    : max_file,
                     orakuploader_hide_on_exceed     : true,
-                    orakuploader_attach_images      : file,
+                    orakuploader_attach_images      : photo,
                     orakuploader_field_name         : 'photo',
                     orakuploader_finished           : function(){
-
+                        $(".file").addClass("multi_file");
+                        centerModals();
                     }
                 });
+                $(".file").addClass("multi_file");
 
                 $('#edit_title').val(rec.title);
                 CKEDITOR.instances['edit_detail'].setData(rec.detail);
@@ -395,6 +399,7 @@
             orakuploader_path               : url_gb+'/',
             orakuploader_ckeditor           : false,
             orakuploader_use_dragndrop      : true,
+            orakuploader_use_sortable       : true,
             orakuploader_main_path          : 'uploads/temp/',
             orakuploader_thumbnail_path     : 'uploads/temp/',
             orakuploader_thumbnail_real_path: asset_gb+'uploads/temp/',
@@ -403,10 +408,12 @@
             orakuploader_no_image           : asset_gb+'images/no-image.jpg',
             orakuploader_add_label          : 'เลือกรูปภาพ',
             orakuploader_use_rotation       : false,
-            orakuploader_maximum_uploads    : 1,
+            orakuploader_maximum_uploads    : 100,
             orakuploader_hide_on_exceed     : true,
             orakuploader_field_name         : 'photo',
             orakuploader_finished           : function(){
+                $(".file").addClass("multi_file");
+                centerModals();
 
             }
         });

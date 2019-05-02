@@ -67,12 +67,13 @@ class CheckController extends Controller
         }
     }
     public function updatepassword(Request $request){
+        dd($request->input('password'));
         $input_all['password'] = bcrypt($request->input('password'));
         $id = $request->input('user_id');
 
         $validator = Validator::make($request->all(), [
             'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required'
+            
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
@@ -85,7 +86,7 @@ class CheckController extends Controller
             } catch (\Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
-                $return['content'] = 'ไม่สำรเ็จ'.$e->getMessage();;
+                $return['content'] = 'ไม่สำเร็จ'.$e->getMessage();;
             }
         }else{
             $return['status'] = 0;

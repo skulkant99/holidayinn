@@ -42,14 +42,19 @@ class InformationController extends Controller
     public function store(Request $request)
     {
         $input_all = $request->all();  
+        $file_name = [];
 
-        if(isset($input_all['photo'])&&isset($input_all['photo'][0])){
-            $input_all['photo'] = $input_all['photo'][0];
-            if(Storage::disk("uploads")->exists("temp/".$input_all['photo'])&&!Storage::disk("uploads")->exists("Information/".$input_all['photo'])){
-                Storage::disk("uploads")->copy("temp/".$input_all['photo'],"Information/".$input_all['photo']);
-                Storage::disk("uploads")->delete("temp/".$input_all['photo']);
+        if(isset($input_all['photo'])){
+            foreach($input_all['photo'] as $key=>$val){
+                //$input_all['photo'] = $input_all['photo'][$key];
+                if(Storage::disk("uploads")->exists("temp/".$input_all['photo'][$key])&&!Storage::disk("uploads")->exists("Information/".$input_all['photo'][$key])){
+                    Storage::disk("uploads")->copy("temp/".$input_all['photo'][$key],"Information/".$input_all['photo'][$key]);
+                    Storage::disk("uploads")->delete("temp/".$input_all['photo'][$key]);
+                    $file_name[] = $input_all['photo'][$key];
+                }
             }
         }
+        $input_all['photo'] = json_encode($file_name);
 
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
@@ -86,13 +91,19 @@ class InformationController extends Controller
     public function show($id)
     {
         $result = \App\Models\Information::find($id);
+            
             if($result){
                 if($result->photo){
-                    if(Storage::disk("uploads")->exists("Information/".$result->photo)){
-                        if(Storage::disk("uploads")->exists("temp/".$result->photo)){
-                            Storage::disk("uploads")->delete("temp/".$result->photo);
+                    $photos = json_decode($result->photo);
+                    if(sizeof($photos) > 0){
+                        foreach($photos as $photo){
+                            if(Storage::disk("uploads")->exists("Information/".$photo)){
+                                if(Storage::disk("uploads")->exists("temp/".$photo)){
+                                    Storage::disk("uploads")->delete("temp/".$photo);
+                                }
+                                Storage::disk("uploads")->copy("Information/".$photo,"temp/".$photo);
+                            }
                         }
-                        Storage::disk("uploads")->copy("Information/".$result->photo,"temp/".$result->photo);
                     }
                 }
             }
@@ -122,22 +133,24 @@ class InformationController extends Controller
     {
         $input_all = $request->all();
 
-        if(isset($input_all['photo'])&&isset($input_all['photo'][0])){
-            $input_all['photo'] = $input_all['photo'][0];
-            if(Storage::disk("uploads")->exists("temp/".$input_all['photo'])){
-                if(Storage::disk("uploads")->exists("Information/".$input_all['photo'])){
-                    Storage::disk("uploads")->delete("Information/".$input_all['photo']);
+        $file_name = [];
+        if(isset($input_all['photo'])){
+            //$input_all['photo'] = $input_all['photo'][0];
+            //unset($input_all['org_photo']);
+            foreach($input_all['photo'] as $key=>$val){
+                if(Storage::disk("uploads")->exists("temp/".$input_all['photo'][$key])&&!Storage::disk("uploads")->exists("Information/".$input_all['photo'][$key])){
+                    Storage::disk("uploads")->copy("temp/".$input_all['photo'][$key],"Information/".$input_all['photo'][$key]);
+                    Storage::disk("uploads")->delete("temp/".$input_all['photo'][$key]);
                 }
-                Storage::disk("uploads")->copy("temp/".$input_all['photo'],"Information/".$input_all['photo']);
-
+                $file_name[] = $input_all['photo'][$key];
             }
-        }else{
-            $input_all['photo'] = null;
         }
         if(isset($input_all['org_photo'])){
             Storage::disk("uploads")->delete("temp/".$input_all['org_photo']);
         }
         unset($input_all['org_photo']);
+        $input_all['photo'] = json_encode($file_name);
+
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
@@ -199,9 +212,12 @@ class InformationController extends Controller
         })
         ->editColumn('photo',function($rec){
             if($rec->photo == null){
-                return $photo = ' <img src="'.asset('uploads/Information/nophoto.png').'" class="image-full image-btn" width="50%" height="50%" alt="innothect"/>';
-            }else {
-                return $photo = ' <img src="'.asset('uploads/Information/'.$rec->photo).'" class="image-full image-btn" width="50%" height="50%" alt="innothect"/>';
+                  return $photo = ' <img src="'.asset('uploads/Information/nophoto.png').'" class="image-full image-btn" width="70" height="70" alt="holidayinn"/>';
+            }else{
+              foreach (json_decode($rec->photo) as $photo_content) {
+                 return $photo = ' <img src="'.asset('uploads/Information/'.$photo_content).'" class="image-full image-btn" width="70" height="70" alt="holidayinn"/>';
+                 break;
+              }
             }
         })
         ->addColumn('action',function($rec){

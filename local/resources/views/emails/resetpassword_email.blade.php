@@ -9,7 +9,7 @@
     <body>
     
         <section style="margin-bottom: 30px;margin-top: 30px;">
-            <div style="background-color: #999acc;color: #fff;padding: 35px 35px;"><h2>ยินดีต้อนรับเข้าสู่เว็บไซต์ holidayinn.com</h2></div>
+            <div style="background-color: #999acc;color: #fff;padding: 35px 35px;"><h2> Welcome to the website holidayinn.com</h2></div>
         </section>
     
         <section style="margin-bottom: 30px;">
@@ -19,21 +19,21 @@
         </section>
     
         <section style="margin-bottom: 30px;">
-            <p>สวัสดีคุณ {{$name}} </p>
-            <p>ยินดีต้อนรับเข้าสู่เว็บไซต์ holidayinn.com</p>
-            <p>คุณสามารถใช้บัญชีที่คุณสมัครเข้าสู่ระบบได้ทันที <a href="{{url('ActivateEmail/'.$token)}}">ที่นี่</a> และใช้ข้อมูลด้านล่างในการเข้าสู่ระบบ</p>
+            <p>Hello {{$name}} </p>
+            <p>Welcome to the website holidayinn.com</p>
+            <p>You can use the account that you have subscribed to immediately. <a href="{{url('ActivateEmail/'.$token)}}">here</a>And use the information below to log in</p>
         </section>
         <section style="margin-bottom: 30px;">
             <ul>
                 <li>Username : <a href="">{{$email}}</a></li>
-                <li>Password : “รหัสผ่านที่คุณกรอกเพื่อสมัครสมาชิก”</li>
+                <li>Password : “The password that you enter to apply for membership”</li>
             </ul>
         </section>
         <section style="margin-bottom: 150px;">
-            <p>หากคุณลืมรหัสผ่านในการเข้าสู่ระบบ? โปรดคลิก <a href="{{url('Repassword/'.$token)}}">ลืมรหัสผ่าน</a></p>
+            <p>If you have forgotten your login password? Please click <a href="{{url('Repassword/'.$token)}}">Forgot your password</a></p>
         </section>
         <section style="">
-            <p>หากท่านมีข้อสงสัยประการใดหรือต้องการสอบถามข้อมูลเพิ่มเติม</p>
+            <p>If you have any questions or need more information</p>
             <ul>
                 <li>โทร : 097-280-1272</li>
                 <li>E-mail: info@holidayinn.com</li>

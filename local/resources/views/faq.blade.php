@@ -72,6 +72,9 @@
 			transition: all 0.2s ease-in-out;
 		}
 		
+
+
+		
 </style>
 	@include('inc_topmenu')
 	<div class="container mt-4">
@@ -109,8 +112,8 @@
 				<div class="col">
 					<ul class="accordion">
 						@foreach ($ask as $_ask)
-								<li> <a>{{strip_tags($_ask->question_name)}}</a>
-								<p>	{{strip_tags($_ask->answer)}}</p>
+								<li> <a>{{strip_tags($_ask->question)}}</a>
+								<p>	{{strip_tags($_ask->answer_name)}}</p>
 							</li>
 						@endforeach
 							
@@ -167,6 +170,7 @@
 							</li> --}}
 						</ul>
 				</div>
+							
 			</div>
 		</div>
 		<br><br>
@@ -174,24 +178,12 @@
 		@include('inc_footer')
 		
 		<script>
-			(function ($) {
-				$('.accordion > li:eq(0) a').addClass('active').next().slideDown();
-				$('.accordion a').click(function (j) {
-					var dropDown = $(this).closest('li').find('p');
-					$(this).closest('.accordion').find('p').not(dropDown).slideUp();
-					if ($(this).hasClass('active')) {
-						$(this).removeClass('active');
-					}
-					else {
-						$(this).closest('.accordion').find('a.active').removeClass('active');
-						$(this).addClass('active');
-					}
-					dropDown.stop(false, true).slideToggle();
-					j.preventDefault();
-				});
-			})(jQuery);
-		</script>
-		<script>
+			function strip(html)
+			{
+			var tmp = document.createElement("DIV");
+			tmp.innerHTML = html;
+			return tmp.textContent || tmp.innerText || "";
+			}
 			$(document).ready(function(){
 				$("a.submit").click(function(e){		
 					e.preventDefault();
@@ -202,32 +194,46 @@
 						data: {name:name},
 					}).done(function( res ) {
 						// location.reload();
+						console.log(res);
+						$('.accordion').html('');
+						$.each(res,function(k,v){
+							var text = `<li> <a>`+strip(v.question)+`</a> 
+											 <p>`+strip(v.answer_name)+`</p>
+										</li>
+										`;
+							$('.accordion').append(text);
+							var s = document.createElement("script");
+								s.type = "text/javascript";
+								s.src = "{{asset('js/dropdown.js')}}";
+								$("head").append(s);
+						})
+						
 					}).fail(function(){
 						swal('เปลี่ยนรหัสผ่าน','เปลี่ยนรหัสผ่านไม่สำเร็จ','error');
 						btn.button('reset');
 					});
 				}); 
 			});
-			// $('body').on('submit','#seach',function(e){
-				
-			// 	// e.preventDefault();
-			// 	// $.ajax({
-			// 	// 	method: "POST",
-			// 	// 	url: "{{url('/updatepassword')}}",
-			// 	// 	data: $(this).serialize()
-			// 	// }).done(function( res ) {
-			// 	// 	if(res==0){
-			// 	// 		swal(res.title,res.content,'success');
-			// 	// 	}else{
-			// 	// 		// window.location = "{{url('/mycourse')}}";
-			// 	// 		swal('เปลี่ยนรหัสผ่าน','คุณได้ทำการเปลี่ยนรหัสผ่าน','success');
-			// 	// 	}
-			// 	// }).fail(function(){
-			// 	// 	swal('เปลี่ยนรหัสผ่าน','เปลี่ยนรหัสผ่านไม่สำเร็จ','error');
-			// 	// 	btn.button('reset');
-			// 	// });
-			// 	});
+			
 		</script>
+		<script>
+				(function ($) {
+					$('.accordion > li:eq(0) a').addClass('active').next().slideDown();
+					$('.accordion a').click(function (j) {
+						var dropDown = $(this).closest('li').find('p');
+						$(this).closest('.accordion').find('p').not(dropDown).slideUp();
+						if ($(this).hasClass('active')) {
+							$(this).removeClass('active');
+						}
+						else {
+							$(this).closest('.accordion').find('a.active').removeClass('active');
+							$(this).addClass('active');
+						}
+						dropDown.stop(false, true).slideToggle();
+						j.preventDefault();
+					});
+				})(jQuery);
+			</script>
 			
 </body>
 
