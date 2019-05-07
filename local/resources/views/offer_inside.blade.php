@@ -69,7 +69,7 @@
 							@endif
 								<br>
 								<br>
-								<p>{{strip_tags($_content_detail->detail)}}</p>
+								<?php echo '<p>'.$_content_detail->detail.'</p>'; ?>
 							</div>
 						</div>
 					</div>					
@@ -95,7 +95,8 @@
 					<?php }else { ?>
 						<!--	สำหรับยังไม่ Loginค่ะ			   -->
 						<div class="logincomment text-center">
-							<a href="#" class="btn btn-primary">Leave a comment</a>
+							<a href="#" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModalCenter">Leave a comment</a>
+							{{-- <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Login 	</button> --}}
 						</div>
 					<?php } ?> 
 					
@@ -105,7 +106,7 @@
 						<br>
 						@foreach ($comment as $_comment)
 							<div class="border_comment gallery">
-								<h5>First Time Buyer</h5>
+							
 								<p>{{$_comment->comment}}</p>
 								@php
 									$today = new DateTime(date("Y-m-d H:i:s"));
@@ -186,6 +187,7 @@
 		</div>
 		<br>
 		@include('inc_footer')
+		
 			<script>
 				$(function () {
 					var numItems = $('.photo-container').length;

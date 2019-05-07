@@ -6,22 +6,22 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class CategoryController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function Comment($id)
     {
-        $data['main_menu'] = 'Category';
-        $data['sub_menu'] = 'Category';
-        $data['title'] = 'Category';
-        $data['title_page'] = 'Category';
+        $data['main_menu'] = 'Comment';
+    	$data['sub_menu'] = 'Comment';
+    	$data['title'] = 'Comment';
+    	$data['title_page'] = 'Comment';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
-        
-        return view('Admin.category',$data);
+        $data['id'] = $id;
+    	return view('Admin.comment',$data);
     }
 
     /**
@@ -42,24 +42,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
-        $input_all['status'] = $request->input('status','2');
+        $input_all = $request->all();  
+
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-             
+
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::insert($data_insert);
+                \App\Models\Comment::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -83,8 +78,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\Category::find($id);
-        
+        $result = \App\Models\Comment::find($id);
         return json_encode($result);
     }
 
@@ -96,7 +90,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -109,22 +103,17 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
-        $input_all['status'] = $request->input('status','2');
+
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-             
+
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::where('id',$id)->update($data_insert);
+                \App\Models\Comment::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -150,7 +139,7 @@ class CategoryController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\Category::where('id',$id)->delete();
+            \App\Models\Comment::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -163,18 +152,19 @@ class CategoryController extends Controller
         return $return;
     }
 
-    public function Lists(){
-        $result = \App\Models\Category::select();
+    public function ListsComment(Request $request)
+    {
+        $information_id = $request->input('information_id');
+        $result = \App\Models\Comment::where('information_id',$information_id)->select();
         return \Datatables::of($result)
         ->addIndexColumn()
-        ->addColumn('sort_id',function($rec){
-            if(is_numeric($rec->sort_id)){
-                return number_format($rec->sort_id);
-            }else{
-                return $rec->sort_id;
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
             }
         })
-        
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
@@ -185,7 +175,6 @@ class CategoryController extends Controller
                 </button>
             ';
             return $str;
-        })->make(true);
+        })->make(true);  
     }
-
 }

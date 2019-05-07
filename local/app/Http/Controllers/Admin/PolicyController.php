@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class CategoryController extends Controller
+class PolicyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,24 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'Category';
-        $data['sub_menu'] = 'Category';
-        $data['title'] = 'Category';
-        $data['title_page'] = 'Category';
+        $data['main_menu'] = 'PolicyAll';
+        $data['sub_menu'] = 'Full comment policy';
+        $data['title'] = 'Full comment policy';
+        $data['title_page'] = 'Full comment policy';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
-        return view('Admin.category',$data);
+        return view('Admin.policy',$data);
+    }
+
+    public function ourpolicy()
+    {
+        $data['main_menu'] = 'PolicyAll';
+        $data['sub_menu'] = 'Our policy on commenting';
+        $data['title'] = 'Our policy on commenting';
+        $data['title_page'] = 'Our policy on commenting';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        
+        return view('Admin.ourpolicy',$data);
     }
 
     /**
@@ -43,23 +54,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
         $input_all['status'] = $request->input('status','2');
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'detail' => 'required',
              
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::insert($data_insert);
+                \App\Models\Policies::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -83,7 +90,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\Category::find($id);
+        $result = \App\Models\Policies::find($id);
         
         return json_encode($result);
     }
@@ -109,22 +116,18 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
         $input_all['status'] = $request->input('status','2');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'detail' => 'required',
              
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::where('id',$id)->update($data_insert);
+                \App\Models\Policies::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -150,7 +153,7 @@ class CategoryController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\Category::where('id',$id)->delete();
+            \App\Models\Policies::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -164,17 +167,55 @@ class CategoryController extends Controller
     }
 
     public function Lists(){
-        $result = \App\Models\Category::select();
+        $result = \App\Models\Policies::where('type','=','F')->select();
         return \Datatables::of($result)
         ->addIndexColumn()
-        ->addColumn('sort_id',function($rec){
-            if(is_numeric($rec->sort_id)){
-                return number_format($rec->sort_id);
-            }else{
-                return $rec->sort_id;
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
             }
         })
-        
+        ->editColumn('type',function($rec){
+            if($rec->type == 'F'){
+                return $type = '<span>Full comment policy</span>';
+            }else {
+                return $type = '<span>Our policy on commenting</span>';
+            }
+        })
+        ->addColumn('action',function($rec){
+            $str='
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);
+    }
+
+    
+    public function ListsOurpolicy(){
+        $result = \App\Models\Policies::where('type','=','O')->select();
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->editColumn('type',function($rec){
+            if($rec->type == 'O'){
+                return $type = '<span>Our policy on commenting</span>';
+            }else {
+                return $type = '<span>Full comment policy</span>';
+            }
+        })
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">

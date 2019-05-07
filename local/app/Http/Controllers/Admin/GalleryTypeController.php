@@ -15,7 +15,7 @@ class GalleryTypeController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'GalleryType';
+        $data['main_menu'] = 'GalleryAll';
         $data['sub_menu'] = 'GalleryType';
         $data['title'] = 'GalleryType';
         $data['title_page'] = 'GalleryType';

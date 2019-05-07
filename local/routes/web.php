@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +15,7 @@ Route::get('/logout', 'AuthController@logout');
 //     return view('index');
 // });
 Route::get('/','HomeController@index');
-Route::get('/gallery','GAlleryController@index');
+Route::get('/gallery','GalleryController@index');
 
 Route::get('/question',function () {
     return view('question');
@@ -33,15 +32,19 @@ Route::post('/search','SearchController@search');
 // });
 Route::post('/comment','CommentController@store');
 
-Route::get('/contact',function () {
-    return view('contact');
-});
-Route::get('/fullcomment',function () {
-    return view('fullcomment');
-});
-Route::get('/ourcomment',function () {
-    return view('ourcomment');
-});
+Route::get('/contact','ContactController@index');
+Route::post('/AddContact','ContactController@store');
+// Route::get('/contact',function () {
+//     return view('contact');
+// });
+Route::get('/fullcomment','PolicyController@full_policy');
+// Route::get('/fullcomment',function () {
+//     return view('fullcomment');
+// });
+Route::get('/ourcomment','PolicyController@out_policy');
+// Route::get('/ourcomment',function () {
+//     return view('ourcomment');
+// });
 Route::get('offer_inside/{id}','ContentController@detail');
 
 Route::post('/Createuser','RegisterController@store');

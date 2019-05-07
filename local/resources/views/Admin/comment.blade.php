@@ -2,7 +2,7 @@
 @section('css_top')
 @endsection
 @section('css_bottom')
-  
+
 @endsection
 @section('body')
 <div class="content">
@@ -11,27 +11,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="content">
-                            <div class="body">
-                                {{-- <input type="hidden" name="edit_id" id="edit_id">
-                                <form id="FormEdit">
-                                    <input type="hidden" name="org_photo" id="org_photo">
-                                        <div class="form-group">
-                                            <label for="edit_photo">รูปภาพ</label>
-                                            <div id="orak_edit_photo">
-                                                <div id="edit_photo" orakuploader="on"></div>
-                                            </div>
-                                        </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success">บันทึก</button>
-                                    </div>
-                                </form> --}}
-              
-                               
                             <h4 class="title">
                                 {{$title_page}}
-                                <button class="btn btn-success btn-add pull-right" >
+                                {{-- <button class="btn btn-success btn-add pull-right" >
                                     + เพิ่มข้อมูล
-                                </button>
+                                </button> --}}
                             </h4>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -42,9 +26,8 @@
                                         <thead>
                                             <tr>
                                             <th>#</th>
-                                            <th>photo</th>
-                                            <th>ประเภท</th>
-                                            <th>ลำดับ</th>
+                                            <th>comment</th>
+                                            <th>comment_by</th>
                                             <th>สถานะ</th>
                                             <th></th>
                                         </tr>
@@ -61,7 +44,7 @@
 @endsection
 @section('modal')
 <div class="modal" id="ModalAdd"  role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document"  style="max-width:50%;max-height:50%;">
+        <div class="modal-dialog" role="document"  style="max-width:70%;max-height:70%;">
             <div class="modal-content">
                 <form id="FormAdd">
                     <div class="modal-header">
@@ -69,23 +52,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-    
+                   
                     <div class="form-group">
-                        <label for="add_photo">รูปภาพ</label>
-                        <div id="orak_add_photo">
-                            <div id="add_photo" orakuploader="on"></div>
-                        </div>
+                            <label for="add_detail">comment</label>
+                            <textarea id="add_detail" name="comment" class="form-control"></textarea>
                     </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="add_banner_type">ประเภท</label>
-                            <select  class="form-control number-only select2" name="banner_type" id="add_banner_type" tabindex="-1" data-placeholder="เลือก ประเภท">
-                                <option value="">เลือก</option>
-                                <option value="F">Full</option>
-                                <option value="M">Mobile</option>
-                            </select>
-                        </div>
+                 
+                    
                         <div class="form-group col-md-6">
                             <label for="add_status">สถานะ</label>
                             <select  class="form-control number-only select2" name="status" id="add_status" tabindex="-1" data-placeholder="เลือก สถานะ">
@@ -94,13 +67,8 @@
                                 <option value="2">ไม่ใช้งาน</option>
                             </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="add_sort_id">ลำดับ</label>
-                        <input type="text" class="form-control number-only" name="sort_id" id="add_sort_id"  placeholder="ลำดับ">
-                    </div>
-                    
+                   
+                 
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">บันทึก</button>
@@ -113,44 +81,29 @@
     <div class="modal" id="ModalEdit"  role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document"  style="max-width:50%;max-height:50%;">
                 <div class="modal-content">
+                    <input type="hidden" name="edit_id" id="edit_id">
                     <form id="FormEdit">
-                        <input type="hidden" name="id" id="edit_id">
                         <div class="modal-header">
                             <h4 class="modal-title" id="myModalLabel">แก้ไข {{$title_page}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-        
-                        <input type="hidden" name="org_photo" id="org_photo">
+                                                                     
                         <div class="form-group">
-                            <label for="edit_photo">รูปภาพ</label>
-                            <div id="orak_edit_photo">
-                                <div id="edit_photo" orakuploader="on"></div>
-                            </div>
+                                <label for="edit_comment">comment</label>
+                                <textarea id="edit_comment" name="comment" class="form-control"></textarea>
                         </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="edit_banner_type">ประเภท</label>
-                                <select  class="form-control number-only select2" name="banner_type" id="edit_banner_type" tabindex="-1" data-placeholder="เลือก ประเภท">
-                                    <option value="">เลือก</option>
-                                    <option value="F">Full</option>
-                                    <option value="M">Mobile</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                    <label for="edit_status">สถานะ</label>
-                                    <select  class="form-control number-only select2" name="status" id="edit_status" tabindex="-1" data-placeholder="เลือก สถานะ">
-                                        <option value="">เลือก</option>
-                                        <option value="1">ใช้งาน</option>
-                                        <option value="2">ไม่ใช้งาน</option>
-                                    </select>
-                                </div>
-                        </div>
+                        
                         <div class="form-group">
-                            <label for="add_sort_id">ลำดับ</label>
-                            <input type="text" class="form-control number-only" name="sort_id" id="edit_sort_id"  placeholder="ลำดับ">
+                            <label for="add_status">สถานะ</label>
+                            <select  class="form-control number-only select2" name="status" id="edit_status" tabindex="-1" data-placeholder="เลือก สถานะ">
+                                <option value="">เลือก</option>
+                                <option value="1">ใช้งาน</option>
+                                <option value="2">ไม่ใช้งาน</option>
+                            </select>
                         </div>
+                       
+                      
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">บันทึก</button>
@@ -167,24 +120,23 @@
     <script>
          var TableList = $('#TableList').dataTable({
             "ajax": {
-                "url": url_gb+"/admin/banner/Lists",
+                "url": url_gb+"/admin/information/ListsComment",
                 "data": function ( d ) {
-                    //d.myKey = "myValue";
+                    d.information_id = {{$id}};
                     // d.custom = $('#myInput').val();
                     // etc
                 }
             },
             "columns": [
                 {"data" : "DT_RowIndex" , "className": "text-center", "searchable": false, "orderable": false},
-                {"data" : "photo"},
-                {"data" : "banner_type"},
-                {"data" : "sort_id","className": "text-center"},
+                {"data" : "comment"},
+                {"data" : "comment_by"},
                 {"data" : "status"},
                 { "data": "action","className":"action text-center","searchable" : false , "orderable" : false }
             ]
          });
          $('body').on('click','.btn-add',function(data){
-            $('.select2').select2();
+             $('.select2').select2();
             ShowModal('ModalAdd');
         });
         $('body').on('click','.btn-edit',function(data){
@@ -194,46 +146,14 @@
             $('#edit_id').val(id);
             $.ajax({
                 method : "GET",
-                url : url_gb+"/admin/banner/show/"+id,
+                url : url_gb+"/admin/Comment/show/"+id,
                 dataType : 'json'
             }).done(function(rec){
                 console.log(rec);
-                
-                $('#edit_photo').closest('#orak_edit_photo').html('<div id="edit_photo" orakuploader="on"></div>');
-                $('#org_photo').val(rec.photo);
-                if(rec.photo){
-                    var max_file = 0;
-                    var file = [];
-                        file[0] = rec.photo;
-                    var photo = rec.photo;
-                }else{
-                    var max_file = 1;
-                    var file = [];
-                    var photo = rec.photo;
-                }       
-                $('#edit_photo').orakuploader({
-                    orakuploader_path               : url_gb+'/',
-                    orakuploader_ckeditor           : false,
-                    orakuploader_use_dragndrop      : true,
-                    orakuploader_main_path          : 'uploads/temp/',
-                    orakuploader_thumbnail_path     : 'uploads/temp/',
-                    orakuploader_thumbnail_real_path: asset_gb+'uploads/temp/',
-                    orakuploader_add_image          : asset_gb+'images/add.png',
-                    orakuploader_loader_image       : asset_gb+'images/loader.gif',
-                    orakuploader_no_image           : asset_gb+'images/no-image.jpg',
-                    orakuploader_add_label          : 'เลือกรูปภาพ',
-                    orakuploader_use_rotation       : false,
-                    orakuploader_maximum_uploads    : max_file,
-                    orakuploader_hide_on_exceed     : true,
-                    orakuploader_attach_images      : file,
-                    orakuploader_field_name         : 'photo',
-                    orakuploader_finished           : function(){
 
-                    }
-                });
-                $('#edit_sort_id').val(rec.sort_id);
+                // CKEDITOR.instances['edit_comment'].setData(rec.comment);
+                $('#edit_comment').val(rec.comment);
                 $('#edit_status').val(rec.status);
-                $('#edit_banner_type').val(rec.banner_type);
                 $('.select2').select2();
                 btn.button("reset");
                 ShowModal('ModalEdit');
@@ -242,63 +162,17 @@
                 btn.button("reset");
             });
         });
-        // $.ajax({
-        //         method : "POST",
-        //         url : url_gb+"/admin/banner/show",
-        //         dataType : 'json'
-        //     }).done(function(rec){
-        //         $('#edit_photo').closest('#orak_edit_photo').html('<div id="edit_photo" orakuploader="on"></div>');
-        //         $('#org_photo').val(rec.photo);
-        //         if(rec.photo){
-        //             var max_file = 0;
-        //             var file = [];
-        //                 file[0] = rec.photo;
-        //             var photo = rec.photo;
-        //         }else{
-        //             var max_file = 1;
-        //             var file = [];
-        //             var photo = rec.photo;
-        //         }       
-        //         $('#edit_photo').orakuploader({
-        //             orakuploader_path               : url_gb+'/',
-        //             orakuploader_ckeditor           : false,
-        //             orakuploader_use_dragndrop      : true,
-        //             orakuploader_main_path          : 'uploads/temp/',
-        //             orakuploader_thumbnail_path     : 'uploads/temp/',
-        //             orakuploader_thumbnail_real_path: asset_gb+'uploads/temp/',
-        //             orakuploader_add_image          : asset_gb+'images/add.png',
-        //             orakuploader_loader_image       : asset_gb+'images/loader.gif',
-        //             orakuploader_no_image           : asset_gb+'images/no-image.jpg',
-        //             orakuploader_add_label          : 'เลือกรูปภาพ',
-        //             orakuploader_use_rotation       : false,
-        //             orakuploader_maximum_uploads    : max_file,
-        //             orakuploader_hide_on_exceed     : true,
-        //             orakuploader_attach_images      : file,
-        //             orakuploader_field_name         : 'photo',
-        //             orakuploader_finished           : function(){
-
-        //             }
-        //         });
-         
-        //     }).fail(function(){
-        //         swal("system.system_alert","system.system_error","error");
-        //         btn.button("reset");
-        //     });
         $('#FormAdd').validate({
             errorElement: 'div',
             errorClass: 'invalid-feedback',
             focusInvalid: false,
             rules: {
 
-                name: {
-                    required: true,
-                },
+             
             },
             messages: {
 
-                name: {
-                    required: "กรุณาระบุ",
-                },
+               
             },
             highlight: function (e) {
                 validate_highlight(e);
@@ -323,7 +197,7 @@
                 btn.button("loading");
                 $.ajax({
                     method : "POST",
-                    url : url_gb+"/admin/banner",
+                    url : url_gb+"/admin/Comment",
                     dataType : 'json',
                     data : $(form).serialize()
                 }).done(function(rec){
@@ -351,15 +225,10 @@
             focusInvalid: false,
             rules: {
 
-                name: {
-                    required: true,
-                },
             },
             messages: {
 
-                name: {
-                    required: "กรุณาระบุ",
-                },
+              
             },
             highlight: function (e) {
                 validate_highlight(e);
@@ -384,7 +253,7 @@
                 btn.button("loading");
                 $.ajax({
                     method : "POST",
-                    url : url_gb+"/admin/banner/"+id,
+                    url : url_gb+"/admin/Comment/"+id,
                     dataType : 'json',
                     data : $(form).serialize()
                 }).done(function(rec){
@@ -424,7 +293,7 @@
             }).then(function() {
                 $.ajax({
                     method : "POST",
-                    url : url_gb+"/admin/banner/Delete/"+id,
+                    url : url_gb+"/admin/Comment/Delete/"+id,
                     data : {ID : id}
                 }).done(function(rec){
                     if(rec.status==1){
@@ -440,28 +309,10 @@
                 //console.log(e);
             });
         });
-        $('#add_photo').orakuploader({
-            orakuploader_path               : url_gb+'/',
-            orakuploader_ckeditor           : false,
-            orakuploader_use_dragndrop      : true,
-            orakuploader_main_path          : 'uploads/temp/',
-            orakuploader_thumbnail_path     : 'uploads/temp/',
-            orakuploader_thumbnail_real_path: asset_gb+'uploads/temp/',
-            orakuploader_add_image          : asset_gb+'images/add.png',
-            orakuploader_loader_image       : asset_gb+'images/loader.gif',
-            orakuploader_no_image           : asset_gb+'images/no-image.jpg',
-            orakuploader_add_label          : 'เลือกรูปภาพ',
-            orakuploader_use_rotation       : false,
-            orakuploader_maximum_uploads    : 1,
-            orakuploader_hide_on_exceed     : true,
-            orakuploader_field_name         : 'photo',
-            orakuploader_finished           : function(){
-
-            }
-        });
+       
+        CKEDITOR.replace('add_comment');
+        CKEDITOR.replace('edit_comment');
         $('#add_status').select2();
         $('#edit_status').select2();
-        $('#add_banner_type').select2();
-        $('#edit_banner_type').select2();
     </script>
 @endsection

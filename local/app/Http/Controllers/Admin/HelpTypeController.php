@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class CategoryController extends Controller
+class HelpTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'Category';
-        $data['sub_menu'] = 'Category';
-        $data['title'] = 'Category';
-        $data['title_page'] = 'Category';
+        $data['main_menu'] = 'contactAll';
+        $data['sub_menu'] = 'HelpType';
+        $data['title'] = 'HelpType';
+        $data['title_page'] = 'HelpType';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
-        return view('Admin.category',$data);
+        return view('Admin.help_type',$data);
     }
 
     /**
@@ -43,11 +43,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $input_all = $request->all();
-        
+        $input_all['status'] = $request->input('status','2');
             if(isset($input_all['sort_id'])){
                 $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
             }
-        $input_all['status'] = $request->input('status','2');
+        
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
@@ -59,7 +59,7 @@ class CategoryController extends Controller
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::insert($data_insert);
+                \App\Models\HelpType::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -83,7 +83,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\Category::find($id);
+        $result = \App\Models\HelpType::find($id);
         
         return json_encode($result);
     }
@@ -109,11 +109,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        
+        $input_all['status'] = $request->input('status','2');
             if(isset($input_all['sort_id'])){
                 $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
             }
-        $input_all['status'] = $request->input('status','2');
+        
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
@@ -124,7 +124,7 @@ class CategoryController extends Controller
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::where('id',$id)->update($data_insert);
+                \App\Models\HelpType::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -150,7 +150,7 @@ class CategoryController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\Category::where('id',$id)->delete();
+            \App\Models\HelpType::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -164,7 +164,7 @@ class CategoryController extends Controller
     }
 
     public function Lists(){
-        $result = \App\Models\Category::select();
+        $result = \App\Models\HelpType::select();
         return \Datatables::of($result)
         ->addIndexColumn()
         ->addColumn('sort_id',function($rec){
@@ -172,6 +172,13 @@ class CategoryController extends Controller
                 return number_format($rec->sort_id);
             }else{
                 return $rec->sort_id;
+            }
+        })
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
             }
         })
         

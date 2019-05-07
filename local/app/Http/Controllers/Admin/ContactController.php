@@ -15,11 +15,12 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'contact';
+        $data['main_menu'] = 'contactAll';
     	$data['sub_menu'] = 'contact';
     	$data['title'] = 'contact';
     	$data['title_page'] = 'contact';
-    	$data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        
     	return view('Admin.contact',$data);
     }
 

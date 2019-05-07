@@ -125,6 +125,43 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
 
        
 
+      Route::get('/HelpType', 'Admin\HelpTypeController@index');
+        Route::get('/HelpType/Lists', 'Admin\HelpTypeController@Lists');
+        Route::post('/HelpType', 'Admin\HelpTypeController@store');
+        Route::get('/HelpType/{id}', 'Admin\HelpTypeController@show');
+        Route::post('/HelpType/{id}', 'Admin\HelpTypeController@update');
+        Route::post('/HelpType/Delete/{id}', 'Admin\HelpTypeController@destroy');
+
+      Route::get('/ContactHelp', 'Admin\ContactHelpController@index');
+        Route::get('/ContactHelp/Lists', 'Admin\ContactHelpController@Lists');
+        Route::post('/ContactHelp', 'Admin\ContactHelpController@store');
+        Route::get('/ContactHelp/{id}', 'Admin\ContactHelpController@show');
+        Route::post('/ContactHelp/{id}', 'Admin\ContactHelpController@update');
+        Route::post('/ContactHelp/Delete/{id}', 'Admin\ContactHelpController@destroy');
+
+      Route::get('/Category', 'Admin\CategoryController@index');
+        Route::get('/Category/Lists', 'Admin\CategoryController@Lists');
+        Route::post('/Category', 'Admin\CategoryController@store');
+        Route::get('/Category/{id}', 'Admin\CategoryController@show');
+        Route::post('/Category/{id}', 'Admin\CategoryController@update');
+        Route::post('/Category/Delete/{id}', 'Admin\CategoryController@destroy');
+
+      Route::get('/Policy', 'Admin\PolicyController@index');
+        Route::get('/Policy/Lists', 'Admin\PolicyController@Lists');
+        Route::post('/Policy', 'Admin\PolicyController@store');
+        Route::get('/Policy/{id}', 'Admin\PolicyController@show');
+        Route::post('/Policy/{id}', 'Admin\PolicyController@update');
+        Route::post('/Policy/Delete/{id}', 'Admin\PolicyController@destroy');
+
+      Route::get('/Ourpolicy', 'Admin\PolicyController@ourpolicy');
+        Route::get('/Ourpolicy/ListsOurpolicy', 'Admin\PolicyController@ListsOurpolicy');
+
+      Route::get('/Information/Comment/{id}','Admin\CommentController@Comment');
+        Route::get('/information/ListsComment','Admin\CommentController@ListsComment');
+        Route::post('/Comment','Admin\CommentController@store');
+        Route::get('/Comment/show/{id}','Admin\CommentController@show');
+        Route::post('/Comment/{id}','Admin\CommentController@update');
+        Route::post('/Comment/Delete/{id}','Admin\CommentController@destroy');
       ##ROUTEFORINSTALL##
 });
 //OrakUploader

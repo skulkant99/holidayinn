@@ -112,13 +112,13 @@
 			},
 			messages: {
 				firstname: {
-							required: "กรุณาระบุ",
+							required: "Please enter",
 					},
 				lastname: {
-							required: "กรุณาระบุ",
+							required: "Please enter",
 					},
 				question: {
-							required: "กรุณาระบุ",
+							required: "Please enter",
 					},
 			},
 			highlight: function (e) {

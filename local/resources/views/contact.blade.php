@@ -71,25 +71,38 @@
 						<div class="col-lg-6">
 							<li><i class="fas fa-envelope"></i> Guest Service assistance :
 							<a href="mailto:duty_mw@holidayinn-phuket.com">
-								<br> duty_mw@holidayinn-phuket.com</a>
+								<?php $service = \App\Models\Contact::where('id',1)->select('name')->get(); ?>
+								<br>
+								@foreach ($service as $_service)
+									{{$_service->name}}</a>
+								@endforeach
 						</li>
 						</div>
 						<div class="col-lg-6">
 						<li><i class="fas fa-envelope"></i> Reservation assistance:
 							<a href="mailto:reservation@holidayinn-phuket.com">
-								<br> reservation@holidayinn-phuket.com</a>
+								<?php $reservation = \App\Models\Contact::where('id',2)->select('name')->get(); ?>
+								<br> @foreach ($reservation as $_reservation)
+										{{$_reservation->name}}</a>
+									@endforeach
 						</li>
 						</div>
 						<div class="col-lg-6">
 						<li><i class="fas fa-envelope"></i> Marketing assistance:
 							<a href="mailto:pimporn.tongpua@ihg.com">
-								<br> pimporn.tongpua@ihg.com</a>
+								<?php $marketing = \App\Models\Contact::where('id',3)->select('name')->get(); ?>
+								<br> @foreach ($marketing as $_marketing)
+										{{$_marketing->name}}</a>
+									@endforeach
 						</li>
 						</div>
 						<div class="col-lg-6">
 						<li><i class="fas fa-envelope"></i> Sales assistance:
 							<a href="mailto:Rapeepit.Thawornwisit@ihg.com">
-								<br> Rapeepit.Thawornwisit@ihg.com</a>
+								<?php $sales = \App\Models\Contact::where('id',4)->select('name')->get(); ?>
+								<br>@foreach ($sales as $_sales)
+										{{$_sales->name}}</a>
+									@endforeach
 						</li>
 						</div>
 					</div>
@@ -101,27 +114,30 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="form-contact">
-					<form method="post">
+					<form id="add_question">
 						<div class="row">
 							<div class="col-lg-6">
 								<label>First Name <span class="redsb">*</span></label>
-								<input id="textinput" name="textinput" type="text" class="form-control input-md"> </div>
+								<input id="textinput" name="first_name" type="text" class="form-control input-md"> </div>
 							<div class="col-lg-6">
 								<label>Last Name <span class="redsb">*</span></label>
-								<input id="textinput" name="textinput" type="text" class="form-control input-md"> </div>
+								<input id="textinput" name="last_name" type="text" class="form-control input-md"> </div>
 						</div>
 							<label>Email Address</label>
-							<input id="textinput" name="textinput" type="text" class="form-control input-md">
+							<input id="textinput" name="email" type="text" class="form-control input-md">
 							<label>How can we help you? <span class="redsb">*</span></label>
-							<select id="selectbasic" name="selectbasic" class="form-control">
+							<select id="selectbasic" name="help_id" class="form-control">
 								<option value="0" disabled selected>Select Subject </option>
-								<option value="2">Service</option>
+								@foreach($HelpTypes as $HelpType)
+								<option value="{{$HelpType->id}}">{{$HelpType->name}}</option>
+								@endforeach
 							</select>
 							<label>Details: <span class="redsb">*</span></label>
-							<textarea class="form-control" id="textarea" name="textarea" rows="5"></textarea>
+							<textarea class="form-control" id="textarea" name="detail" rows="5"></textarea>
 							<br> 
 							<button type="submit" class="btn btn-primary">Add question</button>
 							<button type="reset" class="btn btn-success">Clear</button>
+							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
 						</form>
 					</div>
 				</div>
@@ -142,7 +158,10 @@ Phuket 83150
 					
 					</div>
 					<br>
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.06532294002!2d98.29350171137511!3d7.888234962144287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30503aba1d666555%3A0x71dc0e336463a8da!2sHoliday+Inn+Resort+Phuket!5e0!3m2!1sth!2sth!4v1554362998296!5m2!1sth!2sth" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+					<?php $location = \App\Models\Contact::where('id',5)->select('name')->get(); ?>
+					@foreach ($location as $_location)
+						<iframe src="{{$_location->name}}" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>						
+					@endforeach
 				</div>
 			</div>
 		</div>
@@ -152,3 +171,74 @@ Phuket 83150
 </body>
 
 </html>
+<script>
+		$('#add_question').validate({
+			errorElement: 'div',
+			errorClass: 'invalid-feedback',
+			focusInvalid: false,
+			rules: {
+				firstname: {
+						required: true,
+					},
+				lastname: {
+						required: true,
+				},
+				detail: {
+						required: true,
+					},
+				help: {
+						required: true,
+				},
+			
+			},
+			messages: {
+				firstname: {
+							required: "Please enter",
+					},
+				lastname: {
+							required: "Please enter",
+					},
+				detail: {
+							required: "Please enter",
+					},
+				help : {
+							required: "Please select",
+				},
+			},
+			highlight: function (e) {
+					// validate_highlight(e);
+			},
+			success: function (e) {
+					validate_success(e);
+			},
+			errorPlacement: function (error, element) {
+					validate_errorplacement(error, element);
+			},
+			submitHandler: function (form) {
+					var btn = $(form).find('[type="submit"]');
+					btn.attr('disabled',true);
+					$.ajax({
+							method : "POST",
+							url : "{{url('/AddContact')}}",
+							dataType : 'json',
+							data : $(form).serialize()
+					}).done(function(rec){
+							btn.attr('disabled',false);
+							if(rec.status==1){
+								// window.location = "{{url('profile')}}";
+									resetFormCustom(form);
+									swal('Add Contact',"success");
+
+							}else{
+								swal(rec.title,rec.content,"error");
+									btn.attr('disabled',false)
+							}
+					}).fail(function(){
+							swal("สมัครสมาชิกผิดผลาด","อีเมล์มีการใช้งานแล้ว กรุณาตรวจสอบอีกครั้ง","error");
+							btn.attr('disabled',false)
+					});
+			},
+			invalidHandler: function (form) {
+			}
+      });
+</script>

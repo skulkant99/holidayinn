@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class CategoryController extends Controller
+class ContactHelpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'Category';
-        $data['sub_menu'] = 'Category';
-        $data['title'] = 'Category';
-        $data['title_page'] = 'Category';
+        $data['main_menu'] = 'contactAll';
+        $data['sub_menu'] = 'ContactHelp';
+        $data['title'] = 'ContactHelp';
+        $data['title_page'] = 'ContactHelp';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
-        
-        return view('Admin.category',$data);
+        $data['HelpTypes'] = \App\Models\HelpType::get();
+        return view('Admin.contact_help',$data);
     }
 
     /**
@@ -44,22 +44,17 @@ class CategoryController extends Controller
     {
         $input_all = $request->all();
         
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
-        $input_all['status'] = $request->input('status','2');
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-             
+            
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::insert($data_insert);
+                \App\Models\ContactHelp::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -83,7 +78,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\Category::find($id);
+        $result = \App\Models\ContactHelp::find($id);
         
         return json_encode($result);
     }
@@ -110,21 +105,16 @@ class CategoryController extends Controller
     {
         $input_all = $request->all();
         
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
-        $input_all['status'] = $request->input('status','2');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-             
+            
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::where('id',$id)->update($data_insert);
+                \App\Models\ContactHelp::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';
@@ -150,7 +140,7 @@ class CategoryController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\Category::where('id',$id)->delete();
+            \App\Models\ContactHelp::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'สำเร็จ';
@@ -164,17 +154,10 @@ class CategoryController extends Controller
     }
 
     public function Lists(){
-        $result = \App\Models\Category::select();
+        $result = \App\Models\ContactHelp::leftJoin('help_types','help_types.id','=','contact_helps.help_id')
+        ->select('contact_helps.*','help_types.name as help_type_name');
         return \Datatables::of($result)
         ->addIndexColumn()
-        ->addColumn('sort_id',function($rec){
-            if(is_numeric($rec->sort_id)){
-                return number_format($rec->sort_id);
-            }else{
-                return $rec->sort_id;
-            }
-        })
-        
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">

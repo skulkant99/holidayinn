@@ -22,6 +22,16 @@ class InformationController extends Controller
     	$data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
     	return view('Admin.information',$data);
     }
+    public function Comment($id)
+    {
+        $data['main_menu'] = 'Comment';
+    	$data['sub_menu'] = 'Comment';
+    	$data['title'] = 'Comment';
+    	$data['title_page'] = 'Comment';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        $data['id'] = $id;
+    	return view('Admin.comment',$data);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -218,6 +228,34 @@ class InformationController extends Controller
                  return $photo = ' <img src="'.asset('uploads/Information/'.$photo_content).'" class="image-full image-btn" width="70" height="70" alt="holidayinn"/>';
                  break;
               }
+            }
+        })
+        ->addColumn('action',function($rec){
+            $str='
+                <a href="'.url('admin/Information/Comment/'.$rec->id).'" data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-success btn-condensed btn-select btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="comment">
+                    <i class="ace-icon fa fa-plus bigger-120"></i>
+                </a>
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);  
+    }
+    public function ListsComment(Request $request)
+    {
+        $information_id = $request->input('information_id');
+        $result = \App\Models\Comment::where('information_id',$information_id)->select();
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
             }
         })
         ->addColumn('action',function($rec){

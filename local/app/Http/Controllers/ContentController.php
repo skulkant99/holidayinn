@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class ContentController extends Controller
 {
     public function detail($id){
@@ -19,6 +20,7 @@ class ContentController extends Controller
             ->paginate(3);
         $data['id'] = $id;
         $data['content'] = \App\Models\Information::select()->orderBy('id','DESC')->paginate(3);
+
         $view = \App\Models\Information::find($id);
         $page_view = $view->view+1;
 

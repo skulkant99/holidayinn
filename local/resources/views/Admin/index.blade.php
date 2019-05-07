@@ -271,8 +271,8 @@
 					if ($('.slideshow .flexslider').size()) {
 						$('.slideshow .flexslider').flexslider({
 							animation: 'fade'
-							, slideshowSpeed: 4000
-							, animationDuration: 100
+							, slideshowSpeed: 500
+							, animationDuration: 1000
 						});
 					}
 				}

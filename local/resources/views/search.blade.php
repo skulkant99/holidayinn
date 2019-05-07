@@ -24,7 +24,7 @@
 							</div>
 						</div>
 				@endforeach
-				{{$info->links()}}
+				{{-- {{$info->links()}} --}}
 				
 				@foreach ($qu as $_qu)
 					<div class="row offer_box">		
@@ -39,7 +39,7 @@
 						</div>
 					</div>
 				@endforeach
-				{{$qu->links()}}
+				{{-- {{$qu->links()}} --}}
 			</div>
 		</div>
 	</div>

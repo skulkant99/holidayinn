@@ -298,7 +298,7 @@
 	<div class="row topmenu_bar">
 		<div class="col-md-3 col-lg-2">
 			<div class="mainlogo">
-				<a href="index.php"><img src="{{asset('images/home2-edit_03.png')}}" class="img-fluid"></a>
+			<a href="{{url('/')}}"><img src="{{asset('images/home2-edit_03.png')}}" class="img-fluid"></a>
 			</div>
 		</div>
 		<div class="col-md-9 col-lg-10 nopad">
@@ -315,7 +315,7 @@
 					<?php	}?>
 					/ 
 					<?php if(Auth::check()){ ?>
-						<a class="btn btn-dark" href="logout"  data-target="#logout"> logout</a>
+						<a class="btn btn-dark" href="{{url('logout')}}"  data-target="#logout"> logout</a>
 					<?php	} else { ?>
 						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter2">	Register 	</button>
 
@@ -434,7 +434,7 @@
 												<a href="{{url('cf-password')}}" class="forgotpass">Forget password ?</a>
 											</div>
 											<div class="col-lg-6 text-right">
-												New Customer? <a href="#" class="signupnow">Sign up now</a>
+												New Customer? <a href="#" class="signupnow" data-toggle="modal" data-target="#exampleModalCenter2">Sign up now</a>
 										  </div>
 									</div>
 								
@@ -522,8 +522,8 @@
    $('#overlay2').toggleClass('open');
   });
 </script>
-<script src="assets/admin/vendors/jquery.validate.min.js"></script>
-<script src="assets/global/js/validate.js"></script>
+<script src="{{asset('assets/admin/vendors/jquery.validate.min.js')}}"></script>
+<script src="{{asset('assets/global/js/validate.js')}}"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>

@@ -13,14 +13,14 @@
                         <div class="content">
                             <h4 class="title">
                                 {{$title_page}}
-                                <button class="btn btn-success btn-add pull-right" >
+                                {{-- <button class="btn btn-success btn-add pull-right" >
                                     + เพิ่มข้อมูล
-                                </button>
+                                </button> --}}
                             </h4>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
-                            <div class="material-datatables">
+                            {{-- <div class="material-datatables">
                                 <div class="table-responsive">
                                     <table id="TableList" class="table" style="width:100%">
                                         <thead>
@@ -35,7 +35,100 @@
                                         </thead>
                                     </table>
                                 </div>
+                            </div> --}}
+                            <?php
+                                $service = \App\Models\Contact::where('id',1)->get();
+                                $reservation = \App\Models\Contact::where('id',2)->get();
+                                $marketing = \App\Models\Contact::where('id',3)->get();
+                                $sales = \App\Models\Contact::where('id',4)->get();
+                                $location = \App\Models\Contact::where('id',5)->get();
+                            ?>
+                             <div class="row">
+                                <div class="col-md-6">
+                                  
+                                    <form id="add_service">
+                                            <div class="form-group">
+                                                <label for="add_name">Guest Service assistance</label>
+                                                @foreach ($service as $_service)
+                                                    <input type="hidden" name="id" id="id" value="{{$_service->id}}">
+                                                    <input id="add_name" name="name" class="form-control" placeholder="Guest Service assistance" value="{{$_service->name}}">
+                                                @endforeach
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">submit</button>
+                                            </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                        <form id="add_reservation">
+                                                <div class="form-group">
+                                                    <label for="add_name">Reservation assistance</label>
+                                                    @foreach ($reservation as $_reservation)
+                                                        <input type="hidden" name="id" id="id_reservation" value="{{$_reservation->id}}">
+                                                        <input id="add_name" name="name" class="form-control" placeholder="Reservation assistance" value="{{$_reservation->name}}">
+                                                    @endforeach
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary">submit</button>
+                                                </div>
+                                        </form>
+                                </div>
                             </div>
+
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <form id="add_marketing">
+                                                <div class="form-group">
+                                                    <label for="add_name">Marketing assistance</label>
+                                                    @foreach ($marketing as $_marketing)
+                                                        <input type="hidden" name="id" id="id_marketing" value="{{$_marketing->id}}">
+                                                        <input id="add_name" name="name" class="form-control" placeholder="Marketing assistance" value="{{$_marketing->name}}">
+                                                    @endforeach
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary">submit</button>
+                                                </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <form id="add_sales">
+                                                    <div class="form-group mb-3">
+                                                        <label for="add_name">Sales assistance</label>
+                                                        @foreach ($sales as $_sales)
+                                                            <input type="hidden" name="id" id="id_sales" value="{{$_sales->id}}">
+                                                            <input id="add_name" name="name" class="form-control" placeholder="Sales assistance" value="{{$_sales->name}}">
+                                                        @endforeach
+                                                        <br>
+                                                        <button type="submit" class="btn btn-primary">submit</button>
+                                                    </div>
+                                            </form>
+                                    </div>
+                                </div>
+
+                                <form id="location">
+                                        <label for="add_name">Location</label>
+                                        <div class="input-group mb-3">
+                                                @foreach ($location as $_location)
+                                                    <input type="hidden" name="id" id="id_location" value="{{$_location->id}}">
+                                                    <input type="text" class="form-control" placeholder="Location" name="name" id="location" value="{{$_location->name}}">
+                                                    <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="submit">submit</button>
+                                                    </div>
+                                                @endforeach
+                                        </div>
+                                </form> 
+                                <div class="row">
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-8">
+                                            @foreach ($location as $_location)
+                                             <iframe src="{{$_location->name}}" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                
+                                            @endforeach
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                 </div>
+                                
+                               
+                               
                         </div>
                     </div>
                 </div>
@@ -290,7 +383,7 @@
 
             }
         });
-        $('#FormEdit').validate({
+        $('#add_service').validate({
             errorElement: 'div',
             errorClass: 'invalid-feedback',
             focusInvalid: false,
@@ -325,7 +418,7 @@
                 // }
 
                 var btn = $(form).find('[type="submit"]');
-                var id = $('#edit_id').val();
+                var id = $('#id').val();
                 btn.button("loading");
                 $.ajax({
                     method : "POST",
@@ -335,10 +428,262 @@
                 }).done(function(rec){
                     btn.button("reset");
                     if(rec.status==1){
-                        TableList.api().ajax.reload();
+                        // TableList.api().ajax.reload();
                         resetFormCustom(form);
                         swal(rec.title,rec.content,"success");
                         $('#ModalEdit').modal('hide');
+                        location.reload();
+                    }else{
+                        swal(rec.title,rec.content,"error");
+                    }
+                }).fail(function(){
+                    swal("system.system_alert","system.system_error","error");
+                    btn.button("reset");
+                });
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+        $('#add_reservation').validate({
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+            focusInvalid: false,
+            rules: {
+
+                name: {
+                    required: true,
+                },
+            },
+            messages: {
+
+                name: {
+                    required: "กรุณาระบุ",
+                },
+            },
+            highlight: function (e) {
+                validate_highlight(e);
+            },
+            success: function (e) {
+                validate_success(e);
+            },
+
+            errorPlacement: function (error, element) {
+                validate_errorplacement(error, element);
+            },
+            submitHandler: function (form) {
+
+                // if(CKEDITOR!==undefined){
+                //     for ( instance in CKEDITOR.instances ){
+                //         CKEDITOR.instances[instance].updateElement();
+                //     }
+                // }
+
+                var btn = $(form).find('[type="submit"]');
+                var id = $('#id_reservation').val();
+                btn.button("loading");
+                $.ajax({
+                    method : "POST",
+                    url : url_gb+"/admin/contact/"+id,
+                    dataType : 'json',
+                    data : $(form).serialize()
+                }).done(function(rec){
+                    btn.button("reset");
+                    if(rec.status==1){
+                        // TableList.api().ajax.reload();
+                        resetFormCustom(form);
+                        swal(rec.title,rec.content,"success");
+                        $('#ModalEdit').modal('hide');
+                        location.reload();
+                    }else{
+                        swal(rec.title,rec.content,"error");
+                    }
+                }).fail(function(){
+                    swal("system.system_alert","system.system_error","error");
+                    btn.button("reset");
+                });
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+        $('#add_marketing').validate({
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+            focusInvalid: false,
+            rules: {
+
+                name: {
+                    required: true,
+                },
+            },
+            messages: {
+
+                name: {
+                    required: "กรุณาระบุ",
+                },
+            },
+            highlight: function (e) {
+                validate_highlight(e);
+            },
+            success: function (e) {
+                validate_success(e);
+            },
+
+            errorPlacement: function (error, element) {
+                validate_errorplacement(error, element);
+            },
+            submitHandler: function (form) {
+
+                // if(CKEDITOR!==undefined){
+                //     for ( instance in CKEDITOR.instances ){
+                //         CKEDITOR.instances[instance].updateElement();
+                //     }
+                // }
+
+                var btn = $(form).find('[type="submit"]');
+                var id = $('#id_marketing').val();
+                btn.button("loading");
+                $.ajax({
+                    method : "POST",
+                    url : url_gb+"/admin/contact/"+id,
+                    dataType : 'json',
+                    data : $(form).serialize()
+                }).done(function(rec){
+                    btn.button("reset");
+                    if(rec.status==1){
+                        // TableList.api().ajax.reload();
+                        resetFormCustom(form);
+                        swal(rec.title,rec.content,"success");
+                        $('#ModalEdit').modal('hide');
+                        location.reload();
+                    }else{
+                        swal(rec.title,rec.content,"error");
+                    }
+                }).fail(function(){
+                    swal("system.system_alert","system.system_error","error");
+                    btn.button("reset");
+                });
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+
+        $('#add_sales').validate({
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+            focusInvalid: false,
+            rules: {
+
+                name: {
+                    required: true,
+                },
+            },
+            messages: {
+
+                name: {
+                    required: "กรุณาระบุ",
+                },
+            },
+            highlight: function (e) {
+                validate_highlight(e);
+            },
+            success: function (e) {
+                validate_success(e);
+            },
+
+            errorPlacement: function (error, element) {
+                validate_errorplacement(error, element);
+            },
+            submitHandler: function (form) {
+
+                // if(CKEDITOR!==undefined){
+                //     for ( instance in CKEDITOR.instances ){
+                //         CKEDITOR.instances[instance].updateElement();
+                //     }
+                // }
+
+                var btn = $(form).find('[type="submit"]');
+                var id = $('#id_sales').val();
+                btn.button("loading");
+                $.ajax({
+                    method : "POST",
+                    url : url_gb+"/admin/contact/"+id,
+                    dataType : 'json',
+                    data : $(form).serialize()
+                }).done(function(rec){
+                    btn.button("reset");
+                    if(rec.status==1){
+                        // TableList.api().ajax.reload();
+                        resetFormCustom(form);
+                        swal(rec.title,rec.content,"success");
+                        $('#ModalEdit').modal('hide');
+                        location.reload();
+                    }else{
+                        swal(rec.title,rec.content,"error");
+                    }
+                }).fail(function(){
+                    swal("system.system_alert","system.system_error","error");
+                    btn.button("reset");
+                });
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+
+        
+        $('#location').validate({
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+            focusInvalid: false,
+            rules: {
+
+                name: {
+                    required: true,
+                },
+            },
+            messages: {
+
+                name: {
+                    required: "กรุณาระบุ",
+                },
+            },
+            highlight: function (e) {
+                validate_highlight(e);
+            },
+            success: function (e) {
+                validate_success(e);
+            },
+
+            errorPlacement: function (error, element) {
+                validate_errorplacement(error, element);
+            },
+            submitHandler: function (form) {
+
+                // if(CKEDITOR!==undefined){
+                //     for ( instance in CKEDITOR.instances ){
+                //         CKEDITOR.instances[instance].updateElement();
+                //     }
+                // }
+
+                var btn = $(form).find('[type="submit"]');
+                var id = $('#id_location').val();
+                btn.button("loading");
+                $.ajax({
+                    method : "POST",
+                    url : url_gb+"/admin/contact/"+id,
+                    dataType : 'json',
+                    data : $(form).serialize()
+                }).done(function(rec){
+                    btn.button("reset");
+                    if(rec.status==1){
+                        // TableList.api().ajax.reload();
+                        resetFormCustom(form);
+                        swal(rec.title,rec.content,"success");
+                        $('#ModalEdit').modal('hide');
+                        location.reload();
                     }else{
                         swal(rec.title,rec.content,"error");
                     }
