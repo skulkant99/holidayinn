@@ -18,7 +18,22 @@ Route::get('/','HomeController@index');
 Route::get('/gallery','GalleryController@index');
 
 Route::get('/question',function () {
-    return view('question');
+    $data['social'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','H')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    $data['logo'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','F')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    $data['kids'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','K')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    return view('question',$data);
 });
 
 Route::get('/faq','QuestionController@index');
@@ -53,6 +68,25 @@ Route::post('/FormRespassword','CheckController@FormRespassword');
 Route::get('/Repassword/{token}','CheckController@Repassword');
 Route::post('/updatepassword','CheckController@updatepassword');
 
+Route::post('/Subscrice','RegisterController@subscrice');
+
 Route::get('/cf-password',function () {
-    return view('forgetpassword');
+    $data['social'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','H')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    $data['logo'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','F')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    $data['kids'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','K')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+    return view('forgetpassword',$data);
 });
+
+Route::post('/Addlike','ContentController@Countlike');

@@ -162,6 +162,37 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
         Route::get('/Comment/show/{id}','Admin\CommentController@show');
         Route::post('/Comment/{id}','Admin\CommentController@update');
         Route::post('/Comment/Delete/{id}','Admin\CommentController@destroy');
+
+      Route::get('/Social', 'Admin\SocialController@index');
+      Route::get('/Kids', 'Admin\SocialController@kids');
+        Route::get('/Social/Lists', 'Admin\SocialController@Lists');
+        Route::get('/Kids/Lists', 'Admin\SocialController@KidsLists');
+        Route::post('/Social', 'Admin\SocialController@store');
+        Route::get('/Social/{id}', 'Admin\SocialController@show');
+        Route::post('/Social/{id}', 'Admin\SocialController@update');
+        Route::post('/Social/Delete/{id}', 'Admin\SocialController@destroy');
+
+      Route::get('/Logo', 'Admin\LogoController@index');
+        Route::get('/Logo/Lists', 'Admin\LogoController@Lists');
+        Route::post('/Logo', 'Admin\LogoController@store');
+        Route::get('/Logo/{id}', 'Admin\LogoController@show');
+        Route::post('/Logo/{id}', 'Admin\LogoController@update');
+        Route::post('/Logo/Delete/{id}', 'Admin\LogoController@destroy');
+
+      Route::get('/AdminMenu', 'Admin\AdminMenuController@index');
+        Route::get('/AdminMenu/Lists', 'Admin\AdminMenuController@Lists');
+        Route::post('/AdminMenu', 'Admin\AdminMenuController@store');
+        Route::get('/AdminMenu/{id}', 'Admin\AdminMenuController@show');
+        Route::post('/AdminMenu/{id}', 'Admin\AdminMenuController@update');
+        Route::post('/AdminMenu/Delete/{id}', 'Admin\AdminMenuController@destroy');
+
+      Route::get('/User', 'Admin\UserController@index');
+        Route::get('/User/Lists', 'Admin\UserController@Lists');
+        Route::post('/User', 'Admin\UserController@store');
+        Route::get('/User/{id}', 'Admin\UserController@show');
+        Route::post('/User/{id}', 'Admin\UserController@update');
+        Route::post('/User/Delete/{id}', 'Admin\UserController@destroy');
+
       ##ROUTEFORINSTALL##
 });
 //OrakUploader

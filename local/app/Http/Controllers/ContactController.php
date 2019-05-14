@@ -8,6 +8,21 @@ use Validator;
 class ContactController extends Controller
 {
     public function index(){
+        $data['social'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','H')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['logo'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','F')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['kids'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','K')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
         $data['HelpTypes'] = \App\Models\HelpType::get();
         return view('contact',$data);
     }
@@ -25,7 +40,7 @@ class ContactController extends Controller
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-
+            'email' => 'required|email'
         ]);
         if (!$validator->fails()) {
             \DB::beginTransaction();
@@ -42,8 +57,9 @@ class ContactController extends Controller
             }
         }else{
             $return['status'] = 0;
+            $return['content'] = 'Invalid email format';
         }
-        $return['title'] = 'เพิ่มข้อมูล';
+        $return['title'] = 'Warning';
         return json_encode($return);
     }
 }

@@ -8,6 +8,21 @@ class HomeController extends Controller
 {
     public function index(){
         $data['banner'] = \App\Models\Banner::select('banners.*')->orderBy('sort_id','ASC')->get();
+        $data['social'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','H')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['logo'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','F')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['kids'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','K')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
         $data['content'] = \App\Models\Information::where('status','1')
             ->select('informations.*')
             ->paginate(3);

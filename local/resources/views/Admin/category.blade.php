@@ -53,6 +53,11 @@
                     <label for="add_name">name</label>
                     <input type="text" class="form-control" name="name" id="add_name" required="" placeholder="name">
                 </div>
+
+                <div class="form-group">
+                        <label for="add_link">link</label>
+                        <input type="text" class="form-control" name="link" id="add_link" required="" placeholder="link">
+                </div>
         
                 <div class="form-group">
                     <label for="add_sort_id">sort_id</label>
@@ -89,6 +94,11 @@
                     <label for="edit_name">name</label>
                     <input type="text" class="form-control" name="name" id="edit_name" required="" placeholder="name">
                 </div>
+
+                <div class="form-group">
+                        <label for="edit_link">link</label>
+                        <input type="text" class="form-control" name="link" id="edit_link" required="" placeholder="link">
+                    </div>
         
                 <div class="form-group">
                     <label for="edit_sort_id">sort_id</label>
@@ -144,6 +154,7 @@
             dataType : 'json'
         }).done(function(rec){
             $('#edit_name').val(rec.name);
+            $('#edit_link').val(rec.link);
             $('#edit_sort_id').val(rec.sort_id);
             if(rec.status=='1'){
                 $('#edit_status').prop('checked','checked').closest('label').addClass('checked');

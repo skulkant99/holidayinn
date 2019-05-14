@@ -1,5 +1,5 @@
 <head>
-		<meta name="csrf-token" content="<?php csrf_token() ?>">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <style>
@@ -146,6 +146,7 @@
   color: #FFF;
   text-decoration: none;
   overflow: hidden;
+	text-align:left;
 }
 .overlay ul li a:hover:after, .overlay ul li a:focus:after, .overlay ul li a:active:after {
   width: 100%;
@@ -181,6 +182,11 @@
 	}
 	.modal-header h1{
 		color:  #999acc;
+	}
+	.img-register{
+		width: 10%;
+		height: 15%;
+		float: right;
 	}
 
 		/*subscribe*/
@@ -303,21 +309,24 @@
 		</div>
 		<div class="col-md-9 col-lg-10 nopad">
 				<div class="sidetop_right">
-				<img src="{{asset('images/home2-edit_05.png')}}" class="img-fluid kidslogo">
+				@foreach ($kids as $_kids)
+					<a href="{{$_kids->link}}" target="_blank"><img src="{{asset('uploads/Social/'.$_kids->photo)}}" class="img-fluid kidslogo"></a>
+				@endforeach
+				
 					<li>
 					
 					<!-- Button trigger modal -->
 					<?php if(Auth::check()){ ?>
-						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#"> wellcome <?php echo (Auth::user()->name) ?></button>
+						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#"> wellcome <?php echo (Auth::user()->firstname.' '.Auth::user()->lastname) ?></button>
 					<?php	} else { ?>
-						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Login 	</button>
+						<button type="button" class="btn btn-dark login" data-toggle="modal" data-target="#exampleModalCenter" >Login 	</button>
 
 					<?php	}?>
-					/ 
+					| 
 					<?php if(Auth::check()){ ?>
 						<a class="btn btn-dark" href="{{url('logout')}}"  data-target="#logout"> logout</a>
 					<?php	} else { ?>
-						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter2">	Register 	</button>
+						<button type="button" class="btn btn-dark register" data-toggle="modal" data-target="#exampleModalCenter2">	Register 	</button>
 
 					<?php	}?>
 					
@@ -329,8 +338,11 @@
 				
 				<br>
 				<div class="social_top_main">
-				<li><a href="#"><img src="{{asset('images/social_top_03.png')}}"></a></li>
-				<li><a href="#"><img src="{{asset('images/social_top_05.png')}}"></a></li>
+					@foreach ($social as $_social)
+						<li><a href="{{$_social->link}}" target="_blank"><img src="{{asset('uploads/Social/'.$_social->photo)}}"></a></li>
+					@endforeach
+			
+				{{-- <li><a href="#"><img src="{{asset('images/social_top_05.png')}}"></a></li>
 				<li><a href="#"><img src="{{asset('images/social_top_06.png')}}"></a></li>
 				<li><a href="#"><img src="{{asset('images/social_top_08.png')}}"></a></li>
 				<li><a href="#"><img src="{{asset('images/social_top_10.png')}}"></a></li>
@@ -342,7 +354,7 @@
 				<li><a href="#"><img src="{{asset('images/social_top_19.png')}}"></a></li>
 				<li><a href="#"><img src="{{asset('images/social_top_20.png')}}"></a></li>
 				<li><a href="#"><img src="{{asset('images/social_top_21.png')}}"></a></li>
-				<li><a href="#"><img src="{{asset('images/social_top_22.png')}}"></a></li>
+				<li><a href="#"><img src="{{asset('images/social_top_22.png')}}"></a></li> --}}
 				</div>	
 			</div>
 		</div>
@@ -358,12 +370,18 @@
 			<div class="overlay" id="overlay2">
 			  <nav class="overlay-menu">
 				<ul>
-				  <li><a href="{{url('/')}}">Home</a></li>
-					<li><a href="{{url('/')}}">Special Offer</a></li>
+					@php
+							 $menu = \App\Models\Category::select()->get();
+					@endphp
+					@foreach ($menu as $_menu)
+							<li><a href="{{url($_menu->link)}}">{{$_menu->name}}</a></li>
+					@endforeach
+				 
+					{{-- <li><a href="{{url('/')}}">Special Offer</a></li>
 				  <li><a href="{{url('gallery')}}">Photos</a></li>
 				  <li><a href="{{url('question')}}">Ask Question</a></li>
 				  <li><a href="{{url('faq')}}">FAQ</a></li>
-				  <li><a href="{{url('contact')}}">Contact Us</a></li>
+				  <li><a href="{{url('contact')}}">Contact Us</a></li> --}}
 				</ul>
 			  </nav>
 			</div>
@@ -372,14 +390,13 @@
 			</div>
 		</div>
 		<div class="col-12 col-md-9 col-lg-6">
-		<li><div class="search_top wow fadeInUp">
+		{{-- <li><div class="search_top wow fadeInUp">
 				<form  action="{{url('search')}}" method="POST" id="search_all" >
 						<input type='text' name="search" id="search" placeholder="Search here">
 						<button type="submit" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Search</button>
 						<button class="icon-sub-m d-block d-sm-none d-md-none d-lg-none d-xl-none"><i class="fa fa-angle-right"></i></button>
-						<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
 				</form>
-			</div></li>
+			</div></li> --}}
 					<li>
 						
 					<a href="#" class="btn btn-secondary">Book now</a>
@@ -400,7 +417,9 @@
   <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-		  <h1>Welcome to Holiday inn </h1> <br>
+			<h1>Holiday Inn Resort Phuket Engaging Service</h1> <br>
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			<img src="{{asset('images/home2-edit_03.png')}}" class="img-register">
 		 
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -410,11 +429,11 @@
       <div class="modal-body">
       	<div class="row">
       		<div class="col">
-      			<h3>Sign in to your account</h3>
+      			<h3>Please sign in</h3>
       			<div class="login_form">
 						<form id="FormLogin">
-      						<label>Email or Member Number</label>
-										<input id="email" name="email" type="text" class="form-control input-md">
+      						<label></label>
+										<input id="email" name="email" type="text"  class="form-control input-md">
 									
 									<label>Password</label>
 										<input id="password" name="password" type="password" class="form-control input-md">
@@ -459,8 +478,6 @@
     			        <br>
       					<a href="#" class="btn btn-warning">Join now</a>
 
-     			        
-
       			</div>
       			
       		</div>
@@ -477,8 +494,9 @@
   <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-		  <h1>Welcome to Holiday inn </h1> <br>
-		 
+			<h1>Holiday Inn Resort Phuket Engaging Service</h1> <br>
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<img src="{{asset('images/home2-edit_03.png')}}" class="img-register">
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -487,11 +505,23 @@
       <div class="modal-body">
       	<div class="row">
       		<div class="col">
-      			<h3 class="joinmember">Join Holiday inn</h3>
+			
+						<h3 class="joinmember">Join Holiday inn</h3>
+					
+			
       			<form id="FormAdd">
 							<div class="login_form">
-								<label>Name</label>
-										<input id="name" name="name" type="text" class="form-control input-md">
+									<div class="row">
+											<div class="form-group col-md-6">
+												<label>First Name</label>
+												<input id="name" name="firstname" type="text" class="form-control input-md">
+											</div>
+											<div class="form-group col-md-6">
+												<label>Last Name</label>
+												<input id="name" name="lastname" type="text" class="form-control input-md">
+											</div>
+								</div>
+						
 								<label>Email</label>
 										<input id="email" name="email" type="text" class="form-control input-md">
 								<label>Password</label>		
@@ -535,6 +565,21 @@
 				}
 			});
 </script>
+<script>
+
+	$('body').on('click','.login',function(data){
+				$('#exampleModalCenter').on('hidden.bs.modal', function () {				
+						$(this).find('form').trigger('reset');
+				})
+  });
+
+	$('body').on('click','.register',function(data){
+				$('#exampleModalCenter2').on('hidden.bs.modal', function () {				
+						$(this).find('form').trigger('reset');
+				})
+  });
+
+</script>
 
 <script>
       $('#FormAdd').validate({
@@ -542,7 +587,10 @@
 				errorClass: 'invalid-feedback',
 				focusInvalid: false,
 				rules: {
-					name: {
+					firstname: {
+								required: true,
+						},
+					lastname: {
 								required: true,
 						},
 					email: {
@@ -557,7 +605,10 @@
 						}
 				},
 				messages: {
-					name: {
+					firstname: {
+								required: "please enter",
+						},
+					lastname: {
 								required: "please enter",
 						},
 					email: {
@@ -589,6 +640,8 @@
 								dataType : 'json',
 								data : $(form).serialize()
 						}).done(function(rec){
+								console.log(rec);
+								
 								btn.attr('disabled',false);
 								if(rec.status==1){
 									// window.location = "{{url('profile')}}";
@@ -600,7 +653,7 @@
 										btn.attr('disabled',false)
 								}
 						}).fail(function(){
-								swal("Register for membership wrong","Email is already in use Please check again","error");
+								swal("Register for membership wrong","Invalid email format","error");
 								btn.attr('disabled',false)
 						});
 				},
@@ -648,8 +701,19 @@
 								dataType : 'json',
 								data : $(form).serialize()
 						}).done(function(rec){
+								
 							if(rec==0){
-								swal('Login','Username or password is incorrect','error');
+								// swal('Login',' Please register now comment','error');
+								swal({
+									title: "Login",
+									text: "Please register now comment",
+									type: "error",
+									icon: "error",
+									}).then(function() {
+									// Redirect the user
+										$('.signupnow').trigger('click');
+										console.log('The Ok Button was clicked.');
+								});
 							}else{
 									window.location.href =  "{{url('/')}}";
 									

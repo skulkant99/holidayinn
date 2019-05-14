@@ -56,6 +56,27 @@
 		.page-link {
 			color: #999acc;			
 		}
+		.smenu .linkedin {
+			background-color: #007da8;
+			color: #FFF ;
+		}
+		.smenu .linkedin a{
+				color: white;
+			}
+		.listshare i {
+			color: white;
+		}
+		.listshare {
+			background-color: #999acc;
+			display: inline-block;
+			border-radius: 50px;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			/* margin-left: 10px; */
+		}
+	
 	</style>
 	@include('inc_topmenu')
 		<div class="container-fluid nopad">
@@ -110,7 +131,7 @@
 						<div class="col-12 col-lg-6 photo">
 							<?php $photo = json_decode($_content->photo, true)  ?>
 								@if(isset($photo) && $photo)
-								<div class="img_offer"> <img src="{{asset('uploads/Information/'.$photo[0])}}" class="img-fluid"> </div>
+									<a href="{{url('offer_inside/'.$_content->id)}}"><div class="img_offer"> <img src="{{asset('uploads/Information/'.$photo[0])}}" class="img-fluid"> </div></a>
 								@else
 								@endif
 					
@@ -122,9 +143,9 @@
 										<h3>{{$_content->title}}</h3> </div>
 									<div class="col-12 col-md-3 col-lg-3">
 										<div class="likebtn">
-											<button class="likebefore"></button>
+											<button class="likebefore" data-id="{{$_content->id}}"></button>
 										</div>
-										<div class="like_text"> 34 Likes </div>
+										<div class="like_text" id="re_like">{{$_content->like}} Likes </div>
 									</div>
 								</div>
 								<?php echo '<p>'.$_content->detail.'</p>';?>
@@ -136,16 +157,11 @@
 										<li class="circle_pencil">
 										<a href="{{url('offer_inside/'.$_content->id)}}"><img src="{{asset('images/write.png')}}"></a>
 										</li>
-										<li>
-											<div class="sbutton"> <span><img src="images/share.png"></span>
-												<ul class="smenu">
-													<li class="facebook"><a href="" id="shareContent_{{$_content->id}}" ><i class="fab fa-facebook-f"></i> Facebook</a></li>
-													<li class="twitter"><a href=""><i class="fab fa-twitter"></i> Twitter</a></li>
-													<li class="googleplus"><a href=""><i class="fab fa-google-plus-g"></i> Google+</a></li>
-												</ul>
-											</div>
-										</li>
-									<li class="circle_view"><img src="{{asset('images/view.png')}}">{{$_content->view}}</li>
+										<li class="listshare"><a href="https://www.facebook.com/dialog/share?app_id=966242223397117&display=popup&href=http%3A%2F%2Fholidayinnphuket.com%2F" target="_blank"><i class="fab fa-facebook-f"></i></a></li>	
+										<li class="listshare"><a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url="http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i> </a></li>
+										<li class="listshare"><a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/" target="_blank"><i class="fab fa-linkedin-in"></i> </a></li>
+
+										<li class="circle_view"><img src="{{asset('images/view.png')}}">{{$_content->view}}</li>
 									</div>
 								</div>
 							</div>
@@ -266,6 +282,30 @@
 		</div>
 		@include('inc_footer')
 			<script>
+				$(document).ready(function(){
+					$('.likebefore').on('click',function(){
+						var postid = $(this).data('id');
+						console.log(postid);
+						
+						$content = $(this);
+						$.ajax({
+							method : "POST",
+							url : "{{url('/Addlike')}}",
+							data : {
+								'liked': 1,
+								'postid': postid
+							},
+						}).done(function(like){
+							console.log(like);
+							location.reload();
+							// $post.parent().find('span.likes_count').text(response + " likes");
+							// $post.addClass('hide');
+							// $post.siblings().removeClass('hide');
+						});
+					});
+				});
+			</script>
+			<script>
 				/*---Slideshow-----*/
 				function slideshow() {
 					if ($('.slideshow .flexslider').size()) {
@@ -289,11 +329,14 @@
 				});
 			</script>
 			<script>
-				$('.sbutton').on('click', function (event) {
-					event.preventDefault();
-					
-					$('.smenu').toggleClass('share');
-				});
+				@foreach($content as  $_content)
+					$('.btnshare{{$_content->id}}').on('click', function (event) {
+						event.preventDefault();
+						
+						$('.btnsub{{$_content->id}}').toggleClass('share');
+					});
+				@endforeach
+			
 			</script>
 			<script>
 					window.fbAsyncInit = function() {
@@ -309,21 +352,27 @@
 							"autoRun": false
 						});
 					};
-					</script>
-				<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-				<script>
-					@foreach ($content as  $_content)
-						document.getElementById('shareContent_{{$_content->id}}').onclick = function() {
-						FB.ui({
-							method: 'share',
-							display: 'popup',
-							href: 'https://developers.facebook.com/docs/',
-						}, function(response){});
-						}
-					@endforeach
+			</script>
+			<script>
+					(function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+						if(d.getElementById(id)) {return;}
+							js = d.createElement('script'); js.id = id; 
+							js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+							ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+						function postToFeed(title, desc, url, image){
+						var obj = {method: 'feed',link: url, picture: 'http://www.url.com/images/'+image,name: title,description: desc};
+						function callback(response){}
+						FB.ui(obj, callback);
+					}
+			</script>
 				
-				
-				</script>
+			<script>
+				$('.shareContent').click(function(){
+					elem = $(this);
+					postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+					return false;
+				});
+			</script>
 			
 	
 </body>

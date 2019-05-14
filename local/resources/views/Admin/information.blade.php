@@ -174,10 +174,10 @@
                 { "data": "action","className":"action text-center","searchable" : false , "orderable" : false }
             ]
          });
-         $('body').on('click','.btn-add',function(data){
-             $('.select2').select2();
-            ShowModal('ModalAdd');
-        });
+            $('body').on('click','.btn-add',function(data){
+                $('.select2').select2();
+                ShowModal('ModalAdd');
+            });
         $('body').on('click','.btn-edit',function(data){
             var btn = $(this);
             btn.button('loading');

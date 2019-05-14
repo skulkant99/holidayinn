@@ -9,7 +9,7 @@
     <body>
     
         <section style="margin-bottom: 30px;margin-top: 30px;">
-            <div style="background-color: #999acc;color: #fff;padding: 35px 35px;"><h2>wellcome Welcome to the website holidayinn.com</h2></div>
+            <div style="background-color: #999acc;color: #fff;padding: 35px 35px;"><h2>wellcome Welcome to the website holidayinnphuket.com</h2></div>
         </section>
     
         <section style="margin-bottom: 30px;">
@@ -19,8 +19,8 @@
         </section>
     
         <section style="margin-bottom: 30px;">
-            <p>Hello {{$name}}</p>
-            <p>Welcome to the website holidayinn.com</p>
+            <p>Hello {{$firstname}}</p>
+            <p>Welcome to the Holiday Inn Phuket Resort Phuket Engage Service</p>
             <p>You can use the account that you have subscribed to immediately.<a href="{{url('ActivateEmail/'.$token)}}">here</a> And use the information below to log in</p>
         </section>
         <section style="margin-bottom: 30px;">
@@ -35,8 +35,8 @@
         <section style="">
             <p>If you have any questions or need more information</p>
             <ul>
-                <li>โทร : 097-280-1272</li>
-                <li>E-mail: info@holidayinn.com</li>
+                <li>T: +66 (0) 76 370 200</li>
+                <li>E-mail: HolidayInnphuth@gmail.com</li>
             </ul>
         </section>
     

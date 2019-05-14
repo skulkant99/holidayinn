@@ -83,7 +83,7 @@
 			<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">FAQ</li>
+							{{-- <li class="breadcrumb-item active" aria-current="page">FAQ</li> --}}
 						</ol>
 					</nav>
 		</div>
@@ -91,7 +91,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="head_title">
-					<h1>Hotel Frequently Asked Questions</h1>
+					<h1>Frequently Asked Questions</h1>
 					<p>Need immediate assistance? Please call +66 (0) 76 370 200</p>
 				</div>
 				

@@ -39,6 +39,22 @@
 		color: #000000;
 		opacity: 1;
 	}
+	.swal-button {
+			padding: 7px 19px;
+			border-radius: 2px;
+			border: 4px solid #b7b8d7;
+			background-color: #b7b8d7;
+			font-size: 12px;
+			border: 1px solid #b7b8d7;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+		}
+		.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+			.swal-footer {
+				text-align: center;
+			}
 </style>
 
 <body>
@@ -49,7 +65,7 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Ask Question</li>
+							{{-- <li class="breadcrumb-item active" aria-current="page">Ask Question</li> --}}
 						</ol>
 					</nav>
 				</div>
@@ -73,13 +89,15 @@
 								<div class="col-lg-6">
 									<label>Last Name <span class="redsb">*</span></label>
 									<input id="lastname" name="lastname" type="text" class="form-control input-md"> </div>
+								
 							</div>
-							<label>Email Address</label>
-							<input id="email" name="email" type="text" class="form-control input-md">
+							<label>Email Address<span class="redsb">*</span></label> 
+							<input id="email_qu" name="email" type="text" class="form-control input-md">
+							<span id='result'></span><br>
 							<label>What is your Question ? <span class="redsb">*</span></label>
 							<textarea class="form-control" id="question" name="question" rows="5" placeholder="Type your question here.."></textarea>
 							<br> 
-							<button type="submit" class="btn btn-primary">Add question</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
 							<button type="reset" class="btn btn-success">Clear</button>
 							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
 						</form>
@@ -94,6 +112,7 @@
 
 </html>
 <script>
+		
 		$('#add_question').validate({
 			errorElement: 'div',
 			errorClass: 'invalid-feedback',
@@ -103,7 +122,10 @@
 							required: true,
 					},
 				lastname: {
-						required: true,
+							required: true,
+				},
+				email: {
+							required: true,
 				},
 				question: {
 							required: true,
@@ -115,6 +137,9 @@
 							required: "Please enter",
 					},
 				lastname: {
+							required: "Please enter",
+					},
+				email :{
 							required: "Please enter",
 					},
 				question: {
@@ -130,6 +155,7 @@
 			errorPlacement: function (error, element) {
 					validate_errorplacement(error, element);
 			},
+			
 			submitHandler: function (form) {
 					var btn = $(form).find('[type="submit"]');
 					btn.attr('disabled',true);
@@ -143,7 +169,10 @@
 							if(rec.status==1){
 								// window.location = "{{url('profile')}}";
 									resetFormCustom(form);
-									swal('Add Question',"success");
+								
+									swal("Thank you for your question. \n We will get back to you shortly.", {
+											buttons: "Close",
+										});
 
 							}else{
 								swal(rec.title,rec.content,"error");

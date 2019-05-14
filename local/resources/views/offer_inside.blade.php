@@ -26,7 +26,7 @@
 						<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
 							@foreach ($content_detail as $_content_detail)
-								<li class="breadcrumb-item active" aria-current="page">{{$_content_detail->title}}</li>
+								{{-- <li class="breadcrumb-item active" aria-current="page">{{$_content_detail->title}}</li> --}}
 							@endforeach
 						</ol>
 					</nav>
@@ -37,22 +37,24 @@
 					<div class="row">
 						<div class="col-md-10 col-lg-9 col-xl-9">
 							<div class="title_offerinside">
-							<?php 
-								$date_create = substr($_content_detail->created_at,0,-8);
-								$date_create = explode('-', $date_create);
-								$month = $date_create[1];
-								$day   = $date_create[2];
-								$year  = $date_create[0] + 543;
-							?>
 							@foreach ($content_detail as $_content_detail)
+								<?php 
+									$date_create = substr($_content_detail->updated_at,0,-8);
+									$date_create = explode('-', $date_create);
+									$month = $date_create[1];
+									$day   = $date_create[2];
+									$year  = $date_create[0] + 543;
+								?>
 								<h2>{{$_content_detail->title}}</h2> <span class="dateinside">{{$day."/".$month."/".$year}}</span> </div>
 							@endforeach
 						</div>
 						<div class="col-md-2 col-lg-3 col-xl-3">
-							<div class="likebtn">
-								<button class="likebefore"></button>
-							</div>
-							<div class="like_text"> 34 Likes </div>
+							@foreach ($content_detail as $_content_detail)
+								<div class="likebtn">
+									<button class="likebefore" data-id="{{$_content_detail->id}}"></button>
+								</div>
+								<div class="like_text"> {{$_content_detail->like}} Likes </div>
+							@endforeach
 						</div>
 					</div>
 					<hr>
@@ -76,11 +78,19 @@
 					@endforeach
 					<hr>
 					<div class="share_offer_inside">
-						<li class="circle_pencil"> <img src="{{asset('images/share.png')}}"> </li>
-						<li class="purplebg"><a href="#"><i class="fas fa-envelope"></i></a></li>
-						<li class="purplebg"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-						<li class="purplebg"><a href="#"><i class="fab fa-twitter"></i></a></li>
+						{{-- <li class="circle_pencil"><div class="sbutton"> <span><img src="{{asset('images/share.png')}}"></span>
+							<ul class="smenu">
+								<li class="facebook"><a href="" id="shareContent" ><i class="fab fa-facebook-f"></i> Facebook</a></li>
+								<li class="twitter"><a href=""><i class="fab fa-twitter"></i> Twitter</a></li>
+								<li class="googleplus"><a href=""><i class="fab fa-linkedin-in"></i> Linkedin</a></li>
+							</ul>
+						</div></li> --}}
+						<li class="purplebg"><a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/offer_inside/14" ><i class="fas fa-envelope"></i></a></li>
+						<li class="purplebg"><a href="https://www.facebook.com/dialog/share?app_id=966242223397117&display=popup&href=http%3A%2F%2Fholidayinnphuket.com%2Foffer_inside%2F14" target="_blank" ><i class="fab fa-facebook-f"></i></a></li>
+						<li class="purplebg"><a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url="http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter"><i class="fab fa-twitter"></i></a></li>
+						<li class="purplebg"><a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/offer_inside/14" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
 					</div>
+					
 					<hr>
 					
 					<?php if(Auth::check()){ ?>
@@ -102,7 +112,7 @@
 					
 		
 					<div class="list_comment mt-5">
-						<h2>RECENT COMMENT</h2>
+						{{-- <h2>RECENT COMMENT</h2> --}}
 						<br>
 						@foreach ($comment as $_comment)
 							<div class="border_comment gallery">
@@ -187,7 +197,7 @@
 		</div>
 		<br>
 		@include('inc_footer')
-		
+			<script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 			<script>
 				$(function () {
 					var numItems = $('.photo-container').length;
@@ -211,6 +221,13 @@
 				});
 			</script>
 			<script>
+					$('.sbutton').on('click', function (event) {
+						event.preventDefault();
+						
+						$('.smenu').toggleClass('share');
+					});
+				</script>
+			<script>
 				$('body').on('submit','#comment',function(e){
 					e.preventDefault();
 					$.ajax({
@@ -228,6 +245,66 @@
 						swal('เปลี่ยนรหัสผ่าน','เปลี่ยนรหัสผ่านไม่สำเร็จ','error');
 						btn.button('reset');
 					});
+				});
+			</script>
+			<script>
+					$(document).ready(function(){
+						$('.likebefore').on('click',function(){
+							var postid = $(this).data('id');
+							console.log(postid);
+							
+							$content = $(this);
+							$.ajax({
+								method : "POST",
+								url : "{{url('/Addlike')}}",
+								data : {
+									'liked': 1,
+									'postid': postid
+								},
+							}).done(function(like){
+								console.log(like);
+								location.reload();
+								// $post.parent().find('span.likes_count').text(response + " likes");
+								// $post.addClass('hide');
+								// $post.siblings().removeClass('hide');
+							});
+						});
+					});
+				</script>
+			<script>
+					window.fbAsyncInit = function() {
+						FB.init({
+							"appID": "966242223397117",
+							"frictionlessRequests": true,
+							"init": true,
+							"level": "debug",
+							"signedRequest": null,
+							"status": true,
+							"version": "v3.2",
+							"viewMode": "website",
+							"autoRun": false
+						});
+					};
+					
+			</script>
+			<script>
+				(function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+					if(d.getElementById(id)) {return;}
+						js = d.createElement('script'); js.id = id; 
+						js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+						ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+					function postToFeed(title, desc, url, image){
+					var obj = {method: 'feed',link: url, picture: 'http://www.url.com/images/'+image,name: title,description: desc};
+					function callback(response){}
+					FB.ui(obj, callback);
+				}
+			</script>
+			
+			<script>
+				$('.btnShare').click(function(){
+					elem = $(this);
+					postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+					return false;
 				});
 			</script>
 </body>

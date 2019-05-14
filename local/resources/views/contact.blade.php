@@ -50,7 +50,7 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Contact us</li>
+							{{-- <li class="breadcrumb-item active" aria-current="page">Contact us</li> --}}
 						</ol>
 					</nav>
 				</div>
@@ -59,7 +59,7 @@
 				<div class="col">
 					<div class="head_title">
 						<h1>Get in touch</h1>
-						<p>To contact us, please submit the online form. </p>
+						<p>We Want To Hear From You What’s on your mind? <br>Tell us a little bit about yourself and your question, and someone will be in touch with you shortly.</p>
 					</div>
 				</div>
 			</div>
@@ -123,9 +123,9 @@
 								<label>Last Name <span class="redsb">*</span></label>
 								<input id="textinput" name="last_name" type="text" class="form-control input-md"> </div>
 						</div>
-							<label>Email Address</label>
+							<label>Email Address <span class="redsb">*</span></label>
 							<input id="textinput" name="email" type="text" class="form-control input-md">
-							<label>How can we help you? <span class="redsb">*</span></label>
+							<label>How can we help you? </label>
 							<select id="selectbasic" name="help_id" class="form-control">
 								<option value="0" disabled selected>Select Subject </option>
 								@foreach($HelpTypes as $HelpType)
@@ -135,7 +135,7 @@
 							<label>Details: <span class="redsb">*</span></label>
 							<textarea class="form-control" id="textarea" name="detail" rows="5"></textarea>
 							<br> 
-							<button type="submit" class="btn btn-primary">Add question</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
 							<button type="reset" class="btn btn-success">Clear</button>
 							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
 						</form>
@@ -145,9 +145,7 @@
 					<div class="address_contact">
 					<div class="row">
 						<div class="col-12 col-lg-6 border_right">
-								<img src="images/pin-icon.png"> 52 Thaweewong Road
-Patong, Kathu,
-Phuket 83150
+								<img src="images/pin-icon.png"> 52 Thaweewong Road Patong, Kathu, Phuket 83150
 					<br>
 					<img src="images/tel-icon.png"> +66 (0) 76 370 200
 						</div>
@@ -177,33 +175,35 @@ Phuket 83150
 			errorClass: 'invalid-feedback',
 			focusInvalid: false,
 			rules: {
-				firstname: {
+				first_name: {
 						required: true,
 					},
-				lastname: {
+				last_name: {
+						required: true,
+				},
+				email: {
 						required: true,
 				},
 				detail: {
 						required: true,
 					},
-				help: {
-						required: true,
-				},
+			
 			
 			},
 			messages: {
-				firstname: {
+				first_name: {
 							required: "Please enter",
 					},
-				lastname: {
+				last_name: {
 							required: "Please enter",
 					},
+				email : {
+							required: "Please enter",
+				},
 				detail: {
 							required: "Please enter",
 					},
-				help : {
-							required: "Please select",
-				},
+				
 			},
 			highlight: function (e) {
 					// validate_highlight(e);

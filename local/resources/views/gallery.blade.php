@@ -18,6 +18,11 @@
 		<script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
 		<link rel="stylesheet" type="text/css" href="GridGallery/css/component.css" />
 		<script src="GridGallery/js/modernizr.custom.js"></script>
+		<meta property="og:url"           content="http://holidayinnphuket.com/gallery" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="Holiday Inn Resort Phuket" />
+		<meta property="og:description"   content="Holiday Inn Resort Phuket" />
+		<meta property="og:image"         content="http://holidayinnphuket.com/uploads/Galleries/1556188096-wSqvY.png" />
 </head>
 <style>
 	.display-slide {
@@ -63,11 +68,11 @@
 		z-index: 99;
 	}
 	
-	.toggle-slide-container .hidden a i {
+	.toggle-slide-container .wrapper a i {
 		color: #999acc;
 	}
 	
-	.toggle-slide-container .hidden a {
+	.toggle-slide-container .wrapper a {
 		border-radius: 50px;
 		margin-right: 10px;
 		border: 1px solid #999acc;
@@ -79,9 +84,14 @@
 		background-color: white;
 	}
 	
-	input:checked + .wrapper .hidden {
+	/* input:checked + .wrapper .hidden {
 		transform: translateY(0);
 		margin-top: 0;
+	} */
+	.head_title h1 {
+		font-size: 2em;
+		/* text-transform: uppercase; */
+		letter-spacing: 2px;
 	}
 </style>
 
@@ -93,7 +103,7 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Gallery</li>
+							{{-- <li class="breadcrumb-item active" aria-current="page">Gallery</li> --}}
 						</ol>
 					</nav>
 				</div>
@@ -131,6 +141,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="gallery-news mt-5">
 						<div class="display-slide" rel="1" style="display:block;">
 									<div class="row">
@@ -145,16 +156,21 @@
 														if($_gallery_all->type == 'V'){
 															echo '<iframe width="100%" height="315" src="'.$_gallery_all->link_video.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 														}else{
-															echo '<a class="fancybox" href="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" alt="" class="img-fluid" /></a>';
+															echo '<a class="fancybox" href="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" data-fancybox-group="gallery" title="'.$_gallery_all->name.'"><img src="'.asset('uploads/Galleries/'.$_gallery_all->photo).'" alt="" class="img-fluid" /></a>';
 														}
 														echo '<div class="topic-blog2 text-center">
 																<h3>'.$_gallery_all->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle1">Share</label>
+																	
 																	<input id="slidetoggle1" type="checkbox">
-																	<div class="wrapper">
-																		<div class="hidden"><a href="#" id="shareBtn"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		<div class="wrapper">
+																			
+																				<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																				<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																				<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																				<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																			
 																	</div>
 																</div>
 															</div>
@@ -165,11 +181,15 @@
 												</div>
 											</div>
 										</div>
-									</div>	 
+									</div>
+								
 								<div class="display-slide" rel="2" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Videos</h1>
+											<?php $video_name = $gallery_type->where('id','=','1'); ?>
+											@foreach ($video_name as $_video_name)
+												<h1 class="text-center">{{$_video_name->name}}</h1>	
+											@endforeach
 										<div id="grid-gallery" class="grid-gallery spacetopbig">
 											<div class="grid-wrap">
 												<ul class="grid">
@@ -181,10 +201,15 @@
 															<h3>'.$_video->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
-																<label for="slidetoggle2">Share</label>
+																
 																<input id="slidetoggle2" type="checkbox">
 																<div class="wrapper">
-																	<div class="hidden"> <a href="#" id="shareBtn2" ><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																	
+																		<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																		<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																		<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																		<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																	
 																</div>
 															</div>
 														</div>
@@ -198,22 +223,30 @@
 								<div class="display-slide" rel="3" style="display:block;">
 								<div class="row">
 									<div class="col">
-										<h1 class="text-center">Guest Rooms</h1>
+										<?php $Guest_name = $gallery_type->where('id','=','2'); ?>
+										@foreach ($Guest_name as $_Guest_name)
+											<h1 class="text-center">{{$_Guest_name->name}}</h1>	
+										@endforeach
 										<div id="grid-gallery" class="grid-gallery spacetopbig">
 											<div class="grid-wrap">
 												<ul class="grid">
 												<?php $Guest_Rooms = $gallery->where('gallery_type_id','=','2')->where('type','=','P'); 
 													foreach ($Guest_Rooms as $_Guest_Rooms) {
 													echo '<li>
-														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" alt="" class="img-fluid" /></a>
+														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" data-fancybox-group="gallery" title="'.$_Guest_Rooms->name.'"><img src="'.asset('uploads/Galleries/'.$_Guest_Rooms->photo).'" alt="" class="img-fluid" /></a>
 														<div class="topic-blog2 text-center">
 															<h3>'.$_Guest_Rooms->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
-																<label for="slidetoggle3">Share</label>
+															
 																<input id="slidetoggle3" type="checkbox">
 																<div class="wrapper">
-																	<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																				<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																				<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																				<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																				<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																</div>
 															</div>
 														</div>
@@ -228,22 +261,30 @@
 							<div class="display-slide" rel="4" style="display:block;">
 								<div class="row">
 									<div class="col">
-										<h1 class="text-center">Dining</h1>
+										<?php $Dining_name = $gallery_type->where('id','=','3'); ?>
+										@foreach ($Dining_name as $_Dining_name)
+											<h1 class="text-center">{{$_Dining_name->name}}</h1>	
+										@endforeach
 										<div id="grid-gallery" class="grid-gallery spacetopbig">
 											<div class="grid-wrap">
 												<ul class="grid">
 												<?php $Dining = $gallery->where('gallery_type_id','=','3')->where('type','=','P'); 
 													foreach ($Dining as $_Dining) {
 													echo'<li>
-														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Dining->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Dining->photo).'" alt="" class="img-fluid" /></a>
+														<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Dining->photo).'" data-fancybox-group="gallery" title="'.$_Dining->name.'"><img src="'.asset('uploads/Galleries/'.$_Dining->photo).'" alt="" class="img-fluid" /></a>
 														<div class="topic-blog2 text-center">
 															<h3>'.$_Dining->name.'</h3>
 															<br>
 															<div class="toggle-slide-container">
-																<label for="slidetoggle4">Share</label>
+															
 																<input id="slidetoggle4" type="checkbox">
 																<div class="wrapper">
-																	<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																	
 																</div>
 															</div>
 														</div>
@@ -258,22 +299,30 @@
 								<div class="display-slide" rel="5" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Spa</h1>
+											<?php $Spa_name = $gallery_type->where('id','=','4'); ?>
+											@foreach ($Spa_name as $_Spa_name)
+												<h1 class="text-center">{{$_Spa_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Spa = $gallery->where('gallery_type_id','=','4')->where('type','=','P'); 
 														foreach ($Spa as $_Spa) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Spa->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Spa->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Spa->photo).'" data-fancybox-group="gallery" title="'.$_Spa->name.'"><img src="'.asset('uploads/Galleries/'.$_Spa->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Spa->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle5">Share</label>
+																	
 																	<input id="slidetoggle5" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -287,22 +336,30 @@
 									<div class="display-slide" rel="6" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Resort views</h1>
+											<?php $Resort_name = $gallery_type->where('id','=','5'); ?>
+											@foreach ($Resort_name as $_Resort_name)
+												<h1 class="text-center">{{$_Resort_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Resort_views = $gallery->where('gallery_type_id','=','5')->where('type','=','P'); 
 														foreach ($Resort_views as $_Resort_views) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" data-fancybox-group="gallery" title="'.$_Resort_views->name.'"><img src="'.asset('uploads/Galleries/'.$_Resort_views->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Resort_views->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle6">Share</label>
+																	
 																	<input id="slidetoggle6" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -316,22 +373,30 @@
 									<div class="display-slide" rel="7" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Kids Club</h1>
+											<?php $Kids_name = $gallery_type->where('id','=','6'); ?>
+											@foreach ($Kids_name as $_Kids_name)
+												<h1 class="text-center">{{$_Kids_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Kids_Club = $gallery->where('gallery_type_id','=','6')->where('type','=','P'); 
 														foreach ($Kids_Club as $_Kids_Club) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" data-fancybox-group="gallery" title="'.$_Kids_Club->name.'"><img src="'.asset('uploads/Galleries/'.$_Kids_Club->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Kids_Club->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle7">Share</label>
+																	
 																	<input id="slidetoggle7" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -345,22 +410,30 @@
 									<div class="display-slide" rel="8" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Activities</h1>
+											<?php $Activities_name = $gallery_type->where('id','=','7'); ?>
+											@foreach ($Activities_name as $_Activities_name)
+												<h1 class="text-center">{{$_Activities_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Activities = $gallery->where('gallery_type_id','=','7')->where('type','=','P'); 
 														foreach ($Activities as $_Activities) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Activities->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Activities->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Activities->photo).'" data-fancybox-group="gallery" title="'.$_Activities->name.'"><img src="'.asset('uploads/Galleries/'.$_Activities->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Activities->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle8">Share</label>
+																	
 																	<input id="slidetoggle8" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -374,22 +447,31 @@
 									<div class="display-slide" rel="9" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Fitness</h1>
+											<?php $Fitness_name = $gallery_type->where('id','=','8'); ?>
+											@foreach ($Fitness_name as $_Fitness_name)
+												<h1 class="text-center">{{$_Fitness_name->name}}</h1>	
+											@endforeach
+										
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Fitness = $gallery->where('gallery_type_id','=','8')->where('type','=','P'); 
 														foreach ($Fitness as $_Fitness) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Fitness->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Fitness->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Fitness->photo).'" data-fancybox-group="gallery" title="'.$_Fitness->name.'"><img src="'.asset('uploads/Galleries/'.$_Fitness->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Fitness->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle9">Share</label>
+																	
 																	<input id="slidetoggle9" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -403,22 +485,30 @@
 									<div class="display-slide" rel="10" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Meetings and Events</h1>
+											<?php $Meetings_name = $gallery_type->where('id','=','9'); ?>
+											@foreach ($Meetings_name as $_Meetings_name)
+												<h1 class="text-center">{{$_Meetings_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Events = $gallery->where('gallery_type_id','=','9')->where('type','=','P'); 
 														foreach ($Events as $_Events) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Events->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Events->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Events->photo).'" data-fancybox-group="gallery" title="'.$_Events->name.'"><img src="'.asset('uploads/Galleries/'.$_Events->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Events->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle10">Share</label>
+																	
 																	<input id="slidetoggle10" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -432,22 +522,30 @@
 									<div class="display-slide" rel="11" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Weddings</h1>
+											<?php $Weddings_name = $gallery_type->where('id','=','10'); ?>
+											@foreach ($Weddings_name as $_Weddings_name)
+												<h1 class="text-center">{{$_Weddings_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Weddings = $gallery->where('gallery_type_id','=','10')->where('type','=','P'); 
 														foreach ($Weddings as $_Weddings) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Weddings->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Weddings->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Weddings->photo).'" data-fancybox-group="gallery" title="'.$_Weddings->name.'"><img src="'.asset('uploads/Galleries/'.$_Weddings->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Weddings->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle11">Share</label>
+																	
 																	<input id="slidetoggle11" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																		
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																			
 																	</div>
 																</div>
 															</div>
@@ -461,22 +559,30 @@
 									<div class="display-slide" rel="12" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">Attractions</h1>
+											<?php $Attractions_name = $gallery_type->where('id','=','11'); ?>
+											@foreach ($Attractions_name as $_Attractions_name)
+												<h1 class="text-center">{{$_Attractions_name->name}}</h1>	
+											@endforeach
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
 													<?php $Attractions = $gallery->where('gallery_type_id','=','11')->where('type','=','P'); 
 														foreach ($Attractions as $_Attractions) {
 														echo'<li>
-															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Attractions->photo).'" data-fancybox-group="gallery" title="The Outerwear Edit"><img src="'.asset('uploads/Galleries/'.$_Attractions->photo).'" alt="" class="img-fluid" /></a>
+															<a class="fancybox" href="'.asset('uploads/Galleries/'.$_Attractions->photo).'" data-fancybox-group="gallery" title="'.$_Attractions->name.'"><img src="'.asset('uploads/Galleries/'.$_Attractions->photo).'" alt="" class="img-fluid" /></a>
 															<div class="topic-blog2 text-center">
 																<h3>'.$_Attractions->name.'</h3>
 																<br>
 																<div class="toggle-slide-container">
-																	<label for="slidetoggle12">Share</label>
+																	
 																	<input id="slidetoggle12" type="checkbox">
 																	<div class="wrapper">
-																		<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
+																	
+																			<a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/gallery"><i class="fas fa-envelope"></i></a> 
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fholidayinnphuket.com%2Fgallery&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a> 
+																			<a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url=""http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter" target="_blank"><i class="fab fa-twitter"></i></a> 
+																			<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/gallery" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+																		
 																	</div>
 																</div>
 															</div>
@@ -515,7 +621,7 @@
 														<h3>The Outerwear Edit</h3>
 																				<br>
 														<div class="toggle-slide-container">
-															<label for="slidetoggle2">Share</label>
+															
 															<input id="slidetoggle2" type="checkbox">
 															<div class="wrapper">
 																<div class="hidden"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-google-plus-g"></i></a> <a href="#"><i class="fas fa-envelope"></i></a> </div>
@@ -788,7 +894,17 @@
 				});
 			});
 		</script>
-		<script>
+	
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v3.3&appId=2098708527096052&autoLogAppEvents=1"></script>
+		<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			  }(document, 'script', 'facebook-jssdk'));</script>
+			
+		{{-- <script>
 			window.fbAsyncInit = function() {
 				FB.init({
 					"appID": "2098708527096052",
@@ -802,24 +918,24 @@
 					"autoRun": false
 				});
 			};
-			</script>
+		</script>
 		<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 		<script>
 			document.getElementById('shareBtn').onclick = function() {
 			FB.ui({
 				method: 'share',
 				display: 'popup',
-				href: 'https://developers.facebook.com/docs/',
+				href: 'http://holidayinnphuket.com/gallery',
 			}, function(response){});
 			}
 			document.getElementById('shareBtn2').onclick = function() {
 			FB.ui({
 				method: 'share',
 				display: 'popup',
-				href: 'https://developers.facebook.com/docs/',
+				href: 'http://holidayinnphuket.com/gallery',
 			}, function(response){});
 			}
-		</script>
+		</script> --}}
 		@include('inc_footer')
 </body>
 

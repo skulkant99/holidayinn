@@ -8,6 +8,21 @@ use Illuminate\Http\Request;
 class ContentController extends Controller
 {
     public function detail($id){
+        $data['social'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','H')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['logo'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','F')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
+        $data['kids'] = \App\Models\Social::where('status','=','1')
+            ->where('type','=','K')
+            ->select('socials.*')
+            ->orderBy('sort_id','ASC')
+            ->get();
         $data['content_detail'] = \App\Models\Information::where('id',$id)
             ->select('informations.*')
             ->get();
@@ -30,5 +45,19 @@ class ContentController extends Controller
         }
         
         return view('offer_inside',$data);
+    }
+    public function Countlike(Request $request ){
+        $postid = $request->postid;
+        $liked = $request->liked;
+        $like = \App\Models\Information::find($postid);
+        $like_contant = $like->like+$liked;
+
+        if($like_contant){
+            $like->like = $like_contant;
+            $like->save();
+        }
+
+        return json_encode($like->like);
+        
     }
 }

@@ -14,12 +14,13 @@ class RegisterController extends Controller
         $chk = \App\Models\User::orWhere('email', $request->email)->first();
         if($chk){
             $return['status'] = 0;
-            $return['content'] = 'มีผู้ใช้งาน E-mail นี้แล้วกรุณาตรวจสอบข้อมูล';
-            $return['title'] = 'เพิ่มข้อมูล';
+            $return['content'] = 'Email is already in use Please check again';
+            $return['title'] = 'Register for membership wrong';
             return $return;
         }
         $input_all['password'] = bcrypt($request->input('password'));
-        $input_all['name'] = $request->input('name');
+        $input_all['firstname'] = $request->input('firstname');
+        $input_all['lastname'] = $request->input('lastname');
         $input_all['email'] = $request->input('email');
 
 
@@ -40,7 +41,7 @@ class RegisterController extends Controller
                 $input_all['token'] = $token;
                 \App\Models\PasswordReset::insert(['email'=>$email,'token'=>$token]);
                 \Mail::send('emails.activate_email', $input_all, function ($m) use($token , $input_all){
-                    $m->to($input_all['email'], $input_all['name'])->subject('Confirm Register holidayinn');
+                    $m->to($input_all['email'], $input_all['firstname'])->subject('Confirm Register holidayinn');
                 });
                 \DB::commit();
                 $return['status'] = 1;
@@ -93,5 +94,58 @@ class RegisterController extends Controller
             return 1;
         }
 
+    }
+    public function subscrice(Request $request){
+        $chk = \App\Models\EmailSubscribe::orWhere('email', $request->email)->first();
+        if($chk){
+            $return['status'] = 0;
+            $return['content'] = 'Email is already in use Please check again';
+            $return['title'] = 'Sunscribe for membership wrong';
+            return $return;
+        }
+        // $input_all['password'] = bcrypt($request->input('password'));
+        $input_all['firstname'] = $request->input('firstname');
+        $input_all['lastname'] = $request->input('lastname');
+        $input_all['email'] = $request->input('email');
+
+
+        $input_all['created_at'] = date('Y-m-d H:i:s');
+        $input_all['updated_at'] = date('Y-m-d H:i:s');
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'unique:email_subscribes',
+            // 'password' => 'required|min:6'
+        ]);
+        if (!$validator->fails()) {
+            \DB::beginTransaction();
+            try {
+                $data_insert = $input_all;
+                $id = \App\Models\EmailSubscribe::insertGetId($data_insert);
+                $email = $input_all['email'];
+                $token = base64_encode($email.'#'.\Hash::make(20));
+                $input_all['token'] = $token;
+                // \App\Models\PasswordReset::insert(['email'=>$email,'token'=>$token]);
+                \Mail::send('emails.subscrice_email', $input_all, function ($m) use($token , $input_all){
+                    $m->to($input_all['email'])->subject('Confirm Subscribe holidayinn');
+                });
+                \DB::commit();
+                $return['status'] = 1;
+                $return['content'] = 'Finish';
+            } catch (Exception $e) {
+                \DB::rollBack();
+                $return['status'] = 0;
+                $return['content'] = 'Fail'.$e->getMessage();
+            }
+        }else{
+            $failedRules = $validator->failed();
+            if(isset($failedRules['email']['Unique'])) {
+                $return['status'] = 2;
+                $return['content'] = 'Email duplicate';
+            } else {
+                $return['status'] = 0;
+            }
+        }
+        $return['title'] = 'Create data';
+        return json_encode($return);
     }
 }
