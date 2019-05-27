@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function CheckLogin(Request $request){
     	$email = $request->input('email');
         $password = $request->input('password');
-    	if (\Auth::guard('user')->attempt(['email' => $email, 'password' => $password])) {
+    	if (\Auth::guard('user')->attempt(['email' => $email, 'password' => $password ,'active_email' => 'T'])) {
             $user_id = \Auth::guard('user')->id();
             // insert log login
                 // $data_log_insert = [

@@ -28,6 +28,8 @@
     <link href="{{asset('assets/admin/vendors/sweetalert/css/sweetalert2.min.css')}}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
+
+    
    
 <body>
 
@@ -42,11 +44,13 @@
                             <form method="#" id="FormLogin" action="#">
                                 <div class="card card-login card-hidden" style="border-radius:0px;border-bottom: 3px solid red;">
                                     <div class="header text-center">
-                                        <h3 class="title">เข้าสู่ระบบ</h3>
+                                        <img src="{{asset('images/home2-edit_03.png')}}" class="img-login" style="width:30%">
+                                        <h6 class="title">Welcome to Holiday Inn Resort Phuket System!</h6>
+                                       
                                     </div>
                                     <div class="content">
                                         <div class="form-group">
-                                            <label>Username</label>
+                                            <label>Please enter your username</label>
                                             <input name="username" type="text" placeholder="Enter email" class="form-control input-no-border">
                                         </div>
                                         <div class="form-group">
@@ -56,7 +60,7 @@
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-rose btn-wd btn-lg">
-                                            เข้าสู่ระบบ
+                                            Submit
                                         </button>
                                     </div>
                                 </div>

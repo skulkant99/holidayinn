@@ -35,6 +35,10 @@ class ContentController extends Controller
             ->paginate(3);
         $data['id'] = $id;
         $data['content'] = \App\Models\Information::select()->orderBy('id','DESC')->paginate(3);
+        $data['gallery'] = \App\Models\Galleries::leftJoin('gallery_types','gallery_types.id','galleries.gallery_type_id')
+            ->select('galleries.*','gallery_types.name as gallery_name')
+            ->orderBy('galleries.updated_at','DESC')
+            ->paginate(3);
 
         $view = \App\Models\Information::find($id);
         $page_view = $view->view+1;

@@ -76,6 +76,28 @@
 			line-height: 30px;
 			/* margin-left: 10px; */
 		}
+		.swal-button {
+			padding: 7px 19px;
+			border-radius: 2px;
+			border: 4px solid #b7b8d7;
+			background-color: #b7b8d7;
+			font-size: 12px;
+			border: 1px solid #b7b8d7;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+		}
+		.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+			.swal-footer {
+				text-align: center;
+			}
+		.img-update{
+			width: 20%;
+			height: 20%;
+			float: left;
+		}
+	
 	
 	</style>
 	@include('inc_topmenu')
@@ -140,7 +162,7 @@
 							<div class="offer_details">
 								<div class="row">
 									<div class="col-12 col-md-9 col-lg-9">
-										<h3>{{$_content->title}}</h3> </div>
+										<?php echo ($_content->title); ?> </div>
 									<div class="col-12 col-md-3 col-lg-3">
 										<div class="likebtn">
 											<button class="likebefore" data-id="{{$_content->id}}"></button>
@@ -148,7 +170,7 @@
 										<div class="like_text" id="re_like">{{$_content->like}} Likes </div>
 									</div>
 								</div>
-								<?php echo '<p>'.$_content->detail.'</p>';?>
+								<?php echo (substr_replace($_content->detail,'...',220)); ?>
 							</div>
 							<div class="row mt-5">
 								<div class="col-12 col-md-6 col-lg-5 col-xl-6"> <a href="{{url('offer_inside/'.$_content->id)}}" class="btn btn-primary">Read more</a> </div>
@@ -256,7 +278,7 @@
 						<div class="sidmenu_recommend">
 							<h3>Most recent</h3>
 							@foreach ($content as  $_content)
-						<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{$_content->title}}</a></li>					
+						<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{strip_tags(html_entity_decode($_content->title))}}</a></li>					
 							@endforeach
 						
 							{{-- <li><a href="#">Family Fun in Perth City 2019</a></li>
@@ -264,19 +286,70 @@
 							<li><a href="#">The Best Free Things to See and Do in Perth</a></li> --}}
 						</div>
 						<div class="sidmenu_recent">
-							<h3>Recommended</h3>
-							@foreach ($comment_all as $_comment_all)
-								<li><a href="{{asset('offer_inside/'.$_comment_all->information_id)}}">{{$_comment_all->comment}}</a></li>
+							<h3>Updated photos</h3>
+							@foreach ($gallery as $_gallery)
+								@php
+									$date_create = substr($_gallery->updated_at,0,-8);
+									// $today = new DateTime(date("Y-m-d H:i:s"));
+									// $date_comment  = $_comment->created_at;
+									// $days_until_appt = $date_comment->diff($today)->d; 
+									$date_create_edit = explode('-', $date_create);
+									$month = $date_create_edit[1];
+									$day   = $date_create_edit[2];
+									$year  = $date_create_edit[0]; 
+									switch ($month) {
+										case '01':
+											$month = "Jan";
+											break;
+										case '02':
+											$month = "Fab";
+											break;
+										case '03':
+											$month = "Mar";
+											break;
+										case '04':
+											$month = "Apr";
+											break;
+										case '05':
+											$month = "May";
+											break;
+										case '06':
+											$month = "June";
+											break;
+										case '07':
+											$month = "July";
+											break;
+										case '08':
+											$month = "Aug";
+											break;
+										case '09':
+											$month = "Sept";
+											break;
+										case '10':
+											$month = "Oct";
+											break;
+										case '11':
+											$month = "Nov";
+											break;
+										case '12':
+											$month = "Dev";
+											break;
+										default:
+											# code...
+											break;
+									}
+								@endphp
+								<li><a href="{{url('gallery')}}">{{$_gallery->gallery_name}} new photo <br> {{$day.' '.$month.' '.$year}}</a></li>
 							@endforeach
 							{{-- <li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
 							<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
 							<li><a href="#">THE BEST FRINGE WORLD FESTIVAL SHOWS IN PERTH 2019</a></li>
 							<li><a href="#">Christmas in Perth City 2018</a></li> --}}
 						</div>
-						<div class="side_privacy">
+						{{-- <div class="side_privacy">
 							<li><a href="{{url('fullcomment')}}"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
 							<li><a href="{{url('ourcomment')}}"> <i class="far fa-sticky-note"></i> Our policy on commenting</a></li>
-						</div>
+						</div> --}}
 					</div>
 			</div>
 		</div>

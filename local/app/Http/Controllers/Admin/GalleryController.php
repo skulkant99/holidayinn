@@ -73,7 +73,7 @@ class GalleryController extends Controller
                 \App\Models\Galleries::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -169,7 +169,7 @@ class GalleryController extends Controller
                 \App\Models\Galleries::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -195,7 +195,7 @@ class GalleryController extends Controller
             \App\Models\Galleries::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
-            $return['content'] = 'สำเร็จ';
+            $return['content'] = 'Successfully deleted information';
         } catch (Exception $e) {
             \DB::rollBack();
             $return['status'] = 0;

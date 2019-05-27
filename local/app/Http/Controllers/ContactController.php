@@ -47,6 +47,12 @@ class ContactController extends Controller
             try {
                 $data_insert = $input_all;
                 \App\Models\ContactHelp::insert($data_insert);
+                $email = $input_all['email'];
+                $token = base64_encode($email.'#'.\Hash::make(20));
+                \Mail::send('emails.contact_email', $input_all, function ($m) use($token , $input_all){
+                    $m->from($input_all['email'], 'contact');
+                    $m->to('holidayinnphuth@gmail.com', $input_all['first_name'])->subject('Confirm contact holidayinn');
+                });
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'สำเร็จ';

@@ -71,6 +71,33 @@
 			-moz-transition: all 0.2s ease-in-out;
 			transition: all 0.2s ease-in-out;
 		}
+		.search-icon {
+		position: relative;
+		float: right;
+		top: -52px;
+		left: -10px;
+		}
+		.head_title {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			text-align: center;
+		}	
+	.swal-button {
+			padding: 7px 19px;
+			border-radius: 2px;
+			border: 4px solid #b7b8d7;
+			background-color: #b7b8d7;
+			font-size: 12px;
+			border: 1px solid #b7b8d7;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+		}
+	.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+	.swal-footer {
+				text-align: center;
+			}
 		
 
 
@@ -82,7 +109,7 @@
 		<div class="col">
 			<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+						{{-- <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li> --}}
 							{{-- <li class="breadcrumb-item active" aria-current="page">FAQ</li> --}}
 						</ol>
 					</nav>
@@ -91,13 +118,15 @@
 		<div class="row">
 			<div class="col">
 				<div class="head_title">
-					<h1>Frequently Asked Questions</h1>
-					<p>Need immediate assistance? Please call +66 (0) 76 370 200</p>
+					<?php $head_faq = \App\Models\Title::select()->where('type','=','F')->first(); 
+						echo '<p>'.$head_faq->name.'</p>'
+					?>
+					
 				</div>
 				
 				<div class="search-container">
 					<form id="seach">
-						<input type="text" id="search-bar" name="seach" placeholder="Search by brand or keyword"> <a href="#" class="submit" ><img src="images/search.png" class="search-icon"></a> 
+						<input type="text" id="search-bar" name="seach" placeholder="Search your question here"> <a href="#" class="submit" ><img src="images/search.png" class="search-icon"></a> 
 					</form>		
 				</div>
 					
@@ -112,9 +141,8 @@
 				<div class="col">
 					<ul class="accordion">
 						@foreach ($ask as $_ask)
-								<li> <a>{{strip_tags($_ask->question)}}</a>
-								<p>	{{strip_tags($_ask->answer_name)}}</p>
-							</li>
+							<li> <a>{{html_entity_decode(strip_tags($_ask->question))}}</a>
+								 <p>{{html_entity_decode(strip_tags($_ask->answer_name))}}</p></li>
 						@endforeach
 							
 							{{-- <li> <a>Can I  change or cancel the order I have already made?</a>
@@ -169,6 +197,7 @@
 							In-store promotion of Huskies  cannot be adopted to use with on-line promotion of Huskies Online Shopping. Please see promotion details  on Huskies Online Shopping website during the promotional periods. If you have any questions, please e-mail us  info@huskiesbags.com</p>
 							</li> --}}
 						</ul>
+						
 				</div>
 							
 			</div>

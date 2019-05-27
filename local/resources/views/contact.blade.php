@@ -39,6 +39,22 @@
 		color: #000000;
 		opacity: 1;
 	}
+	.swal-button {
+			padding: 7px 19px;
+			border-radius: 2px;
+			border: 4px solid #b7b8d7;
+			background-color: #b7b8d7;
+			font-size: 12px;
+			border: 1px solid #b7b8d7;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+		}
+		.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+			.swal-footer {
+				text-align: center;
+			}
 </style>
 
 <body>
@@ -49,7 +65,7 @@
 				<div class="col">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							{{-- <li class="breadcrumb-item"><a href="#">Home</a></li> --}}
 							{{-- <li class="breadcrumb-item active" aria-current="page">Contact us</li> --}}
 						</ol>
 					</nav>
@@ -192,16 +208,16 @@
 			},
 			messages: {
 				first_name: {
-							required: "Please enter",
+							required: "Please enter your first name",
 					},
 				last_name: {
-							required: "Please enter",
+							required: "Please enter your last name",
 					},
 				email : {
-							required: "Please enter",
+							required: "Please enter your email",
 				},
 				detail: {
-							required: "Please enter",
+							required: "Please enter detail",
 					},
 				
 			},

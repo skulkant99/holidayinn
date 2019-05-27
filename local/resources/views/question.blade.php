@@ -64,7 +64,7 @@
 				<div class="col">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+							{{-- <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li> --}}
 							{{-- <li class="breadcrumb-item active" aria-current="page">Ask Question</li> --}}
 						</ol>
 					</nav>
@@ -81,7 +81,8 @@
 				<div class="col-lg-7">
 					<div class="box_white">
 						<form id="add_question">
-							<input type="hidden" name="status" value="2">
+							<input type="hidden" name="status" value="1">
+							<input type="hidden" name="type" value="Q">
 						    <div class="row">
 								<div class="col-lg-6">
 									<label>First Name <span class="redsb">*</span></label>
@@ -134,16 +135,16 @@
 			},
 			messages: {
 				firstname: {
-							required: "Please enter",
+							required: "Please enter your first name",
 					},
 				lastname: {
-							required: "Please enter",
+							required: "Please enter your last name",
 					},
 				email :{
-							required: "Please enter",
+							required: "Please enter your email",
 					},
 				question: {
-							required: "Please enter",
+							required: "Please enter question",
 					},
 			},
 			highlight: function (e) {

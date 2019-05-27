@@ -23,6 +23,17 @@ class BannerController extends Controller
     	return view('Admin.banner',$data);
     }
 
+    public function title()
+    {
+        $data['main_menu'] = 'content';
+        $data['sub_menu'] = 'Book now';
+        $data['title'] = 'Book now';
+        $data['title_page'] = 'Book now';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        
+        return view('Admin.title_banner',$data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +75,7 @@ class BannerController extends Controller
                 \App\Models\Banner::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -150,7 +161,7 @@ class BannerController extends Controller
                 \App\Models\Banner::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -176,7 +187,7 @@ class BannerController extends Controller
             \App\Models\Banner::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
-            $return['content'] = 'สำเร็จ';
+            $return['content'] = 'Successfully delected information';
         } catch (Exception $e) {
             \DB::rollBack();
             $return['status'] = 0;
@@ -222,5 +233,29 @@ class BannerController extends Controller
             ';
             return $str;
         })->make(true);  
+    }
+    public function TitleList()
+    {
+        $result = \App\Models\Title::where('type','=','H')->select();
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->addColumn('action',function($rec){
+            $str='
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);
     }
 }

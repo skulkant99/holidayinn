@@ -68,7 +68,7 @@
 
                 <div class="form-group">
                     <label for="add_name">name</label>
-                    <input type="text" class="form-control" name="name" id="add_name" required="" placeholder="name">
+                    <input type="text" class="form-control" name="name" id="add_name" required="" placeholder="name" style="border-color: #844fd9;">
                 </div>
         
                 <div class="form-group">
@@ -132,7 +132,7 @@
 
                  <div class="form-group">
                     <label for="edit_name">name</label>
-                    <input type="text" class="form-control" name="name" id="edit_name" required="" placeholder="name">
+                    <input type="text" class="form-control" name="name" id="edit_name" required="" placeholder="name" style="border-color: #844fd9;">
                 </div>
 
                 <div class="form-group">

@@ -13,7 +13,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $input_all['comment'] = $request->input('comment');
-        $input_all['comment_by'] = Auth::user()->name;
+        $input_all['comment_by'] = Auth::user()->firstname;
         $input_all['information_id'] = $request->input('information_id');
         $input_all['status']  = 1;
         

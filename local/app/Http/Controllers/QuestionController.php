@@ -26,7 +26,8 @@ class QuestionController extends Controller
             ->select('socials.*')
             ->orderBy('sort_id','ASC')
             ->get();
-        $data['ask'] = \App\Models\Question::leftJoin('answers','answers.question_id','=','questions.id')
+        $data['ask'] = \App\Models\Question::where('type','=','F')
+            ->leftJoin('answers','answers.question_id','=','questions.id')
             ->select('questions.*','answers.answer as answer_name')
             ->get();
 
@@ -57,6 +58,7 @@ class QuestionController extends Controller
         $input_all['email'] = $request->input('email');
         $input_all['question'] = $request->input('question');
         $input_all['status'] = $request->input('status');
+
 
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');

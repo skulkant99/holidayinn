@@ -29,6 +29,10 @@ class HomeController extends Controller
         $data['comment_all'] = \App\Models\Comment::select('comments.*')
             ->orderBy('id','DESC')
             ->paginate(3);
+        $data['gallery'] = \App\Models\Galleries::leftJoin('gallery_types','gallery_types.id','galleries.gallery_type_id')
+            ->select('galleries.*','gallery_types.name as gallery_name')
+            ->orderBy('galleries.updated_at','DESC')
+            ->paginate(3);
         $data['content'] = \App\Models\Information::select()->orderBy('id','DESC')->paginate(3);
         return view('index',$data);
     }

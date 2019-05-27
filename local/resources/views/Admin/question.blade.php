@@ -17,20 +17,20 @@
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
-                        <div class="form-group col-sm-4">
+                        {{-- <div class="form-group col-sm-4">
                                 <select name="status" class="select2 form-control" tabindex="-1" data-placeholder="เลือกประเภทคำถาม" id="question_status"  >
                                         <option value="0">เลือกทั้งหมด</option>
                                         <option value="1">old</option>
                                         <option value="2">new</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         <div class="material-datatables">
                             <div class="table-responsive">
                                 <table id="TableList" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
                                     <thead>
                                         <tr>
                                         <th>#</th>
-                                        <th>name</th>
+                                        {{-- <th>name</th> --}}
                                         {{-- <th>lastname</th> --}}
                                         <th>question</th>
                                         <th>sort_id</th>
@@ -53,18 +53,19 @@
     <div class="modal-dialog" role="document" style="max-width:70%;max-height:70%;">
         <div class="modal-content">
             <form id="FormAdd">
+                <input type="hidden" name="type" id="type" value="F">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">เพิ่ม {{$title_page}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add FAQ</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     
-                <div class="form-group">
-                    <label for="add_firstname">firstname</label>
-                    <input type="text" class="form-control" name="firstname" id="add_firstname" required="" placeholder="firstname">
-                </div>
+                {{-- <div class="form-group">
+                    <label for="add_firstname">name</label>
+                    <input type="text" class="form-control" name="firstname" id="add_firstname" required="" placeholder="Please enter your name.">
+                </div> --}}
         
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="add_lastname">lastname</label>
                     <input type="text" class="form-control" name="lastname" id="add_lastname" required="" placeholder="lastname">
                 </div>
@@ -72,10 +73,10 @@
                 <div class="form-group">
                     <label for="add_email">email</label>
                     <input type="text" class="form-control" name="email" id="add_email"  placeholder="email">
-                </div>
+                </div> --}}
         
                 <div class="form-group">
-                    <label for="add_question">question</label>
+                    <label for="add_question">FAQ Question</label>
                     <textarea id="add_question" name="question" class="form-control"></textarea>
                 </div>
         
@@ -105,17 +106,17 @@
             <input type="hidden" name="edit_id" id="edit_id">
             <form id="FormEdit">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">แก้ไขข้อมูล {{$title_page}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">Edit FAQ</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     
-                <div class="form-group">
-                    <label for="edit_firstname">firstname</label>
-                    <input type="text" class="form-control" name="firstname" id="edit_firstname" required="" placeholder="firstname">
-                </div>
+                {{-- <div class="form-group">
+                    <label for="edit_firstname">name</label>
+                    <input type="text" class="form-control" name="firstname" id="edit_firstname" required="" placeholder="Please enter your name.">
+                </div> --}}
         
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="edit_lastname">lastname</label>
                     <input type="text" class="form-control" name="lastname" id="edit_lastname" required="" placeholder="lastname">
                 </div>
@@ -123,10 +124,10 @@
                 <div class="form-group">
                     <label for="edit_email">email</label>
                     <input type="text" class="form-control" name="email" id="edit_email"  placeholder="email">
-                </div>
+                </div> --}}
         
                 <div class="form-group">
-                    <label for="edit_question">question</label>
+                    <label for="edit_question">FAQ Question</label>
                     <textarea id="edit_question" name="question" class="form-control"></textarea>
                 </div>
         
@@ -158,14 +159,14 @@
         "ajax": {
             "url": url_gb+"/admin/Question/Lists",
             "data": function ( d ) {
-                d.status = $('#question_status').val();
+                // d.status = $('#question_status').val();
                 // d.custom = $('#myInput').val();
                 // etc
             }
         },
         "columns": [
             {"data" : "DT_RowIndex" , "className": "text-center", "searchable": false, "orderable": false},
-            {"data" : "firstname"},
+            // {"data" : "firstname"},
             // {"data" : "lastname"},
             {"data" : "question"},
             {"data" : "sort_id"},

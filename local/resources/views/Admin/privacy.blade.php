@@ -9,10 +9,10 @@
                 <div class="card">
                     <div class="content">
                         <h4 class="title">
-                            {{$title_page}}
-                            <button class="btn btn-success btn-add pull-right" >
+                            {{$title_page }}
+                            {{-- <button class="btn btn-success btn-add pull-right" >
                                 + เพิ่มข้อมูล
-                            </button>
+                            </button> --}}
                         </h4>
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -23,10 +23,9 @@
                                     <thead>
                                         <tr>
                                         <th>#</th>
-                                        <th>question_id</th>
-                                        <th>answer</th>
-                                        <th>sort_id</th>
+                                        <th>detail</th>
                                         <th>status</th>
+                                        <th>type</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -45,36 +44,26 @@
     <div class="modal-dialog" role="document" style="max-width:70%;max-height:70%;">
         <div class="modal-content">
             <form id="FormAdd">
-             <input type="hidden" name="question_id" value="{{$id}}">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">เพิ่ม {{$title_page}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     
-                {{-- <div class="form-group">
-                    <label for="add_question_id">question_id</label>
-                    <select name="question_id" class="select2 form-control" tabindex="-1" data-placeholder="Select question_id" id="add_question_id" required="" >
-                        <option value="">Select question_id</option>
-                        @foreach($Questions as $Question)
-                        <option value="{{$Question->id}}">{{$Question->question}}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-        
                 <div class="form-group">
-                    <label for="add_answer">FAQ Answer</label>
-                    <textarea id="add_answer" name="answer" class="form-control"></textarea>
-                </div>
-        
-                <div class="form-group">
-                    <label for="add_sort_id">sort_id</label>
-                    <input type="text" class="form-control number-only" name="sort_id" id="add_sort_id"  placeholder="sort_id">
+                    <label for="add_detail">detail</label>
+                    <textarea id="add_detail" name="detail" class="form-control"></textarea>
                 </div>
         
                 <div class="form-check">
                     <label for="add_status" class="checkbox form-check-label">
                         <input type="checkbox" class="form-check-input" data-toggle="checkbox" name="status" id="add_status"  value="1" checked="checked"> status
+                    </label>
+                </div>
+        
+                <div class="form-check">
+                    <label for="add_type" class="checkbox form-check-label">
+                        <input type="checkbox" class="form-check-input" data-toggle="checkbox" name="type" id="add_type"  value="F" checked="checked"> type
                     </label>
                 </div>
         
@@ -98,24 +87,9 @@
                 </div>
                 <div class="modal-body">
                     
-                {{-- <div class="form-group">
-                    <label for="edit_question_id">question_id</label>
-                    <select name="question_id" data-placeholder="Select question_id" tabindex="-1" class="select2 form-control" id="edit_question_id" required="" >
-                        <option value="">Select question_id</option>
-                        @foreach($Questions as $Question)
-                        <option value="{{$Question->id}}">{{$Question->question}}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-        
                 <div class="form-group">
-                    <label for="edit_answer">FAQ Answer</label>
-                    <textarea id="edit_answer" name="answer" class="form-control"></textarea>
-                </div>
-        
-                <div class="form-group">
-                    <label for="edit_sort_id">sort_id</label>
-                    <input type="text" class="form-control number-only" name="sort_id" id="edit_sort_id"  placeholder="sort_id">
+                    <label for="edit_detail">detail</label>
+                    <textarea id="edit_detail" name="detail" class="form-control"></textarea>
                 </div>
         
                 <div class="form-check">
@@ -123,6 +97,12 @@
                         <input type="checkbox" class="form-check-input" data-toggle="checkbox" name="status" id="edit_status"  value="1"> status
                     </label>
                 </div>
+{{--         
+                <div class="form-check">
+                    <label for="edit_type" class="checkbox form-check-label">
+                        <input type="checkbox" class="form-check-input" data-toggle="checkbox" name="type" id="edit_type"  value="F"> type
+                    </label>
+                </div> --}}
         
                 </div>
                 <div class="modal-footer">
@@ -139,19 +119,18 @@
 
      var TableList = $('#TableList').dataTable({
         "ajax": {
-            "url": url_gb+"/admin/Answer/Lists",
+            "url": url_gb+"/admin/Privacy/ListsPrivacy",
             "data": function ( d ) {
-                d.question_id = {{$id}};
+                //d.myKey = "myValue";
                 // d.custom = $('#myInput').val();
                 // etc
             }
         },
         "columns": [
             {"data" : "DT_RowIndex" , "className": "text-center", "searchable": false, "orderable": false},
-            {"data" : "question_name","name" : "questions.question"},
-            {"data" : "answer"},
-            {"data" : "sort_id"},
+            {"data" : "detail"},
             {"data" : "status"},
+            {"data" : "type"},
             { "data": "action","className":"action text-center","searchable" : false , "orderable" : false }
         ]
     });
@@ -165,16 +144,19 @@
         $('#edit_id').val(id);
         $.ajax({
             method : "GET",
-            url : url_gb+"/admin/Answer/"+id,
+            url : url_gb+"/admin/Policy/"+id,
             dataType : 'json'
         }).done(function(rec){
-            $('#edit_question_id').val(rec.question_id).trigger('change');
-            CKEDITOR.instances['edit_answer'].setData(rec.answer);
-            $('#edit_sort_id').val(rec.sort_id);
+            CKEDITOR.instances['edit_detail'].setData(rec.detail);
             if(rec.status=='1'){
                 $('#edit_status').prop('checked','checked').closest('label').addClass('checked');
             }else{
                 $('#edit_status').removeAttr('checked').closest('label').removeClass('checked');
+            }
+                                        if(rec.type=='F'){
+                $('#edit_type').prop('checked','checked').closest('label').addClass('checked');
+            }else{
+                $('#edit_type').removeAttr('checked').closest('label').removeClass('checked');
             }
                                         
             btn.button("reset");
@@ -190,10 +172,16 @@
         errorClass: 'invalid-feedback',
         focusInvalid: false,
         rules: {
-           
+            
+            detail: {
+                required: true,
+            },
         },
         messages: {
-           
+            
+            detail: {
+                required: "กรุณาระบุ",
+            },
         },
         highlight: function (e) {
             validate_highlight(e);
@@ -206,19 +194,19 @@
             validate_errorplacement(error, element);
         },
         submitHandler: function (form) {
-            
+            /*
             if(CKEDITOR!==undefined){
                 for ( instance in CKEDITOR.instances ){
                     CKEDITOR.instances[instance].updateElement();
                 }
             }
-            
+            */
             var btn = $(form).find('[type="submit"]');
             var data_ar = removePriceFormat(form,$(form).serializeArray());
             btn.button("loading");
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer",
+                url : url_gb+"/admin/Policy",
                 dataType : 'json',
                 data : $(form).serialize()
             }).done(function(rec){
@@ -247,19 +235,13 @@
         focusInvalid: false,
         rules: {
             
-            question_id: {
-                required: true,
-            },
-            answer: {
+            detail: {
                 required: true,
             },
         },
         messages: {
             
-            question_id: {
-                required: "กรุณาระบุ",
-            },
-            answer: {
+            detail: {
                 required: "กรุณาระบุ",
             },
         },
@@ -274,19 +256,19 @@
             validate_errorplacement(error, element);
         },
         submitHandler: function (form) {
-            
+            /*
             if(CKEDITOR!==undefined){
                 for ( instance in CKEDITOR.instances ){
                     CKEDITOR.instances[instance].updateElement();
                 }
             }
-            
+            */
             var btn = $(form).find('[type="submit"]');
             var id = $('#edit_id').val();
             btn.button("loading");
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer/"+id,
+                url : url_gb+"/admin/Policy/"+id,
                 dataType : 'json',
                 data : $(form).serialize()
             }).done(function(rec){
@@ -327,7 +309,7 @@
         }).then(function() {
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer/Delete/"+id,
+                url : url_gb+"/admin/Policy/Delete/"+id,
                 data : {ID : id}
             }).done(function(rec){
                 if(rec.status==1){
@@ -344,10 +326,8 @@
         });
     });
 
-    $('#add_question_id').select2();
-$('#edit_question_id').select2();
-CKEDITOR.replace('add_answer');
-    CKEDITOR.replace('edit_answer');
+    CKEDITOR.replace('add_detail');
+    CKEDITOR.replace('edit_detail');
 
 </script>
 @endsection

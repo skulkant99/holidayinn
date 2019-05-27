@@ -75,6 +75,8 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
 
     Route::get('/banner','Admin\BannerController@index');
     Route::get('/banner/Lists','Admin\BannerController@Lists');
+    Route::get('/TitleBanner','Admin\BannerController@title');
+    Route::get('/banner/Lists/TitleBanner','Admin\BannerController@TitleList');
     Route::post('/banner','Admin\BannerController@store');
     Route::get('/banner/show/{id}','Admin\BannerController@show');
     Route::post('/banner/{id}','Admin\BannerController@update');
@@ -114,6 +116,11 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
         Route::get('/Question/{id}', 'Admin\QuestionController@show');
         Route::post('/Question/{id}', 'Admin\QuestionController@update');
         Route::post('/Question/Delete/{id}', 'Admin\QuestionController@destroy');
+
+      Route::get('/AddQuestion', 'Admin\QuestionController@add_question');
+        Route::get('/Question/Answer/Lists', 'Admin\QuestionController@ListsAddQuestion');
+
+    
 
       Route::get('/Answer', 'Admin\AnswerController@index');
       Route::get('/Question/Answer/{id}','Admin\AnswerController@Answer');
@@ -156,6 +163,9 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
       Route::get('/Ourpolicy', 'Admin\PolicyController@ourpolicy');
         Route::get('/Ourpolicy/ListsOurpolicy', 'Admin\PolicyController@ListsOurpolicy');
 
+      Route::get('/Privacy', 'Admin\PolicyController@Privacy');
+        Route::get('/Privacy/ListsPrivacy', 'Admin\PolicyController@ListsPrivacy');
+
       Route::get('/Information/Comment/{id}','Admin\CommentController@Comment');
         Route::get('/information/ListsComment','Admin\CommentController@ListsComment');
         Route::post('/Comment','Admin\CommentController@store');
@@ -192,6 +202,16 @@ Route::group(['middleware' => 'admin_auth', 'prefix' => 'admin'], function() {
         Route::get('/User/{id}', 'Admin\UserController@show');
         Route::post('/User/{id}', 'Admin\UserController@update');
         Route::post('/User/Delete/{id}', 'Admin\UserController@destroy');
+
+      Route::get('/Title', 'Admin\TitleController@index');
+        Route::get('/Title/Lists', 'Admin\TitleController@Lists');
+        Route::post('/Title', 'Admin\TitleController@store');
+        Route::get('/Title/{id}', 'Admin\TitleController@show');
+        Route::post('/Title/{id}', 'Admin\TitleController@update');
+        Route::post('/Title/Delete/{id}', 'Admin\TitleController@destroy');
+
+      Route::get('/TitleFaq','Admin\QuestionController@title');
+        Route::get('/TitleFaq/Lists','Admin\QuestionController@TitleList');
 
       ##ROUTEFORINSTALL##
 });

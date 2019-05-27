@@ -10,21 +10,29 @@
                     <div class="content">
                         <h4 class="title">
                             {{$title_page}}
-                            <button class="btn btn-success btn-add pull-right" >
+                            {{-- <button class="btn btn-success btn-add pull-right" >
                                 + เพิ่มข้อมูล
-                            </button>
+                            </button> --}}
                         </h4>
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
+                        {{-- <div class="form-group col-sm-4">
+                                <select name="status" class="select2 form-control" tabindex="-1" data-placeholder="เลือกประเภทคำถาม" id="question_status"  >
+                                        <option value="0">เลือกทั้งหมด</option>
+                                        <option value="1">old</option>
+                                        <option value="2">new</option>
+                                </select>
+                            </div> --}}
                         <div class="material-datatables">
                             <div class="table-responsive">
                                 <table id="TableList" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
                                     <thead>
                                         <tr>
                                         <th>#</th>
-                                        <th>question_id</th>
-                                        <th>answer</th>
+                                        <th>name</th>
+                                        {{-- <th>lastname</th> --}}
+                                        <th>question</th>
                                         <th>sort_id</th>
                                         <th>status</th>
                                         <th></th>
@@ -45,26 +53,31 @@
     <div class="modal-dialog" role="document" style="max-width:70%;max-height:70%;">
         <div class="modal-content">
             <form id="FormAdd">
-             <input type="hidden" name="question_id" value="{{$id}}">
+                <input type="hidden" name="type" id="type" value="F">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">เพิ่ม {{$title_page}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Question</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     
                 {{-- <div class="form-group">
-                    <label for="add_question_id">question_id</label>
-                    <select name="question_id" class="select2 form-control" tabindex="-1" data-placeholder="Select question_id" id="add_question_id" required="" >
-                        <option value="">Select question_id</option>
-                        @foreach($Questions as $Question)
-                        <option value="{{$Question->id}}">{{$Question->question}}</option>
-                        @endforeach
-                    </select>
+                    <label for="add_firstname">name</label>
+                    <input type="text" class="form-control" name="firstname" id="add_firstname" required="" placeholder="Please enter your name.">
+                </div> --}}
+        
+                {{-- <div class="form-group">
+                    <label for="add_lastname">lastname</label>
+                    <input type="text" class="form-control" name="lastname" id="add_lastname" required="" placeholder="lastname">
+                </div>
+        
+                <div class="form-group">
+                    <label for="add_email">email</label>
+                    <input type="text" class="form-control" name="email" id="add_email"  placeholder="email">
                 </div> --}}
         
                 <div class="form-group">
-                    <label for="add_answer">FAQ Answer</label>
-                    <textarea id="add_answer" name="answer" class="form-control"></textarea>
+                    <label for="add_question">Question</label>
+                    <textarea id="add_question" name="question" class="form-control"></textarea>
                 </div>
         
                 <div class="form-group">
@@ -93,24 +106,29 @@
             <input type="hidden" name="edit_id" id="edit_id">
             <form id="FormEdit">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">แก้ไขข้อมูล {{$title_page}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">Edit Question</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     
                 {{-- <div class="form-group">
-                    <label for="edit_question_id">question_id</label>
-                    <select name="question_id" data-placeholder="Select question_id" tabindex="-1" class="select2 form-control" id="edit_question_id" required="" >
-                        <option value="">Select question_id</option>
-                        @foreach($Questions as $Question)
-                        <option value="{{$Question->id}}">{{$Question->question}}</option>
-                        @endforeach
-                    </select>
+                    <label for="edit_firstname">name</label>
+                    <input type="text" class="form-control" name="firstname" id="edit_firstname" required="" placeholder="Please enter your name.">
+                </div> --}}
+        
+                {{-- <div class="form-group">
+                    <label for="edit_lastname">lastname</label>
+                    <input type="text" class="form-control" name="lastname" id="edit_lastname" required="" placeholder="lastname">
+                </div>
+        
+                <div class="form-group">
+                    <label for="edit_email">email</label>
+                    <input type="text" class="form-control" name="email" id="edit_email"  placeholder="email">
                 </div> --}}
         
                 <div class="form-group">
-                    <label for="edit_answer">FAQ Answer</label>
-                    <textarea id="edit_answer" name="answer" class="form-control"></textarea>
+                    <label for="edit_question">Question</label>
+                    <textarea id="edit_question" name="question" class="form-control"></textarea>
                 </div>
         
                 <div class="form-group">
@@ -139,21 +157,25 @@
 
      var TableList = $('#TableList').dataTable({
         "ajax": {
-            "url": url_gb+"/admin/Answer/Lists",
+            "url": url_gb+"/admin/Question/Answer/Lists",
             "data": function ( d ) {
-                d.question_id = {{$id}};
+                // d.status = $('#question_status').val();
                 // d.custom = $('#myInput').val();
                 // etc
             }
         },
         "columns": [
             {"data" : "DT_RowIndex" , "className": "text-center", "searchable": false, "orderable": false},
-            {"data" : "question_name","name" : "questions.question"},
-            {"data" : "answer"},
+            {"data" : "firstname"},
+            // {"data" : "lastname"},
+            {"data" : "question"},
             {"data" : "sort_id"},
             {"data" : "status"},
             { "data": "action","className":"action text-center","searchable" : false , "orderable" : false }
         ]
+    });
+    $('body').on('change','#question_status',function(data){
+        TableList.api().ajax.reload();
     });
     $('body').on('click','.btn-add',function(data){
         ShowModal('ModalAdd');
@@ -165,11 +187,13 @@
         $('#edit_id').val(id);
         $.ajax({
             method : "GET",
-            url : url_gb+"/admin/Answer/"+id,
+            url : url_gb+"/admin/Question/"+id,
             dataType : 'json'
         }).done(function(rec){
-            $('#edit_question_id').val(rec.question_id).trigger('change');
-            CKEDITOR.instances['edit_answer'].setData(rec.answer);
+            $('#edit_firstname').val(rec.firstname);
+            $('#edit_lastname').val(rec.lastname);
+            $('#edit_email').val(rec.email);
+            CKEDITOR.instances['edit_question'].setData(rec.question);
             $('#edit_sort_id').val(rec.sort_id);
             if(rec.status=='1'){
                 $('#edit_status').prop('checked','checked').closest('label').addClass('checked');
@@ -190,10 +214,22 @@
         errorClass: 'invalid-feedback',
         focusInvalid: false,
         rules: {
-           
+            
+            firstname: {
+                required: true,
+            },
+            lastname: {
+                required: true,
+            },
         },
         messages: {
-           
+            
+            firstname: {
+                required: "กรุณาระบุ",
+            },
+            lastname: {
+                required: "กรุณาระบุ",
+            },
         },
         highlight: function (e) {
             validate_highlight(e);
@@ -218,7 +254,7 @@
             btn.button("loading");
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer",
+                url : url_gb+"/admin/Question",
                 dataType : 'json',
                 data : $(form).serialize()
             }).done(function(rec){
@@ -247,19 +283,19 @@
         focusInvalid: false,
         rules: {
             
-            question_id: {
+            firstname: {
                 required: true,
             },
-            answer: {
+            lastname: {
                 required: true,
             },
         },
         messages: {
             
-            question_id: {
+            firstname: {
                 required: "กรุณาระบุ",
             },
-            answer: {
+            lastname: {
                 required: "กรุณาระบุ",
             },
         },
@@ -286,7 +322,7 @@
             btn.button("loading");
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer/"+id,
+                url : url_gb+"/admin/Question/"+id,
                 dataType : 'json',
                 data : $(form).serialize()
             }).done(function(rec){
@@ -327,7 +363,7 @@
         }).then(function() {
             $.ajax({
                 method : "POST",
-                url : url_gb+"/admin/Answer/Delete/"+id,
+                url : url_gb+"/admin/Question/Delete/"+id,
                 data : {ID : id}
             }).done(function(rec){
                 if(rec.status==1){
@@ -343,11 +379,9 @@
             //console.log(e);
         });
     });
-
-    $('#add_question_id').select2();
-$('#edit_question_id').select2();
-CKEDITOR.replace('add_answer');
-    CKEDITOR.replace('edit_answer');
+    $('#question_status').select2();
+    CKEDITOR.replace('add_question');
+    CKEDITOR.replace('edit_question');
 
 </script>
 @endsection

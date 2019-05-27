@@ -21,7 +21,7 @@ class PolicyController extends Controller
         $data['title_page'] = 'Full comment policy';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
-        return view('Admin.policy',$data);
+        return view('Admin.fullpolicy',$data);
     }
 
     public function ourpolicy()
@@ -33,6 +33,17 @@ class PolicyController extends Controller
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
         return view('Admin.ourpolicy',$data);
+    }
+
+    public function Privacy()
+    {
+        $data['main_menu'] = 'Privacy';
+        $data['sub_menu'] = 'Privacy';
+        $data['title'] = 'Privacy';
+        $data['title_page'] = 'Privacy';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        
+        return view('Admin.privacy',$data);
     }
 
     /**
@@ -69,7 +80,7 @@ class PolicyController extends Controller
                 \App\Models\Policies::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -130,7 +141,7 @@ class PolicyController extends Controller
                 \App\Models\Policies::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -156,7 +167,7 @@ class PolicyController extends Controller
             \App\Models\Policies::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
-            $return['content'] = 'สำเร็จ';
+            $return['content'] = 'Successfully deleted information';
         } catch (Exception $e) {
             \DB::rollBack();
             $return['status'] = 0;
@@ -214,6 +225,34 @@ class PolicyController extends Controller
                 return $type = '<span>Our policy on commenting</span>';
             }else {
                 return $type = '<span>Full comment policy</span>';
+            }
+        })
+        ->addColumn('action',function($rec){
+            $str='
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);
+    }
+    public function ListsPrivacy(){
+        $result = \App\Models\Policies::where('type','=','P')->select();
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->editColumn('type',function($rec){
+            if($rec->type == 'P'){
+                return $type = '<span>PRIVACY</span>';
             }
         })
         ->addColumn('action',function($rec){

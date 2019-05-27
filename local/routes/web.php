@@ -60,6 +60,7 @@ Route::get('/ourcomment','PolicyController@out_policy');
 // Route::get('/ourcomment',function () {
 //     return view('ourcomment');
 // });
+Route::get('/privacy','PolicyController@policy');
 Route::get('offer_inside/{id}','ContentController@detail');
 
 Route::post('/Createuser','RegisterController@store');
@@ -90,3 +91,5 @@ Route::get('/cf-password',function () {
 });
 
 Route::post('/Addlike','ContentController@Countlike');
+
+Route::get('/sitemap','SitemapController@index');

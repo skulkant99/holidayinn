@@ -10,6 +10,13 @@
 		margin-bottom: 20px;
 		height: inherit;
 	}
+	.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+	.swal-footer {
+				text-align: center;
+	}
 	.like_text{
 		position: absolute;
 		right: 17px;
@@ -24,7 +31,7 @@
 				<div class="col">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+						{{-- <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li> --}}
 							@foreach ($content_detail as $_content_detail)
 								{{-- <li class="breadcrumb-item active" aria-current="page">{{$_content_detail->title}}</li> --}}
 							@endforeach
@@ -40,12 +47,12 @@
 							@foreach ($content_detail as $_content_detail)
 								<?php 
 									$date_create = substr($_content_detail->updated_at,0,-8);
-									$date_create = explode('-', $date_create);
-									$month = $date_create[1];
-									$day   = $date_create[2];
-									$year  = $date_create[0] + 543;
+									// $date_create = explode('-', $date_create);
+									// $month = $date_create[1];
+									// $day   = $date_create[2];
+									// $year  = $date_create[0] + 543;
 								?>
-								<h2>{{$_content_detail->title}}</h2> <span class="dateinside">{{$day."/".$month."/".$year}}</span> </div>
+								<?php echo '<p>'.$_content_detail->title.'</p>'; ?> <span class="dateinside">{{$date_create}}</span> </div>
 							@endforeach
 						</div>
 						<div class="col-md-2 col-lg-3 col-xl-3">
@@ -64,7 +71,7 @@
 							@php
 								 $photo = json_decode($_content_detail->photo, true)
 							@endphp
-							@if(isset($photo) && $photo)
+							@if(isset($photo[1]) && $photo[1])
 								<div class="offer_details_inside"> <img src="{{asset('uploads/Information/'.$photo[1])}}" class="img-fluid">
 							@else
 								<div class="offer_details_inside"> <img src="{{asset('uploads/Information/nophoto.png')}}" class="img-fluid">
@@ -85,7 +92,7 @@
 								<li class="googleplus"><a href=""><i class="fab fa-linkedin-in"></i> Linkedin</a></li>
 							</ul>
 						</div></li> --}}
-						<li class="purplebg"><a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://holidayinnphuket.com/offer_inside/14" ><i class="fas fa-envelope"></i></a></li>
+						<li class="purplebg"><a href="mailto:?subject=Sharing Holiday Inn Phuket Microsite &amp;body=Check out this site http://holidayinnphuket.com/offer_inside/14" ><i class="fas fa-envelope"></i></a></li>
 						<li class="purplebg"><a href="https://www.facebook.com/dialog/share?app_id=966242223397117&display=popup&href=http%3A%2F%2Fholidayinnphuket.com%2Foffer_inside%2F14" target="_blank" ><i class="fab fa-facebook-f"></i></a></li>
 						<li class="purplebg"><a href="https://twitter.com/intent/tweet" data-size="large" data-text="Holidayinnphuket" data-url="http://holidayinnphuket.com/gallery" data-hashtags="holidayinnphuket" data-via="holidayinnphuket" data-related="twitterapi,twitter"><i class="fab fa-twitter"></i></a></li>
 						<li class="purplebg"><a href="https://www.linkedin.com/shareArticle?mini=true&url=http://holidayinnphuket.com/offer_inside/14" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
@@ -119,17 +126,66 @@
 							
 								<p>{{$_comment->comment}}</p>
 								@php
-									$today = new DateTime(date("Y-m-d H:i:s"));
-									$date_comment  = $_comment->created_at;
-									$days_until_appt = $date_comment->diff($today)->d; 
+									$date_create = substr($_comment->created_at,0,-8);
+									// $today = new DateTime(date("Y-m-d H:i:s"));
+									// $date_comment  = $_comment->created_at;
+									// $days_until_appt = $date_comment->diff($today)->d; 
+									$date_create_edit = explode('-', $date_create);
+									$month = $date_create_edit[1];
+									$day   = $date_create_edit[2];
+									$year  = $date_create_edit[0];
+
+									switch ($month) {
+										case '01':
+											$month = "Jan";
+											break;
+										case '02':
+											$month = "Fab";
+											break;
+										case '03':
+											$month = "Mar";
+											break;
+										case '04':
+											$month = "Apr";
+											break;
+										case '05':
+											$month = "May";
+											break;
+										case '06':
+											$month = "June";
+											break;
+										case '07':
+											$month = "July";
+											break;
+										case '08':
+											$month = "Aug";
+											break;
+										case '09':
+											$month = "Sept";
+											break;
+										case '10':
+											$month = "Oct";
+											break;
+										case '11':
+											$month = "Nov";
+											break;
+										case '12':
+											$month = "Dev";
+											break;
+										default:
+											# code...
+											break;
+									}
+								
 								@endphp
 								<div class="date_comment gallery"> 
-									@if($days_until_appt == 0)
+									{{-- @if($days_until_appt == 0)
 										today ago By 
 									@else
 										{{$days_until_appt}} day ago By 
 									@endif
-									{{$_comment->comment_by}}
+									{{$_comment->comment_by}} --}}
+									{{$day.' '.$month.' '.$year}} By {{$_comment->comment_by}}
 								 </div>
 							</div>
 							<br>
@@ -164,14 +220,21 @@
 							<p>Quality fabric, well made and feather cushion insert...really classy cushion</p>
 							<div class="date_comment"> 1 month ago By Tina </div>
 						</div> --}}
-						<div class="btnmore center-block text-center wow fadeInUp"> <a class="loadMore btnload" href="#">Show More comment</a> </div>
+						@php
+							$comnent_count = count($comment);
+							if($comnent_count > 2){
+								echo '<div class="btnmore center-block text-center wow fadeInUp"> <a class="loadMore btnload" href="#">Show More comment</a> </div>';
+							}else{
+
+							}	
+						@endphp
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="sidmenu_recommend">
 						<h3>Most recent</h3>
 						@foreach ($content as  $_content)
-					<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{$_content->title}}</a></li>					
+					<li><a href="{{asset('offer_inside/'.$_content->id)}}">{{strip_tags(html_entity_decode($_content->title))}}</a></li>					
 						@endforeach
 					
 						{{-- <li><a href="#">Family Fun in Perth City 2019</a></li>
@@ -179,25 +242,77 @@
 						<li><a href="#">The Best Free Things to See and Do in Perth</a></li> --}}
 					</div>
 					<div class="sidmenu_recent">
-						<h3>Recommended</h3>
-						@foreach ($comment_all as $_comment_all)
-							<li><a href="{{asset('offer_inside/'.$_comment_all->information_id)}}">{{$_comment_all->comment}}</a></li>
+						<h3>Updated photos</h3>
+						@foreach ($gallery as $_gallery)
+						@php
+									$date_create = substr($_gallery->updated_at,0,-8);
+									// $today = new DateTime(date("Y-m-d H:i:s"));
+									// $date_comment  = $_comment->created_at;
+									// $days_until_appt = $date_comment->diff($today)->d; 
+									$date_create_edit = explode('-', $date_create);
+									$month = $date_create_edit[1];
+									$day   = $date_create_edit[2];
+									$year  = $date_create_edit[0]; 
+									switch ($month) {
+										case '01':
+											$month = "Jan";
+											break;
+										case '02':
+											$month = "Fab";
+											break;
+										case '03':
+											$month = "Mar";
+											break;
+										case '04':
+											$month = "Apr";
+											break;
+										case '05':
+											$month = "May";
+											break;
+										case '06':
+											$month = "June";
+											break;
+										case '07':
+											$month = "July";
+											break;
+										case '08':
+											$month = "Aug";
+											break;
+										case '09':
+											$month = "Sept";
+											break;
+										case '10':
+											$month = "Oct";
+											break;
+										case '11':
+											$month = "Nov";
+											break;
+										case '12':
+											$month = "Dev";
+											break;
+										default:
+											# code...
+											break;
+									}
+								@endphp
+							<li><a href="{{url('gallery')}}">{{$_gallery->gallery_name}} new photo <br>{{$day.' '.$month.' '.$year}}</a></li>
 						@endforeach
 						{{-- <li><a href="#">Top 8 Date Experiences this Valentine’s Day 2019</a></li>
 						<li><a href="#">The Best Free Things to See and Do in Perth</a></li>
 						<li><a href="#">THE BEST FRINGE WORLD FESTIVAL SHOWS IN PERTH 2019</a></li>
 						<li><a href="#">Christmas in Perth City 2018</a></li> --}}
 					</div>
-					<div class="side_privacy">
+					{{-- <div class="side_privacy">
 						<li><a href="{{url('fullcomment')}}"><i class="far fa-sticky-note"></i> Full comment policy   </a> </li>
 						<li><a href="{{url('ourcomment')}}"> <i class="far fa-sticky-note"></i> Our policy on commenting</a></li>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>
 		<br>
 		@include('inc_footer')
 			<script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+			
 			<script>
 				$(function () {
 					var numItems = $('.photo-container').length;

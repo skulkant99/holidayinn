@@ -122,7 +122,7 @@
   font-size: 60px;
   font-weight: 400;
   text-align: center;
-	left: -30%;
+	left: -20%;
 }
 .overlay ul {
   list-style: none;
@@ -276,6 +276,15 @@
 			right: 20px;
 			left: inherit;
 		}
+		.swal-footer {
+				text-align: center;
+			}
+		.kidslogo {
+				width: auto;
+				position: absolute;
+				right: 0;
+		}
+			
 	}
 </style>
 
@@ -288,13 +297,19 @@
 			<div class="overlay" id="overlay">
 			  <nav class="overlay-menu">
 				<ul>
-				<li><a href="{{url('/')}}">Home</a></li>
+						@php
+							$menu = \App\Models\Category::select()->where('status','=',1)->get();
+						@endphp
+						@foreach ($menu as $_menu)
+								<li><a href="{{url($_menu->link)}}">{{$_menu->name}}</a></li>
+						@endforeach
+				{{-- <li><a href="{{url('/')}}">Home</a></li>
 				  <li><a href="{{url('/')}}">Special Offer</a></li>
 				  <li><a href="{{url('gallery')}}">Photos</a></li>
 				  <li><a href="{{url('question')}}">Ask Question</a></li>
 				  <li><a href="{{url('faq')}}">FAQ</a></li>
 				  <li><a href="{{url('contact')}}">Contact Us</a></li>
-				</ul>
+				</ul> --}}
 			  </nav>
 			</div>
 		</div>
@@ -304,7 +319,7 @@
 	<div class="row topmenu_bar">
 		<div class="col-md-3 col-lg-2">
 			<div class="mainlogo">
-			<a href="{{url('/')}}"><img src="{{asset('images/home2-edit_03.png')}}" class="img-fluid"></a>
+			<a href="{{url('/')}}"><img src="{{asset('images/Phuket_LOGO-Busakorn.png')}}" class="img-fluid"></a>
 			</div>
 		</div>
 		<div class="col-md-9 col-lg-10 nopad">
@@ -317,7 +332,7 @@
 					
 					<!-- Button trigger modal -->
 					<?php if(Auth::check()){ ?>
-						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#"> wellcome <?php echo (Auth::user()->firstname.' '.Auth::user()->lastname) ?></button>
+						<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#"> welcome <?php echo (Auth::user()->firstname.' '.Auth::user()->lastname) ?></button>
 					<?php	} else { ?>
 						<button type="button" class="btn btn-dark login" data-toggle="modal" data-target="#exampleModalCenter" >Login 	</button>
 
@@ -370,12 +385,12 @@
 			<div class="overlay" id="overlay2">
 			  <nav class="overlay-menu">
 				<ul>
-					@php
-							 $menu = \App\Models\Category::select()->get();
-					@endphp
-					@foreach ($menu as $_menu)
-							<li><a href="{{url($_menu->link)}}">{{$_menu->name}}</a></li>
-					@endforeach
+						@php
+								$menu = \App\Models\Category::select()->where('status','=',1)->get();
+						@endphp
+						@foreach ($menu as $_menu)
+								<li><a href="{{url($_menu->link)}}">{{$_menu->name}}</a></li>
+						@endforeach
 				 
 					{{-- <li><a href="{{url('/')}}">Special Offer</a></li>
 				  <li><a href="{{url('gallery')}}">Photos</a></li>
@@ -398,8 +413,8 @@
 				</form>
 			</div></li> --}}
 					<li>
-						
-					<a href="#" class="btn btn-secondary">Book now</a>
+					<?php $book_now = \App\Models\Title::select()->where('type','=','H')->first(); ?>
+					<a href="{{$book_now->link}}" class="btn btn-secondary">{{html_entity_decode(strip_tags($book_now->name))}}</a>
 					
 					</li>
 			
@@ -409,7 +424,7 @@
 </div>
 </div>
 
-
+ 
 
 
 <!-- Modal -->
@@ -423,7 +438,7 @@
 		 
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" id="close">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -499,7 +514,7 @@
 				<img src="{{asset('images/home2-edit_03.png')}}" class="img-register">
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" id="close_re">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -582,6 +597,12 @@
 </script>
 
 <script>
+	$('.signupnow').on('click',function(data){
+		$('#close').trigger('click');
+	});
+</script>
+
+<script>
       $('#FormAdd').validate({
 				errorElement: 'div',
 				errorClass: 'invalid-feedback',
@@ -606,16 +627,16 @@
 				},
 				messages: {
 					firstname: {
-								required: "please enter",
+								required: "Please enter your first name",
 						},
 					lastname: {
-								required: "please enter",
+								required: "Please enter your last name",
 						},
 					email: {
-								required: "please enter",
+								required: "Please enter your email",
 						},
 					password: {
-								required: "please enter",
+								required: "Please enter your password",
 						},
 				
 					remember_token: {
@@ -646,10 +667,21 @@
 								if(rec.status==1){
 									// window.location = "{{url('profile')}}";
 										resetFormCustom(form);
-										swal('Successfully subscribed','Please check the email to verify your identity.',"success");
+										// swal('Successfully subscribed','Please check the email to verify your identity.',"success");
+										swal({
+											title: "Registered",
+											text: "Please register now comment",
+											type: "success",
+											icon: "success",
+											buttons: "Close",
+											}).then(function() {
+											// Redirect the user
+											$('#close_re').trigger('click');
+										});
 
 								}else{
 									swal(rec.title,rec.content,"error");
+									
 										btn.attr('disabled',false)
 								}
 						}).fail(function(){
@@ -709,9 +741,11 @@
 									text: "Please register now comment",
 									type: "error",
 									icon: "error",
+									buttons: "Close",
 									}).then(function() {
 									// Redirect the user
 										$('.signupnow').trigger('click');
+										$('#close').trigger('click');
 										console.log('The Ok Button was clicked.');
 								});
 							}else{

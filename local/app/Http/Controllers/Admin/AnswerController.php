@@ -63,7 +63,7 @@ class AnswerController extends Controller
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-             'answer' => 'required',
+            //  'answer' => 'required',
              
         ]);
         if (!$validator->fails()) {
@@ -73,7 +73,7 @@ class AnswerController extends Controller
                 \App\Models\Answer::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -120,15 +120,15 @@ class AnswerController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
+    
+        if(isset($input_all['sort_id'])){
+            $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
+        }
         $input_all['status'] = $request->input('status','2');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'question_id' => 'required',
+            // 'question_id' => 'required',
              'answer' => 'required',
              
         ]);
@@ -136,10 +136,11 @@ class AnswerController extends Controller
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
+    
                 \App\Models\Answer::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;

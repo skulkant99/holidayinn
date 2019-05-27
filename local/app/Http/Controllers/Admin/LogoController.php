@@ -70,7 +70,7 @@ class LogoController extends Controller
                 \App\Models\Social::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -163,7 +163,7 @@ class LogoController extends Controller
                 \App\Models\Social::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -189,7 +189,7 @@ class LogoController extends Controller
             \App\Models\Social::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
-            $return['content'] = 'สำเร็จ';
+            $return['content'] = 'Successfully deleted information';
         } catch (Exception $e) {
             \DB::rollBack();
             $return['status'] = 0;

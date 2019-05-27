@@ -93,6 +93,22 @@
 		/* text-transform: uppercase; */
 		letter-spacing: 2px;
 	}
+	.swal-button {
+			padding: 7px 19px;
+			border-radius: 2px;
+			border: 4px solid #b7b8d7;
+			background-color: #b7b8d7;
+			font-size: 12px;
+			border: 1px solid #b7b8d7;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+		}
+		.swal-modal {
+				border: 3px solid white;
+				border-color: #b7b8d7;
+			}
+			.swal-footer {
+				text-align: center;
+			}
 </style>
 
 <body>
@@ -102,7 +118,7 @@
 				<div class="col">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+							{{-- <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li> --}}
 							{{-- <li class="breadcrumb-item active" aria-current="page">Gallery</li> --}}
 						</ol>
 					</nav>
@@ -143,10 +159,10 @@
 					</div>
 					
 					<div class="gallery-news mt-5">
-						<div class="display-slide" rel="1" style="display:block;">
+						<div class="display-slide" id="view_all" rel="1" style="display:block;">
 									<div class="row">
 										<div class="col">
-											<h1 class="text-center">View all</h1>
+											<h1 class="text-center"></h1>
 											<div id="grid-gallery" class="grid-gallery spacetopbig">
 												<div class="grid-wrap">
 													<ul class="grid">
@@ -183,7 +199,7 @@
 										</div>
 									</div>
 								
-								<div class="display-slide" rel="2" style="display:block;">
+								<div class="display-slide" rel="2" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $video_name = $gallery_type->where('id','=','1'); ?>
@@ -220,7 +236,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="display-slide" rel="3" style="display:block;">
+								<div class="display-slide" rel="3" style="display:none;">
 								<div class="row">
 									<div class="col">
 										<?php $Guest_name = $gallery_type->where('id','=','2'); ?>
@@ -258,7 +274,7 @@
 									</div>
 								</div>
 						
-							<div class="display-slide" rel="4" style="display:block;">
+							<div class="display-slide" rel="4" style="display:none;">
 								<div class="row">
 									<div class="col">
 										<?php $Dining_name = $gallery_type->where('id','=','3'); ?>
@@ -296,7 +312,7 @@
 									</div>
 								</div>
 
-								<div class="display-slide" rel="5" style="display:block;">
+								<div class="display-slide" rel="5" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Spa_name = $gallery_type->where('id','=','4'); ?>
@@ -333,7 +349,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="6" style="display:block;">
+									<div class="display-slide" rel="6" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Resort_name = $gallery_type->where('id','=','5'); ?>
@@ -370,7 +386,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="7" style="display:block;">
+									<div class="display-slide" rel="7" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Kids_name = $gallery_type->where('id','=','6'); ?>
@@ -407,7 +423,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="8" style="display:block;">
+									<div class="display-slide" rel="8" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Activities_name = $gallery_type->where('id','=','7'); ?>
@@ -444,7 +460,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="9" style="display:block;">
+									<div class="display-slide" rel="9" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Fitness_name = $gallery_type->where('id','=','8'); ?>
@@ -482,7 +498,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="10" style="display:block;">
+									<div class="display-slide" rel="10" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Meetings_name = $gallery_type->where('id','=','9'); ?>
@@ -519,7 +535,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="11" style="display:block;">
+									<div class="display-slide" rel="11" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Weddings_name = $gallery_type->where('id','=','10'); ?>
@@ -556,7 +572,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="display-slide" rel="12" style="display:block;">
+									<div class="display-slide" rel="12" style="display:none;">
 									<div class="row">
 										<div class="col">
 											<?php $Attractions_name = $gallery_type->where('id','=','11'); ?>
@@ -844,6 +860,7 @@
 		<script>
 			new CBPGridGallery(document.getElementById('grid-gallery'));
 		</script>
+
 		<script type="text/javascript">
 			$(document).ready(function () {
 				$(".select-display-slide > li").click(function () {
@@ -854,7 +871,18 @@
 					$(".select-display-slide > li").removeClass("active");
 					$(this).addClass("active");
 				});
+				// $(".select-display-slide > li").trigger('click',function(){
+				// 	var rel = $(this).attr("rel");
+				// 	console.log(rel);
+				// 	if(rel != 1){
+				// 		$('.display-slide').hide();
+				// 		$('.display-slide[rel=' + rel + ']').hide();
+				// 		$(".select-display-slide > li").removeClass("active");
+				// 		$(this).addClass("active");
+				// 	}
+				// });
 			});
+			
 		</script>
 		<script type="text/javascript">
 			$(document).ready(function () {

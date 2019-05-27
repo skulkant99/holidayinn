@@ -6,7 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Storage;
-class CategoryController extends Controller
+class TitleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'Category';
-        $data['sub_menu'] = 'Category';
-        $data['title'] = 'Category';
-        $data['title_page'] = 'Category';
+        $data['main_menu'] = 'content';
+        $data['sub_menu'] = 'Book now';
+        $data['title'] = 'Book now';
+        $data['title_page'] = 'Book now';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
-        return view('Admin.category',$data);
+        return view('Admin.title',$data);
     }
 
     /**
@@ -43,10 +43,6 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
         $input_all['status'] = $request->input('status','2');
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
@@ -59,7 +55,7 @@ class CategoryController extends Controller
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::insert($data_insert);
+                \App\Models\Title::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'Successfully added information';
@@ -83,7 +79,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $result = \App\Models\Category::find($id);
+        $result = \App\Models\Title::find($id);
         
         return json_encode($result);
     }
@@ -109,10 +105,6 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $input_all = $request->all();
-        
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
         $input_all['status'] = $request->input('status','2');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
@@ -124,7 +116,7 @@ class CategoryController extends Controller
             \DB::beginTransaction();
             try {
                 $data_insert = $input_all;
-                \App\Models\Category::where('id',$id)->update($data_insert);
+                \App\Models\Title::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
                 $return['content'] = 'Successfully added information';
@@ -150,7 +142,7 @@ class CategoryController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \App\Models\Category::where('id',$id)->delete();
+            \App\Models\Title::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
             $return['content'] = 'Successfully deleted information';
@@ -164,17 +156,16 @@ class CategoryController extends Controller
     }
 
     public function Lists(){
-        $result = \App\Models\Category::select();
+        $result = \App\Models\Title::select();
         return \Datatables::of($result)
         ->addIndexColumn()
-        ->addColumn('sort_id',function($rec){
-            if(is_numeric($rec->sort_id)){
-                return number_format($rec->sort_id);
-            }else{
-                return $rec->sort_id;
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
             }
         })
-        
         ->addColumn('action',function($rec){
             $str='
                 <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
@@ -187,5 +178,6 @@ class CategoryController extends Controller
             return $str;
         })->make(true);
     }
+    
 
 }

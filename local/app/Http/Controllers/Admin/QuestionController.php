@@ -15,13 +15,33 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $data['main_menu'] = 'Question';
-        $data['sub_menu'] = 'Question';
-        $data['title'] = 'Question';
-        $data['title_page'] = 'Question';
+        $data['main_menu'] = 'HeadFaq';
+        $data['sub_menu'] = 'FAQ';
+        $data['title'] = 'FAQ';
+        $data['title_page'] = 'FAQ';
         $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
         
         return view('Admin.question',$data);
+    }
+    public function add_question()
+    {
+        $data['main_menu'] = 'AddQuestion';
+        $data['sub_menu'] = 'AddQuestion';
+        $data['title'] = 'AddQuestion';
+        $data['title_page'] = 'AddQuestion';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+        
+        return view('Admin.add_question',$data);
+    }
+    public function title()
+    {
+        $data['main_menu'] = 'HeadFaq';
+        $data['sub_menu'] = 'FAQ TITLE';
+        $data['title'] = 'FAQ TITLE';
+        $data['title_page'] = 'FAQ TITLE';
+        $data['menus'] = \App\Models\AdminMenu::ActiveMenu()->get();
+
+        return view('Admin.faq_title',$data);
     }
 
     /**
@@ -44,16 +64,16 @@ class QuestionController extends Controller
     {
         $input_all = $request->all();
         
-            if(isset($input_all['sort_id'])){
-                $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
-            }
+        if(isset($input_all['sort_id'])){
+            $input_all['sort_id'] = str_replace(',', '', $input_all['sort_id']);
+        }
         $input_all['status'] = $request->input('status','2');
         $input_all['created_at'] = date('Y-m-d H:i:s');
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required',
-             'lastname' => 'required',
+            // 'firstname' => 'required',
+            //  'lastname' => 'required',
              
         ]);
         if (!$validator->fails()) {
@@ -63,7 +83,7 @@ class QuestionController extends Controller
                 \App\Models\Question::insert($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -118,8 +138,8 @@ class QuestionController extends Controller
         $input_all['updated_at'] = date('Y-m-d H:i:s');
 
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required',
-             'lastname' => 'required',
+            // 'firstname' => 'required',
+            //  'lastname' => 'required',
              
         ]);
         if (!$validator->fails()) {
@@ -129,7 +149,7 @@ class QuestionController extends Controller
                 \App\Models\Question::where('id',$id)->update($data_insert);
                 \DB::commit();
                 $return['status'] = 1;
-                $return['content'] = 'สำเร็จ';
+                $return['content'] = 'Successfully added information';
             } catch (Exception $e) {
                 \DB::rollBack();
                 $return['status'] = 0;
@@ -155,7 +175,7 @@ class QuestionController extends Controller
             \App\Models\Question::where('id',$id)->delete();
             \DB::commit();
             $return['status'] = 1;
-            $return['content'] = 'สำเร็จ';
+            $return['content'] = 'Successfully deleted information';
         } catch (Exception $e) {
             \DB::rollBack();
             $return['status'] = 0;
@@ -164,15 +184,11 @@ class QuestionController extends Controller
         $return['title'] = 'ลบข้อมูล';
         return $return;
     }
+    
+    public function ListsAddQuestion(){
 
-    public function Lists(Request $request ){
-        $status = $request->has('status') ? $request->input('status') : null;
-        $result = \App\Models\Question::select()->orderBy('id','DESC');
-        if($status != 0){
-            $result->where('status',$status);
-        }else{
-            $result->select()->orderBy('id','DESC');
-        }
+        $result = \App\Models\Question::where('type','=','Q')->select('questions.*')->orderBy('id','DESC');
+        
         return \Datatables::of($result)
         ->addIndexColumn()
         ->editColumn('firstname',function($rec){
@@ -208,5 +224,71 @@ class QuestionController extends Controller
             return $str;
         })->make(true);
     }
+
+    public function Lists(){
+
+        $result = \App\Models\Question::where('type','=','F')->select('questions.*')->orderBy('id','DESC');
+        
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('firstname',function($rec){
+            return $firstname = $rec->firstname.' '.$rec->lastname;
+        })
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->addColumn('sort_id',function($rec){
+            if(is_numeric($rec->sort_id)){
+                return number_format($rec->sort_id);
+            }else{
+                return $rec->sort_id;
+            }
+        })
+        
+        ->addColumn('action',function($rec){
+            $str='
+                <a href="'.url('admin/Question/Answer/'.$rec->id).'" data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-success btn-condensed btn-select btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="เพิ่มคำตอบ">
+                    <i class="ace-icon fa fa-plus bigger-120"></i>
+                </a>
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);
+    }
+    public function TitleList()
+    {
+        $result = \App\Models\Title::where('type','=','F')->select();
+        return \Datatables::of($result)
+        ->addIndexColumn()
+        ->editColumn('status',function($rec){
+            if($rec->status == 1){
+                return $status = '<span class="label label-success">เปิดใช้งาน</span>';
+            }else {
+                return $status = '<span class="label label-danger">ปิดใช้งาน</span>';
+            }
+        })
+        ->addColumn('action',function($rec){
+            $str='
+                <button data-loading-text="<i class=\'fa fa-refresh fa-spin\'></i>" class="btn btn-xs btn-warning btn-condensed btn-edit btn-tooltip" data-rel="tooltip" data-id="'.$rec->id.'" title="แก้ไข">
+                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                </button>
+                <button  class="btn btn-xs btn-danger btn-condensed btn-delete btn-tooltip" data-id="'.$rec->id.'" data-rel="tooltip" title="ลบ">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                </button>
+            ';
+            return $str;
+        })->make(true);
+    }
+
+    
 
 }

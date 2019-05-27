@@ -28,7 +28,7 @@
 	}
 	.form-control_sub {
 		border: none;
-		margin-top: 10px;
+		/* margin-top: 10px; */
 		height: 40px;
 		background-color: white;
 		display: block;
@@ -50,11 +50,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 left_footer">
-				<h4>Book online : +66 (0) 76 370 200 or call toll free : 001 800 656 888 <br>
+				<?php $head_sevice = \App\Models\Title::select()->where('type','=','S')->first(); ?>
+				<h4>{{html_entity_decode(strip_tags($head_sevice->name))}} : +66 (0) 76 370 200 or call toll free : 001 800 656 888 <br>
 				Email :<a href="mailto:reservation@holidayinn-phuket.com">reservation@holidayinn-phuket.com</a></h4>
 				<div class="sitemap">
-					<li><a href="#">Sitemap |  </a></li>
-					<li><a href="privacy.php">Privacy</a></li>
+				<li><a href="{{url('sitemap')}}">Sitemap |  </a></li>
+				<li><a href="{{url('privacy')}}">Privacy</a></li>
 				</div>
 				<p>© 2019 Holiday Inn Resort Phuket Patong. This resort is independently Owned and operated by HIRP (Thailand) Limited.</p>
 			</div>
@@ -348,13 +349,13 @@
 				},
 				messages: {
 					email: {
-								required: "please enter",
+								required: "Please enter your email",
 						},
 					firstname: {
-								required: "please enter",
+								required: "Please enter your first name",
 						},
 					lastname: {
-								required: "please enter",
+								required: "Please enter your last name",
 						},
 					remember_token: {
 								required: "please enter",

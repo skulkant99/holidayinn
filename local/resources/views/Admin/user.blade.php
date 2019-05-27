@@ -54,10 +54,20 @@
                     <label for="add_firstname">firstname</label>
                     <input type="text" class="form-control" name="firstname" id="add_firstname" required="" placeholder="firstname">
                 </div>
+
+                <div class="form-group">
+                    <label for="add_lastname">lastname</label>
+                    <input type="text" class="form-control" name="lastname" id="add_lastname" required="" placeholder="lastname">
+                </div>
         
                 <div class="form-group">
                     <label for="add_email">email</label>
                     <input type="text" class="form-control" name="email" id="add_email" required="" placeholder="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="add_password">password</label>
+                    <input type="password" class="form-control" name="password" id="add_password" required="" placeholder="password">
                 </div>
         
                 <div class="form-group">
@@ -88,6 +98,11 @@
                 <div class="form-group">
                     <label for="edit_firstname">firstname</label>
                     <input type="text" class="form-control" name="firstname" id="edit_firstname" required="" placeholder="firstname">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit_lastname">lastname</label>
+                    <input type="text" class="form-control" name="lastname" id="edit_lastname" required="" placeholder="lastname">
                 </div>
         
                 <div class="form-group">
@@ -144,6 +159,7 @@
             dataType : 'json'
         }).done(function(rec){
             $('#edit_firstname').val(rec.firstname);
+            $('#edit_lastname').val(rec.lastname);
             $('#edit_email').val(rec.email);
             $('#edit_active_email').val(rec.active_email);
             

@@ -14,8 +14,8 @@ class RegisterController extends Controller
         $chk = \App\Models\User::orWhere('email', $request->email)->first();
         if($chk){
             $return['status'] = 0;
-            $return['content'] = 'Email is already in use Please check again';
-            $return['title'] = 'Register for membership wrong';
+            $return['content'] = 'Please enter your new email';
+            $return['title'] = 'This email is already in use';
             return $return;
         }
         $input_all['password'] = bcrypt($request->input('password'));
@@ -82,7 +82,7 @@ class RegisterController extends Controller
                         'email'=>$email,
                         'token'=>$org_token
                     ])->delete();
-                    return '<div style="text-align:center">ทำการยืนยันอีเมล์เรียบร้อย <a href="'.url('/').'">Login</a></div>';
+                    return '<div style="text-align:center">Leave your comment <a href="'.url('/').'">here</a></div>';
                 }else{
                     return 3;
                 }

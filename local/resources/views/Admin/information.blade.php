@@ -64,7 +64,8 @@
 
                     <div class="form-group">
                         <label for="add_title">หัวเรื่อง</label>
-                        <input id="add_title" name="title" class="form-control" placeholder="หัวเรื่อง">
+                        {{-- <input id="add_title" name="title" class="form-control" placeholder="หัวเรื่อง"> --}}
+                        <textarea id="add_title" name="title" class="form-control"></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -117,7 +118,8 @@
                         
                         <div class="form-group">
                             <label for="edit_title">หัวเรื่อง</label>
-                            <input id="edit_title" name="title" class="form-control" placeholder="หัวเรื่อง">
+                            {{-- <input id="edit_title" name="title" class="form-control" placeholder="หัวเรื่อง"> --}}
+                            <textarea id="edit_title" name="title" class="form-control"></textarea>
                         </div>
                         
                         <div class="form-group">
@@ -227,7 +229,8 @@
                 });
                 $(".file").addClass("multi_file");
 
-                $('#edit_title').val(rec.title);
+                // $('#edit_title').val(rec.title);
+                CKEDITOR.instances['edit_title'].setData(rec.title);
                 CKEDITOR.instances['edit_detail'].setData(rec.detail);
                 $('#edit_status').val(rec.status);
                 $('#edit_sort_id').val(rec.sort_id);
@@ -419,6 +422,8 @@
         });
         CKEDITOR.replace('add_detail');
         CKEDITOR.replace('edit_detail');
+        CKEDITOR.replace('add_title');
+        CKEDITOR.replace('edit_title');
         $('#add_status').select2();
         $('#edit_status').select2();
     </script>
